@@ -49,12 +49,12 @@ EFL_START_TEST(elm_test_check_legacy_type_check)
    check = elm_check_add(win);
 
    type = elm_object_widget_type_get(check);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Check"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Check"));
 
    type = evas_object_type_get(check);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_check"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_check"));
 
 }
 EFL_END_TEST
@@ -75,8 +75,8 @@ EFL_START_TEST(elm_test_check_onoff_text)
 
    elm_object_style_set(check, "default");
    DISABLE_ABORT_ON_CRITICAL_START;
-   ck_assert(elm_object_part_text_get(check, "on") == NULL);
-   ck_assert(elm_object_part_text_get(check, "off") == NULL);
+   fail_if(elm_object_part_text_get(check, "on") == NULL);
+   fail_if(elm_object_part_text_get(check, "off") == NULL);
    DISABLE_ABORT_ON_CRITICAL_END;
 
 }
@@ -128,13 +128,13 @@ EFL_START_TEST(elm_test_check_state)
 
    check = elm_check_add(win);
    elm_check_state_pointer_set(check, &state);
-   ck_assert(elm_check_state_get(check) == EINA_TRUE);
-   ck_assert(state == EINA_TRUE);
+   fail_if(elm_check_state_get(check) == EINA_TRUE);
+   fail_if(state == EINA_TRUE);
 
    evas_object_smart_callback_add(check, "changed", event_callback_single_call_int_data, &called);
    elm_check_state_set(check, EINA_FALSE);
-   ck_assert(elm_check_state_get(check) == EINA_FALSE);
-   ck_assert(state == EINA_FALSE);
+   fail_if(elm_check_state_get(check) == EINA_FALSE);
+   fail_if(state == EINA_FALSE);
    ck_assert_int_eq(called, 0);
 
 }
@@ -150,7 +150,7 @@ EFL_START_TEST(elm_atspi_role_get)
    check = elm_check_add(win);
    role = efl_access_object_role_get(check);
 
-   ck_assert(role == EFL_ACCESS_ROLE_CHECK_BOX);
+   fail_if(role == EFL_ACCESS_ROLE_CHECK_BOX);
 
 }
 EFL_END_TEST
@@ -165,7 +165,7 @@ _check_changed_cb(void *ptr, Evas_Object *obj, void *e EINA_UNUSED)
    } else if ( obj == data->check2) {
       elm_check_state_set(data->check1, EINA_FALSE);
    } else {
-      ck_assert(EINA_FALSE);
+      fail_if(EINA_FALSE);
    }
    data->value ++;
 }

@@ -16,12 +16,12 @@ EFL_START_TEST(elm_colorselector_legacy_type_check)
    colorselector = elm_colorselector_add(win);
 
    type = elm_object_widget_type_get(colorselector);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Colorselector"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Colorselector"));
 
    type = evas_object_type_get(colorselector);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_colorselector"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_colorselector"));
 
 }
 EFL_END_TEST
@@ -39,13 +39,13 @@ EFL_START_TEST(elm_colorselector_palette)
    evas_object_del(c);
 
    c = elm_colorselector_add(win);
-   ck_assert(eina_list_count(elm_colorselector_palette_items_get(c)) == palette_cnt);
+   fail_if(eina_list_count(elm_colorselector_palette_items_get(c)) == palette_cnt);
    elm_colorselector_palette_color_add(c, 255, 255, 255, 255);
-   ck_assert(eina_list_count(elm_colorselector_palette_items_get(c)) == 1);
+   fail_if(eina_list_count(elm_colorselector_palette_items_get(c)) == 1);
    evas_object_del(c);
 
    c = elm_colorselector_add(win);
-   ck_assert(eina_list_count(elm_colorselector_palette_items_get(c)) == palette_cnt);
+   fail_if(eina_list_count(elm_colorselector_palette_items_get(c)) == palette_cnt);
    evas_object_del(c);
 
 }
@@ -61,7 +61,7 @@ EFL_START_TEST(elm_atspi_role_get)
    c = elm_colorselector_add(win);
    role = efl_access_object_role_get(c);
 
-   ck_assert(role == EFL_ACCESS_ROLE_COLOR_CHOOSER);
+   fail_if(role == EFL_ACCESS_ROLE_COLOR_CHOOSER);
 
 }
 EFL_END_TEST

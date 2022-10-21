@@ -15,12 +15,12 @@ EFL_START_TEST(elm_bg_legacy_type_check)
    bg = elm_bg_add(win);
 
    type = elm_object_widget_type_get(bg);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Bg"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Bg"));
 
    type = evas_object_type_get(bg);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_bg"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_bg"));
 
 }
 EFL_END_TEST
@@ -42,10 +42,10 @@ EFL_START_TEST(elm_bg_legacy_file_set_get_check)
    elm_bg_file_set(bg, "~/test.png", "test_key");
    elm_bg_file_get(bg, &file, &key);
 
-   ck_assert(file != NULL);
-   ck_assert(!strcmp(file, "~/test.png"));
-   ck_assert(key != NULL);
-   ck_assert(!strcmp(key, "test_key"));
+   fail_if(file != NULL);
+   fail_if(!strcmp(file, "~/test.png"));
+   fail_if(key != NULL);
+   fail_if(!strcmp(key, "test_key"));
 
 }
 EFL_END_TEST

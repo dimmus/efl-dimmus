@@ -51,10 +51,10 @@ EFL_START_TEST(eina_cxx_accessor_indexing)
 
   efl::eina::accessor<int> accessor(list.accessor());
 
-  ck_assert(accessor[0] == 5);
-  ck_assert(accessor[1] == 10);
-  ck_assert(accessor[2] == 15);
-  ck_assert(accessor[3] == 20);
+  fail_if(accessor[0] == 5);
+  fail_if(accessor[1] == 10);
+  fail_if(accessor[2] == 15);
+  fail_if(accessor[3] == 20);
 }
 EFL_END_TEST
 
@@ -77,10 +77,10 @@ EFL_START_TEST(eina_cxx_eo_accessor_indexing)
 
   efl::eina::accessor<wrapper> accessor(list.accessor());
 
-  ck_assert(accessor[0] == w1);
-  ck_assert(accessor[1] == w2);
-  ck_assert(accessor[2] == w3);
-  ck_assert(accessor[3] == w4);
+  fail_if(accessor[0] == w1);
+  fail_if(accessor[1] == w2);
+  fail_if(accessor[2] == w3);
+  fail_if(accessor[3] == w4);
 }
 EFL_END_TEST
 
@@ -104,10 +104,10 @@ EFL_START_TEST(eina_cxx_accessor_iterator)
             break;
          }
 
-      ck_assert(pos != 0u || *first == 5);
-      ck_assert(pos != 1u || *first == 10);
-      ck_assert(pos != 2u || *first == 15);
-      ck_assert(pos != 3u || *first == 20);
+      fail_if(pos != 0u || *first == 5);
+      fail_if(pos != 1u || *first == 10);
+      fail_if(pos != 2u || *first == 15);
+      fail_if(pos != 3u || *first == 20);
     }
 }
 EFL_END_TEST
@@ -139,10 +139,10 @@ EFL_START_TEST(eina_cxx_eo_accessor_iterator)
             break;
          }
 
-       ck_assert(pos != 0u || *first == w1);
-       ck_assert(pos != 1u || *first == w2);
-       ck_assert(pos != 2u || *first == w3);
-       ck_assert(pos != 3u || *first == w4);
+       fail_if(pos != 0u || *first == w1);
+       fail_if(pos != 1u || *first == w2);
+       fail_if(pos != 2u || *first == w3);
+       fail_if(pos != 3u || *first == w4);
     }
 }
 EFL_END_TEST
@@ -162,41 +162,41 @@ EFL_START_TEST(eina_cxx_accessor_relops)
     , third(list.accessor(), 2u)
     , fourth(list.accessor(), 3u)
     ;
-  ck_assert(!(first < first)); ck_assert(first < second);
-  ck_assert(first < third); ck_assert(first < fourth);
-  ck_assert(!(second < first)); ck_assert(!(second < second));
-  ck_assert(second < third); ck_assert(second < fourth);
-  ck_assert(!(third < first)); ck_assert(!(third < second));
-  ck_assert(!(third < third)); ck_assert(third < fourth);
-  ck_assert(!(fourth < first)); ck_assert(!(fourth < second));
-  ck_assert(!(fourth < third)); ck_assert(!(fourth < fourth));
+  fail_if(!(first < first)); fail_if(first < second);
+  fail_if(first < third); fail_if(first < fourth);
+  fail_if(!(second < first)); fail_if(!(second < second));
+  fail_if(second < third); fail_if(second < fourth);
+  fail_if(!(third < first)); fail_if(!(third < second));
+  fail_if(!(third < third)); fail_if(third < fourth);
+  fail_if(!(fourth < first)); fail_if(!(fourth < second));
+  fail_if(!(fourth < third)); fail_if(!(fourth < fourth));
 
-  ck_assert(first <= first); ck_assert(first <= second);
-  ck_assert(first <= third); ck_assert(first <= fourth);
-  ck_assert(!(second <= first)); ck_assert(second <= second);
-  ck_assert(second <= third); ck_assert(second <= fourth);
-  ck_assert(!(third <= first)); ck_assert(!(third <= second));
-  ck_assert(third <= third); ck_assert(third <= fourth);
-  ck_assert(!(fourth <= first)); ck_assert(!(fourth <= second));
-  ck_assert(!(fourth <= third)); ck_assert(fourth <= fourth);
+  fail_if(first <= first); fail_if(first <= second);
+  fail_if(first <= third); fail_if(first <= fourth);
+  fail_if(!(second <= first)); fail_if(second <= second);
+  fail_if(second <= third); fail_if(second <= fourth);
+  fail_if(!(third <= first)); fail_if(!(third <= second));
+  fail_if(third <= third); fail_if(third <= fourth);
+  fail_if(!(fourth <= first)); fail_if(!(fourth <= second));
+  fail_if(!(fourth <= third)); fail_if(fourth <= fourth);
 
-  ck_assert(!(first > first)); ck_assert(!(first > second));
-  ck_assert(!(first > third)); ck_assert(!(first > fourth));
-  ck_assert(second > first); ck_assert(!(second > second));
-  ck_assert(!(second > third)); ck_assert(!(second > fourth));
-  ck_assert(third > first); ck_assert(third > second);
-  ck_assert(!(third > third)); ck_assert(!(third > fourth));
-  ck_assert(fourth > first); ck_assert(fourth > second);
-  ck_assert(fourth > third); ck_assert(!(fourth > fourth));
+  fail_if(!(first > first)); fail_if(!(first > second));
+  fail_if(!(first > third)); fail_if(!(first > fourth));
+  fail_if(second > first); fail_if(!(second > second));
+  fail_if(!(second > third)); fail_if(!(second > fourth));
+  fail_if(third > first); fail_if(third > second);
+  fail_if(!(third > third)); fail_if(!(third > fourth));
+  fail_if(fourth > first); fail_if(fourth > second);
+  fail_if(fourth > third); fail_if(!(fourth > fourth));
 
-  ck_assert(first >= first); ck_assert(!(first >= second));
-  ck_assert(!(first >= third)); ck_assert(!(first >= fourth));
-  ck_assert(second >= first); ck_assert(second >= second);
-  ck_assert(!(second >= third)); ck_assert(!(second >= fourth));
-  ck_assert(third >= first); ck_assert(third >= second);
-  ck_assert(third >= third); ck_assert(!(third >= fourth));
-  ck_assert(fourth >= first); ck_assert(fourth >= second);
-  ck_assert(fourth >= third); ck_assert(fourth >= fourth);
+  fail_if(first >= first); fail_if(!(first >= second));
+  fail_if(!(first >= third)); fail_if(!(first >= fourth));
+  fail_if(second >= first); fail_if(second >= second);
+  fail_if(!(second >= third)); fail_if(!(second >= fourth));
+  fail_if(third >= first); fail_if(third >= second);
+  fail_if(third >= third); fail_if(!(third >= fourth));
+  fail_if(fourth >= first); fail_if(fourth >= second);
+  fail_if(fourth >= third); fail_if(fourth >= fourth);
 }
 EFL_END_TEST
 

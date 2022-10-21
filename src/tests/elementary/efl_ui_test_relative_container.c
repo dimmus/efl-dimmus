@@ -224,8 +224,8 @@ EFL_START_TEST (efl_ui_relative_container_class_check)
 
    class = efl_class_name_get(layout);
 
-   ck_assert(class != NULL);
-   ck_assert(!strcmp(class, "Efl.Ui.Relative_Container"));
+   fail_if(class != NULL);
+   fail_if(!strcmp(class, "Efl.Ui.Relative_Container"));
 }
 EFL_END_TEST
 
@@ -292,42 +292,42 @@ EFL_START_TEST (efl_ui_relative_container_relation_set)
    // negative test
    efl_ui_relative_container_relation_top_get(layout, NULL, &target, &relative);
    ck_assert_ptr_eq(target, NULL);
-   ck_assert(EINA_DBL_EQ(relative, 0.0));
+   fail_if(EINA_DBL_EQ(relative, 0.0));
 
    efl_ui_relative_container_relation_top_get(layout, btn, &target, &relative);
    ck_assert_ptr_eq(target, NULL);
-   ck_assert(EINA_DBL_EQ(relative, 0.0));
+   fail_if(EINA_DBL_EQ(relative, 0.0));
 
    efl_ui_relative_container_relation_top_set(layout, NULL, NULL, 0.0);
    ck_assert_ptr_eq(target, NULL);
-   ck_assert(EINA_DBL_EQ(relative, 0.0));
+   fail_if(EINA_DBL_EQ(relative, 0.0));
 
    // default value test
    efl_ui_relative_container_relation_top_set(layout, btn, layout, 0.0);
 
    efl_ui_relative_container_relation_top_get(layout, btn, &target, &relative);
    ck_assert_ptr_eq(target, layout);
-   ck_assert(EINA_DBL_EQ(relative, 0.0));
+   fail_if(EINA_DBL_EQ(relative, 0.0));
    efl_ui_relative_container_relation_bottom_get(layout, btn, &target, &relative);
    ck_assert_ptr_eq(target, layout);
-   ck_assert(EINA_DBL_EQ(relative, 1.0));
+   fail_if(EINA_DBL_EQ(relative, 1.0));
    efl_ui_relative_container_relation_left_get(layout, btn, &target, &relative);
    ck_assert_ptr_eq(target, layout);
-   ck_assert(EINA_DBL_EQ(relative, 0.0));
+   fail_if(EINA_DBL_EQ(relative, 0.0));
    efl_ui_relative_container_relation_right_get(layout, btn, &target, &relative);
    ck_assert_ptr_eq(target, layout);
-   ck_assert(EINA_DBL_EQ(relative, 1.0));
+   fail_if(EINA_DBL_EQ(relative, 1.0));
 
    // positive test
    efl_ui_relative_container_relation_top_set(layout, btn, layout, 0.123);
    efl_ui_relative_container_relation_top_get(layout, btn, &target, &relative);
    ck_assert_ptr_eq(target, layout);
-   ck_assert(EINA_DBL_EQ(relative, 0.123));
+   fail_if(EINA_DBL_EQ(relative, 0.123));
 
    efl_ui_relative_container_relation_top_set(layout, btn, NULL, 0.456);
    efl_ui_relative_container_relation_top_get(layout, btn, &target, &relative);
    ck_assert_ptr_eq(target, layout);
-   ck_assert(EINA_DBL_EQ(relative, 0.456));
+   fail_if(EINA_DBL_EQ(relative, 0.456));
 }
 EFL_END_TEST
 
@@ -359,7 +359,7 @@ EFL_START_TEST (efl_ui_relative_container_pack)
    efl_pack_clear(layout);
    ck_assert_int_eq(efl_content_count(layout), 0);
    for (i = 0; i < 3; i++)
-     ck_assert(efl_invalidated_get(btn[i]));
+     fail_if(efl_invalidated_get(btn[i]));
 }
 EFL_END_TEST
 

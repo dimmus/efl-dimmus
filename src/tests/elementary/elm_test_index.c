@@ -16,12 +16,12 @@ EFL_START_TEST(elm_index_legacy_type_check)
    index = elm_index_add(win);
 
    type = elm_object_widget_type_get(index);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Index"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Index"));
 
    type = evas_object_type_get(index);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_index"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_index"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    idx = elm_index_add(win);
    role = efl_access_object_role_get(idx);
 
-   ck_assert(role == EFL_ACCESS_ROLE_SCROLL_BAR);
+   fail_if(role == EFL_ACCESS_ROLE_SCROLL_BAR);
 
 }
 EFL_END_TEST

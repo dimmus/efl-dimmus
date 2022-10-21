@@ -98,7 +98,7 @@ EFL_START_TEST(efl_core_env_test_process)
 {
    Efl_Core_Env *env_fork, *env = efl_env_self();
 
-   ck_assert(env);
+   fail_if(env);
 
    ck_assert_str_eq(efl_core_env_get(env, "PATH"), getenv("PATH"));
    env_fork = efl_duplicate(env);
@@ -112,7 +112,7 @@ EFL_START_TEST(efl_core_env_test_undepend_fork)
 {
    Efl_Core_Env *env_fork, *env = efl_env_self();
 
-   ck_assert(env);
+   fail_if(env);
 
    ck_assert_str_eq(efl_core_env_get(env, "PATH"), getenv("PATH"));
    env_fork = efl_duplicate(env);

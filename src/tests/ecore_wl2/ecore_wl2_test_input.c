@@ -8,17 +8,17 @@ EFL_START_TEST(wl2_input_seat_get)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
         struct wl_seat *seat;
 
         seat = ecore_wl2_input_seat_get(input);
-        ck_assert(seat != NULL);
+        fail_if(seat != NULL);
      }
 
    eina_iterator_free(itr);
@@ -32,10 +32,10 @@ EFL_START_TEST(wl2_input_seat_id_get)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
@@ -56,14 +56,14 @@ EFL_START_TEST(wl2_input_display_get)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
-        ck_assert(ecore_wl2_input_display_get(input) != NULL);
+        fail_if(ecore_wl2_input_display_get(input) != NULL);
      }
 
    eina_iterator_free(itr);
@@ -77,16 +77,16 @@ EFL_START_TEST(wl2_input_keymap_get)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
         if (ecore_wl2_input_seat_capabilities_get(input) ==
             ECORE_WL2_SEAT_CAPABILITIES_KEYBOARD)
-          ck_assert(ecore_wl2_input_keymap_get(input) != NULL);
+          fail_if(ecore_wl2_input_keymap_get(input) != NULL);
      }
 
    eina_iterator_free(itr);
@@ -100,10 +100,10 @@ EFL_START_TEST(wl2_input_name_get)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
@@ -122,14 +122,14 @@ _test_input_seat_capa_configure_complete(void *data, int type EINA_UNUSED, void 
    Eina_Iterator *itr;
 
    itr = ecore_wl2_display_inputs_get(td->display);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
         Ecore_Wl2_Seat_Capabilities cap = ECORE_WL2_SEAT_CAPABILITIES_NONE;
 
         cap = ecore_wl2_input_seat_capabilities_get(input);
-        ck_assert(cap != ECORE_WL2_SEAT_CAPABILITIES_NONE);
+        fail_if(cap != ECORE_WL2_SEAT_CAPABILITIES_NONE);
      }
 
    eina_iterator_free(itr);
@@ -150,10 +150,10 @@ EFL_START_TEST(wl2_input_seat_capabilities)
    td->height = HEIGHT;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -175,10 +175,10 @@ EFL_START_TEST(wl2_input_pointer_xy)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
@@ -204,10 +204,10 @@ EFL_START_TEST(wl2_input_keyboard_repeat)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
@@ -218,8 +218,8 @@ EFL_START_TEST(wl2_input_keyboard_repeat)
 
              ecore_wl2_input_keyboard_repeat_set(input, 2.0, 2.0);
              ecore_wl2_input_keyboard_repeat_get(input, &rate, &delay);
-             ck_assert(!EINA_DBL_EQ(rate, 2.0));
-             ck_assert(!EINA_DBL_EQ(delay, 2.0));
+             fail_if(!EINA_DBL_EQ(rate, 2.0));
+             fail_if(!EINA_DBL_EQ(delay, 2.0));
           }
      }
 
@@ -234,10 +234,10 @@ EFL_START_TEST(wl2_input_cursor_from_name_set)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
@@ -261,10 +261,10 @@ EFL_START_TEST(wl2_input_pointer_set)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {

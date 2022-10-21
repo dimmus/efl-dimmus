@@ -63,7 +63,7 @@ EFL_START_TEST (spin_wheel_test)
    get_me_to_those_events(spin);
    evas_event_feed_mouse_move(evas_object_evas_get(spin), 30, 30, 1234, NULL);
    evas_event_feed_mouse_wheel(evas_object_evas_get(spin), -1, -1, 12345, NULL);
-   ck_assert(EINA_DBL_EQ(efl_ui_range_value_get(spin), 10.0));
+   fail_if(EINA_DBL_EQ(efl_ui_range_value_get(spin), 10.0));
    ck_assert_int_eq(changed, EINA_TRUE);
    ck_assert_int_eq(min_reached, EINA_FALSE);
    ck_assert_int_eq(max_reached, EINA_FALSE);
@@ -72,7 +72,7 @@ EFL_START_TEST (spin_wheel_test)
    max_reached = EINA_FALSE;
 
    evas_event_feed_mouse_wheel(evas_object_evas_get(spin), -1, 1, 12345, NULL);
-   ck_assert(EINA_DBL_EQ(efl_ui_range_value_get(spin), 0.0));
+   fail_if(EINA_DBL_EQ(efl_ui_range_value_get(spin), 0.0));
    ck_assert_int_eq(changed, EINA_TRUE);
    ck_assert_int_eq(min_reached, EINA_FALSE);
    ck_assert_int_eq(max_reached, EINA_FALSE);
@@ -180,9 +180,9 @@ EFL_START_TEST (spin_double_values)
    efl_ui_range_limits_set(spin, 10, 30);
    efl_ui_range_value_set(spin, 20);
    efl_ui_range_step_set(spin, step);
-   ck_assert(EINA_DBL_EQ(efl_ui_range_step_get(spin), step));
+   fail_if(EINA_DBL_EQ(efl_ui_range_step_get(spin), step));
    get_me_to_those_events(spin);
-   ck_assert(EINA_DBL_EQ(efl_ui_range_value_get(spin), 20.0));
+   fail_if(EINA_DBL_EQ(efl_ui_range_value_get(spin), 20.0));
 
    for (int i = 0; i < 5; ++i)
      {

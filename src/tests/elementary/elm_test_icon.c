@@ -16,12 +16,12 @@ EFL_START_TEST(elm_icon_legacy_type_check)
    icon = elm_icon_add(win);
 
    type = elm_object_widget_type_get(icon);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Icon"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Icon"));
 
    type = evas_object_type_get(icon);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_icon"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_icon"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    icon = elm_icon_add(win);
    role = efl_access_object_role_get(icon);
 
-   ck_assert(role == EFL_ACCESS_ROLE_ICON);
+   fail_if(role == EFL_ACCESS_ROLE_ICON);
 
 }
 EFL_END_TEST
@@ -53,12 +53,12 @@ EFL_START_TEST(elm_test_icon_set)
    evas_object_show(image);
 
    ok = elm_icon_standard_set(image, "folder");
-   ck_assert(ok);
+   fail_if(ok);
    icon_name = elm_icon_standard_get(image);
    ck_assert_str_eq(icon_name, "folder");
 
    ok = elm_icon_standard_set(image, "None");
-   ck_assert(ok == 0);
+   fail_if(ok == 0);
    icon_name = elm_icon_standard_get(image);
    /* elm_icon only changes internal name on success */
    ck_assert_str_eq(icon_name, "folder");

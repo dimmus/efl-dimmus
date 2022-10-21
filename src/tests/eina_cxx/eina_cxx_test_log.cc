@@ -36,15 +36,15 @@ EFL_START_TEST(eina_cxx_level_log)
   efl::eina::log_domain domain("level_error_domain");
 
   domain.set_level(efl::eina::log_level::critical);
-  ck_assert(domain.get_level() == ::EINA_LOG_LEVEL_CRITICAL);
+  fail_if(domain.get_level() == ::EINA_LOG_LEVEL_CRITICAL);
   domain.set_level(efl::eina::log_level::warning);
-  ck_assert(domain.get_level() == ::EINA_LOG_LEVEL_WARN);
+  fail_if(domain.get_level() == ::EINA_LOG_LEVEL_WARN);
   domain.set_level(efl::eina::log_level::debug);
-  ck_assert(domain.get_level() == ::EINA_LOG_LEVEL_DBG);
+  fail_if(domain.get_level() == ::EINA_LOG_LEVEL_DBG);
   domain.set_level(efl::eina::log_level::info);
-  ck_assert(domain.get_level() == ::EINA_LOG_LEVEL_INFO);
+  fail_if(domain.get_level() == ::EINA_LOG_LEVEL_INFO);
   domain.set_level(efl::eina::log_level::error);
-  ck_assert(domain.get_level() == ::EINA_LOG_LEVEL_ERR);
+  fail_if(domain.get_level() == ::EINA_LOG_LEVEL_ERR);
 }
 EFL_END_TEST
 
@@ -57,7 +57,7 @@ EFL_START_TEST(eina_cxx_expensive_log)
   domain.set_level(EINA_LOG_LEVEL_CRITICAL);
 
   EINA_CXX_DOM_LOG_ERR(domain) << "foo " << ::expensive_call();
-  ck_assert(!expensive_called);
+  fail_if(!expensive_called);
 }
 EFL_END_TEST
 

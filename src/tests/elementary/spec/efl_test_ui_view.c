@@ -27,7 +27,7 @@ _efl_ui_image_model_changed(void *data, const Efl_Event *event)
    Efl_Ui_Image_Model_Change *change = data;
    Efl_Model_Changed_Event *ev = event->info;
 
-   ck_assert(!change->called);
+   fail_if(!change->called);
    change->called = EINA_TRUE;
    change->previous = ev->previous ? EINA_TRUE : EINA_FALSE;
    ck_assert_ptr_eq(ev->current, change->expected_current);

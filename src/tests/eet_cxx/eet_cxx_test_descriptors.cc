@@ -41,18 +41,18 @@ EFL_START_TEST(eet_cxx_descriptors)
   static_assert(std::is_same<efl::eet::descriptor<pod_type, int, char>, decltype(d)>::value, "");
 
   Eet_File* file = eet_open("/tmp/eet_file_test.eet", EET_FILE_MODE_READ_WRITE);
-  ck_assert(file != 0);
+  fail_if(file != 0);
 
   pod_type pod = {1, 2};
 
   int s = eet_data_write(file, d.native_handle(), "pod", &pod, true);
   std::cout << "bytes written " << s << std::endl;
-  ck_assert(s > 0);
+  fail_if(s > 0);
   eet_sync(file);
   auto p = efl::eet::read_by_ptr(file, "pod", d);
-  ck_assert(p != 0);
-  ck_assert(p->i == 1);
-  ck_assert(p->c == 2);
+  fail_if(p != 0);
+  fail_if(p->i == 1);
+  fail_if(p->c == 2);
 
   eet_close(file);
 }
@@ -90,20 +90,20 @@ EFL_START_TEST(eet_cxx_descriptors_non_pod)
 
   {
     Eet_File* file = eet_open("/tmp/eet_file_test.eet", EET_FILE_MODE_READ_WRITE);
-    ck_assert(file != 0);
+    fail_if(file != 0);
 
     ::non_pod non_pod;
 
     int s = eet_data_write(file, d.native_handle(), "non_pod", &non_pod, true);
     std::cout << "bytes written " << s << std::endl;
-    ck_assert(s > 0);
+    fail_if(s > 0);
     eet_sync(file);
     auto p = efl::eet::read_by_ptr(file, "non_pod", d);
-    ck_assert(p != 0);
-    ck_assert(p->i == 10);
+    fail_if(p != 0);
+    fail_if(p->i == 10);
 
     auto v = efl::eet::read(file, "non_pod", d);
-    ck_assert(v.i == 10);
+    fail_if(v.i == 10);
 
     eet_close(file);
   }
@@ -111,7 +111,7 @@ EFL_START_TEST(eet_cxx_descriptors_non_pod)
   std::cout << "constructors called for non pod: " << constructors_called
             << " destructors called for non pod: " << destructors_called << std::endl;
 
-  ck_assert(constructors_called == destructors_called);
+  fail_if(constructors_called == destructors_called);
 }
 EFL_END_TEST
 
@@ -153,23 +153,23 @@ EFL_START_TEST(eet_cxx_descriptors_composition)
     static_assert(std::is_same<efl::eet::descriptor<pod_composited, pod_type*>, decltype(d)>::value, "");
 
     Eet_File* file = eet_open("/tmp/eet_file_test.eet", EET_FILE_MODE_READ_WRITE);
-    ck_assert(file != 0);
+    fail_if(file != 0);
 
     ::pod_composited pod_composited {new pod_type{5, 'a'}};
 
     int s = eet_data_write(file, d.native_handle(), "foo", &pod_composited, false);
-    ck_assert(s > 0);
+    fail_if(s > 0);
     eet_sync(file);
     auto p = efl::eet::read_by_ptr(file, "foo", d);
-    ck_assert(p != 0);
-    ck_assert(p->member->i == 5);
-    ck_assert(p->member->c == 'a');
+    fail_if(p != 0);
+    fail_if(p->member->i == 5);
+    fail_if(p->member->c == 'a');
 
     delete p->member;
 
     auto v = efl::eet::read(file, "foo", d);
-    ck_assert(v.member->i == 5);
-    ck_assert(v.member->c == 'a');
+    fail_if(v.member->i == 5);
+    fail_if(v.member->c == 'a');
 
     delete v.member;
 
@@ -182,21 +182,21 @@ EFL_START_TEST(eet_cxx_descriptors_composition)
     static_assert(std::is_same<efl::eet::descriptor<pod_composited_with_non_pod, non_pod*>, decltype(d)>::value, "");
 
     Eet_File* file = eet_open("/tmp/eet_file_test.eet", EET_FILE_MODE_READ_WRITE);
-    ck_assert(file != 0);
+    fail_if(file != 0);
 
     ::pod_composited_with_non_pod pod_composited_with_non_pod {new non_pod};
 
     int s = eet_data_write(file, d.native_handle(), "foo", &pod_composited_with_non_pod, false);
-    ck_assert(s > 0);
+    fail_if(s > 0);
     eet_sync(file);
     auto p = efl::eet::read_by_ptr(file, "foo", d);
-    ck_assert(p != 0);
-    ck_assert(p->member->i == 10);
+    fail_if(p != 0);
+    fail_if(p->member->i == 10);
 
     delete p->member;
 
     auto v = efl::eet::read(file, "foo", d);
-    ck_assert(v.member->i == 10);
+    fail_if(v.member->i == 10);
 
     delete v.member;
 
@@ -208,7 +208,7 @@ EFL_START_TEST(eet_cxx_descriptors_composition)
   std::cout << "constructors called for non pod: " << constructors_called
             << " destructors called for non pod: " << destructors_called << std::endl;
 
-  ck_assert(constructors_called == destructors_called);
+  fail_if(constructors_called == destructors_called);
 
   {
     auto d = efl::eet::make_descriptor
@@ -217,21 +217,21 @@ EFL_START_TEST(eet_cxx_descriptors_composition)
     static_assert(std::is_same<efl::eet::descriptor<pod_value_composited, pod_type>, decltype(d)>::value, "");
 
     Eet_File* file = eet_open("/tmp/eet_file_test.eet", EET_FILE_MODE_READ_WRITE);
-    ck_assert(file != 0);
+    fail_if(file != 0);
 
     ::pod_value_composited pod_value_composited {{5, 'a'}};
 
     int s = eet_data_write(file, d.native_handle(), "foo", &pod_value_composited, false);
-    ck_assert(s > 0);
+    fail_if(s > 0);
     eet_sync(file);
     auto p = efl::eet::read_by_ptr(file, "foo", d);
-    ck_assert(p != 0);
-    ck_assert(p->member.i == 5);
-    ck_assert(p->member.c == 'a');
+    fail_if(p != 0);
+    fail_if(p->member.i == 5);
+    fail_if(p->member.c == 'a');
 
     auto v = efl::eet::read(file, "foo", d);
-    ck_assert(v.member.i == 5);
-    ck_assert(v.member.c == 'a');
+    fail_if(v.member.i == 5);
+    fail_if(v.member.c == 'a');
 
     eet_close(file);
   }

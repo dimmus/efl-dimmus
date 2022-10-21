@@ -68,7 +68,7 @@ EFL_START_TEST(eldbus_cxx_client)
      , es::method("SendBool"
                   , [expected_bool] (edb::const_message, edb::service_interface, bool b)
                   {
-                    ck_assert(b == expected_bool);
+                    fail_if(b == expected_bool);
                     return b;
                   }
                   , es::ins<bool>("bool")
@@ -77,7 +77,7 @@ EFL_START_TEST(eldbus_cxx_client)
      , es::method("SendByte"
                   , [expected_byte] (edb::const_message, edb::service_interface, char c)
                   {
-                    ck_assert(c == expected_byte);
+                    fail_if(c == expected_byte);
                     return c;
                   }
                   , es::ins<char>("byte")
@@ -86,7 +86,7 @@ EFL_START_TEST(eldbus_cxx_client)
      , es::method("SendUint32"
                   , [expected_uint32] (edb::const_message, edb::service_interface, uint32_t n)
                   {
-                    ck_assert(n == expected_uint32);
+                    fail_if(n == expected_uint32);
                     return n;
                   }
                   , es::ins<uint32_t>("uint32")
@@ -95,7 +95,7 @@ EFL_START_TEST(eldbus_cxx_client)
      , es::method("SendInt32"
                   , [expected_int32] (edb::const_message, edb::service_interface, int32_t n)
                   {
-                    ck_assert(n == expected_int32);
+                    fail_if(n == expected_int32);
                     return n;
                   }
                   , es::ins<int32_t>("int32")
@@ -104,7 +104,7 @@ EFL_START_TEST(eldbus_cxx_client)
      , es::method("SendInt16"
                   , [expected_int16] (edb::const_message, edb::service_interface, int16_t n)
                   {
-                    ck_assert(n == expected_int16);
+                    fail_if(n == expected_int16);
                     return n;
                   }
                   , es::ins<int16_t>("int16")
@@ -113,7 +113,7 @@ EFL_START_TEST(eldbus_cxx_client)
      , es::method("SendDouble"
                   , [expected_double] (edb::const_message, edb::service_interface, double n)
                   {
-                    ck_assert(n == expected_double);
+                    fail_if(n == expected_double);
                     return n;
                   }
                   , es::ins<double>("double")
@@ -123,7 +123,7 @@ EFL_START_TEST(eldbus_cxx_client)
                   , [expected_string] (edb::const_message, edb::service_interface, std::string const& n)
                   {
                     std::cout << "SendString " << n.size() << " " << n << std::endl;
-                    ck_assert(n == expected_string);
+                    fail_if(n == expected_string);
                     return n;
                   }
                   , es::ins<std::string>("string")
@@ -132,7 +132,7 @@ EFL_START_TEST(eldbus_cxx_client)
      , es::method("GetVoid"
                   , [expected_bool] (edb::const_message, edb::service_interface, bool b)
                   {
-                    ck_assert(b == expected_bool);
+                    fail_if(b == expected_bool);
                   }
                   , es::ins<bool>("string")
                   )
@@ -140,8 +140,8 @@ EFL_START_TEST(eldbus_cxx_client)
                   , [expected_string, expected_bool] (edb::const_message, edb::service_interface
                                                       , std::string const& n, bool b)
                   {
-                    ck_assert(n == expected_string);
-                    ck_assert(b == expected_bool);
+                    fail_if(n == expected_string);
+                    fail_if(b == expected_bool);
                     return n;
                   }
                   , es::ins<std::string, bool>("string", "bool")
@@ -153,8 +153,8 @@ EFL_START_TEST(eldbus_cxx_client)
                                                       , bool* out)
                   {
                     std::cout << "Running SendStringAndBool" << std::endl;
-                    ck_assert(n == expected_string);
-                    ck_assert(b == expected_bool);
+                    fail_if(n == expected_string);
+                    fail_if(b == expected_bool);
                     *out = b;
                     return n;
                   }
@@ -167,8 +167,8 @@ EFL_START_TEST(eldbus_cxx_client)
                                                       , std::string* out_s, bool* out_b)
                   {
                     std::cout << "Running SendStringAndBool" << std::endl;
-                    ck_assert(s == expected_string);
-                    ck_assert(b == expected_bool);
+                    fail_if(s == expected_string);
+                    fail_if(b == expected_bool);
                     *out_s = s;
                     *out_b = b;
                   }
@@ -197,7 +197,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "bool received " << b << std::endl;
-            ck_assert(b == expected_bool);
+            fail_if(b == expected_bool);
           }
         else
           {
@@ -221,7 +221,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "char received " << c << std::endl;
-            ck_assert(c == expected_byte);
+            fail_if(c == expected_byte);
           }
         else
           {
@@ -245,7 +245,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "uint32_t received " << i << std::endl;
-            ck_assert(i == expected_uint32);
+            fail_if(i == expected_uint32);
           }
         else
           {
@@ -269,7 +269,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "int32_t received " << i << std::endl;
-            ck_assert(i == expected_int32);
+            fail_if(i == expected_int32);
           }
         else
           {
@@ -293,7 +293,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "int16_t received " << i << std::endl;
-            ck_assert(i == expected_int16);
+            fail_if(i == expected_int16);
           }
         else
           {
@@ -317,7 +317,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "double received " << i << std::endl;
-            ck_assert(i == expected_double);
+            fail_if(i == expected_double);
           }
         else
           {
@@ -341,7 +341,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "string received " << i << std::endl;
-            ck_assert(i == expected_string);
+            fail_if(i == expected_string);
           }
         else
           {
@@ -388,7 +388,7 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "string received " << i << std::endl;
-            ck_assert(i == expected_string);
+            fail_if(i == expected_string);
           }
         else
           {
@@ -414,8 +414,8 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "string received " << i << std::endl;
-            ck_assert(i == expected_string);
-            ck_assert(b == expected_bool);
+            fail_if(i == expected_string);
+            fail_if(b == expected_bool);
           }
         else
           {
@@ -441,8 +441,8 @@ EFL_START_TEST(eldbus_cxx_client)
         if(!ec)
           {
             std::cout << "string received " << i << std::endl;
-            ck_assert(i == expected_string);
-            ck_assert(b == expected_bool);
+            fail_if(i == expected_string);
+            fail_if(b == expected_bool);
 
             ::ecore_main_loop_quit();
           }

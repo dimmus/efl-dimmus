@@ -183,16 +183,16 @@ EFL_START_TEST(efl_ui_test_widget_sub_object_add_del)
 
    _small_ui(&s);
    EXPECT_ERROR_START;
-   ck_assert(!efl_ui_widget_sub_object_add(s.btn1, s.btn1));
+   fail_if(!efl_ui_widget_sub_object_add(s.btn1, s.btn1));
    EXPECT_ERROR_END;
-   ck_assert(efl_ui_widget_sub_object_add(s.box, s.btn1));
+   fail_if(efl_ui_widget_sub_object_add(s.box, s.btn1));
    EXPECT_ERROR_START;
-   ck_assert(!efl_ui_widget_sub_object_add(s.box, NULL));
-   ck_assert(!efl_ui_widget_sub_object_del(s.btn1, s.btn1));
-   ck_assert(!efl_ui_widget_sub_object_del(s.box, NULL));
-   ck_assert(!efl_ui_widget_sub_object_del(s.btn1, s.box));
+   fail_if(!efl_ui_widget_sub_object_add(s.box, NULL));
+   fail_if(!efl_ui_widget_sub_object_del(s.btn1, s.btn1));
+   fail_if(!efl_ui_widget_sub_object_del(s.box, NULL));
+   fail_if(!efl_ui_widget_sub_object_del(s.btn1, s.box));
    EXPECT_ERROR_END;
-   ck_assert(efl_ui_widget_sub_object_del(s.box, s.btn1));
+   fail_if(efl_ui_widget_sub_object_del(s.box, s.btn1));
 }
 EFL_END_TEST
 
@@ -204,26 +204,26 @@ EFL_START_TEST(efl_ui_test_widget_sub_object_theme_sync)
    _small_ui(&s);
    edje = elm_widget_resize_object_get(s.btn1);
 
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 1.0));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 1.0));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 1.0));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 1.0));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 1.0));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 1.0));
 
    efl_gfx_entity_scale_set(s.win, 0.123);
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 0.123));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 0.123));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 0.123));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 0.123));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 0.123));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 0.123));
 
    efl_ui_widget_sub_object_del(s.box, s.btn1);
    efl_gfx_entity_scale_set(s.win, 0.456);
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 1.0));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 0.123));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 0.456));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 1.0));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 0.123));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 0.456));
 
    efl_gfx_entity_scale_set(s.win, 0.789);
    efl_ui_widget_sub_object_add(s.box, s.btn1);
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 0.789));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 0.789));
-   ck_assert(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 0.789));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn1), 0.789));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(edje), 0.789));
+   fail_if(EINA_DBL_EQ(efl_gfx_entity_scale_get(s.btn2), 0.789));
 }
 EFL_END_TEST
 

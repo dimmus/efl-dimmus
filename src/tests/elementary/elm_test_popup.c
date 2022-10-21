@@ -16,12 +16,12 @@ EFL_START_TEST(elm_popup_legacy_type_check)
    popup = elm_popup_add(win);
 
    type = elm_object_widget_type_get(popup);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Popup"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Popup"));
 
    type = evas_object_type_get(popup);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_popup"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_popup"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    popup = elm_popup_add(win);
    role = efl_access_object_role_get(popup);
 
-   ck_assert(role == EFL_ACCESS_ROLE_DIALOG);
+   fail_if(role == EFL_ACCESS_ROLE_DIALOG);
 
 }
 EFL_END_TEST
@@ -66,7 +66,7 @@ EFL_START_TEST(elm_popup_focus_get)
    // popup show should be called after adding all the contents and the buttons
    // of popup to set the focus into popup's contents correctly.
    evas_object_show(popup);
-   ck_assert(focused);
+   fail_if(focused);
 }
 EFL_END_TEST
 
@@ -79,7 +79,7 @@ EFL_START_TEST(elm_popup_text_set)
 
    popup = elm_popup_add(win);
 
-   ck_assert(elm_layout_text_set(popup, NULL, popup_text));
+   fail_if(elm_layout_text_set(popup, NULL, popup_text));
    ck_assert_str_eq(elm_object_text_get(popup), popup_text);
 }
 EFL_END_TEST

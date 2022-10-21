@@ -89,19 +89,19 @@ EFL_START_TEST(efl_test_select_model)
    eina_value_setup(&v, EINA_VALUE_TYPE_INT);
 
    base_model = efl_add_ref(EFL_GENERIC_MODEL_CLASS, efl_main_loop_get());
-   ck_assert(!!base_model);
+   fail_if(!!base_model);
 
    for (i = 0; i < child_number; ++i)
      {
         child = efl_model_child_add(base_model);
-        ck_assert(!!child);
-        ck_assert(eina_value_set(&v, base_ints[i]));
+        fail_if(!!child);
+        fail_if(eina_value_set(&v, base_ints[i]));
         efl_model_property_set(child, "test_p_int", &v);
      }
 
    model = efl_add_ref(EFL_UI_SELECT_MODEL_CLASS, efl_main_loop_get(),
                    efl_ui_view_model_set(efl_added, base_model));
-   ck_assert(!!model);
+   fail_if(!!model);
 
    future = efl_model_property_ready_get(model, "child.selected");
    eina_future_then(future, _wait_propagate, NULL, NULL);

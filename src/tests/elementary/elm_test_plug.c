@@ -16,12 +16,12 @@ EFL_START_TEST(elm_plug_legacy_type_check)
    plug = elm_plug_add(win);
 
    type = elm_object_widget_type_get(plug);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Plug"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Plug"));
 
    type = evas_object_type_get(plug);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_plug"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_plug"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    plug = elm_plug_add(win);
    role = efl_access_object_role_get(plug);
 
-   ck_assert(role == EFL_ACCESS_ROLE_IMAGE);
+   fail_if(role == EFL_ACCESS_ROLE_IMAGE);
 
 }
 EFL_END_TEST

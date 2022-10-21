@@ -38,14 +38,14 @@ struct test
 void thread_1_arg(int a0)
 {
   args_1 = true;
-  ck_assert(a0 == 5);
+  fail_if(a0 == 5);
 }
 
 void thread_2_arg(int a0, test t)
 {
   args_2 = true;
-  ck_assert(a0 == 5);
-  ck_assert(t.x == 10);
+  fail_if(a0 == 5);
+  fail_if(t.x == 10);
 }
 
 EFL_START_TEST(eina_cxx_thread_constructors)
@@ -54,26 +54,26 @@ EFL_START_TEST(eina_cxx_thread_constructors)
   efl::eina::eina_threads_init threads_init;
   {
     efl::eina::thread default_constructed_thread;
-    ck_assert(default_constructed_thread.get_id() == efl::eina::thread::id());
+    fail_if(default_constructed_thread.get_id() == efl::eina::thread::id());
   }
 
   {
     efl::eina::thread thread_no_args(&::thread_no_args);
     thread_no_args.join();
-    ck_assert( ::no_args);
+    fail_if( ::no_args);
   }
 
   {
     efl::eina::thread thread_1_arg(&::thread_1_arg, 5);
     thread_1_arg.join();
-    ck_assert( ::args_1);
+    fail_if( ::args_1);
   }
 
   {
     test t = {10};
     efl::eina::thread thread_2_arg(&::thread_2_arg, 5, t);
     thread_2_arg.join();
-    ck_assert( ::args_2);
+    fail_if( ::args_2);
   }
 }
 EFL_END_TEST
@@ -85,17 +85,17 @@ EFL_START_TEST(eina_cxx_thread_mutexes)
 
   {
     efl::eina::unique_lock<efl::eina::mutex> lock1(m);
-    ck_assert(lock1.owns_lock());
+    fail_if(lock1.owns_lock());
 
     lock1.unlock();
-    ck_assert(!lock1.owns_lock());
+    fail_if(!lock1.owns_lock());
 
-    ck_assert(lock1.try_lock());
-    ck_assert(lock1.owns_lock());
+    fail_if(lock1.try_lock());
+    fail_if(lock1.owns_lock());
     lock1.unlock();
 
     lock1.lock();
-    ck_assert(lock1.owns_lock());
+    fail_if(lock1.owns_lock());
   }
 
   {
@@ -127,9 +127,9 @@ EFL_START_TEST(eina_cxx_thread_conditional)
 
   while(!b)
     {
-      ck_assert(l.owns_lock());
+      fail_if(l.owns_lock());
       condition_condition.wait(l);
-      ck_assert(l.owns_lock());
+      fail_if(l.owns_lock());
     }
 
   thread.join();

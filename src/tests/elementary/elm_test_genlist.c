@@ -189,12 +189,12 @@ EFL_START_TEST(elm_genlist_test_legacy_type_check)
    genlist = elm_genlist_add(win);
 
    type = elm_object_widget_type_get(genlist);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Genlist"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Genlist"));
 
    type = evas_object_type_get(genlist);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_genlist"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_genlist"));
 
 }
 EFL_END_TEST
@@ -214,7 +214,7 @@ EFL_START_TEST(elm_genlist_test_atspi_role_get)
 
    role = efl_access_object_role_get(genlist);
 
-   ck_assert(role == EFL_ACCESS_ROLE_LIST);
+   fail_if(role == EFL_ACCESS_ROLE_LIST);
 
 }
 EFL_END_TEST
@@ -226,17 +226,17 @@ EFL_START_TEST(elm_genlist_test_atspi_children_get1)
    Elm_Object_Item *it[3];
 
    children = efl_access_object_access_children_get(genlist);
-   ck_assert(children == NULL);
+   fail_if(children == NULL);
 
    it[0] = elm_genlist_item_append(genlist, &itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
    it[1] = elm_genlist_item_append(genlist, &itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
    it[2] = elm_genlist_item_append(genlist, &itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
 
    children = efl_access_object_access_children_get(genlist);
-   ck_assert(eina_list_count(children) == 3);
-   ck_assert(eina_list_nth(children, 0) == it[0]);
-   ck_assert(eina_list_nth(children, 1) == it[1]);
-   ck_assert(eina_list_nth(children, 2) == it[2]);
+   fail_if(eina_list_count(children) == 3);
+   fail_if(eina_list_nth(children, 0) == it[0]);
+   fail_if(eina_list_nth(children, 1) == it[1]);
+   fail_if(eina_list_nth(children, 2) == it[2]);
 
    eina_list_free(children);
 
@@ -254,9 +254,9 @@ EFL_START_TEST(elm_genlist_test_atspi_children_get2)
    it[2] = elm_genlist_item_append(genlist, &itc, NULL, NULL, ELM_GENLIST_ITEM_TREE, NULL, NULL);
 
    children = efl_access_object_access_children_get(genlist);
-   ck_assert(eina_list_nth(children, 1) == it[0]);
-   ck_assert(eina_list_nth(children, 0) == it[1]);
-   ck_assert(eina_list_nth(children, 2) == it[2]);
+   fail_if(eina_list_nth(children, 1) == it[0]);
+   fail_if(eina_list_nth(children, 0) == it[1]);
+   fail_if(eina_list_nth(children, 2) == it[2]);
 
 }
 EFL_END_TEST
@@ -284,22 +284,22 @@ EFL_START_TEST(elm_genlist_test_atspi_children_events_add)
    efl_access_object_event_handler_add(_children_changed_cb, NULL);
 
    it[0] = elm_genlist_item_append(genlist, &itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
-   ck_assert(genlist == current);
-   ck_assert(counter == 1);
-   ck_assert(ev_data.is_added == EINA_TRUE);
-   ck_assert(ev_data.child == it[0]);
+   fail_if(genlist == current);
+   fail_if(counter == 1);
+   fail_if(ev_data.is_added == EINA_TRUE);
+   fail_if(ev_data.child == it[0]);
 
    it[1] = elm_genlist_item_prepend(genlist, &itc, it[0], NULL, ELM_GENLIST_ITEM_GROUP, NULL, NULL);
-   ck_assert(genlist == current);
-   ck_assert(counter == 2);
-   ck_assert(ev_data.is_added == EINA_TRUE);
-   ck_assert(ev_data.child == it[1]);
+   fail_if(genlist == current);
+   fail_if(counter == 2);
+   fail_if(ev_data.is_added == EINA_TRUE);
+   fail_if(ev_data.child == it[1]);
 
    it[2] = elm_genlist_item_append(genlist, &itc, NULL, NULL, ELM_GENLIST_ITEM_TREE, NULL, NULL);
-   ck_assert(genlist == current);
-   ck_assert(counter == 3);
-   ck_assert(ev_data.is_added == EINA_TRUE);
-   ck_assert(ev_data.child == it[2]);
+   fail_if(genlist == current);
+   fail_if(counter == 3);
+   fail_if(ev_data.is_added == EINA_TRUE);
+   fail_if(ev_data.child == it[2]);
 
 }
 EFL_END_TEST
@@ -320,16 +320,16 @@ EFL_START_TEST(elm_genlist_test_atspi_children_events_del1)
    efl_access_object_event_handler_add(_children_changed_cb, NULL);
 
    elm_object_item_del(it[0]);
-   ck_assert(genlist == current);
-   ck_assert(counter == 1);
-   ck_assert(ev_data.is_added == EINA_FALSE);
-   ck_assert(ev_data.child == it[0]);
+   fail_if(genlist == current);
+   fail_if(counter == 1);
+   fail_if(ev_data.is_added == EINA_FALSE);
+   fail_if(ev_data.child == it[0]);
 
    elm_object_item_del(it[2]);
-   ck_assert(genlist == current);
-   ck_assert(counter == 2);
-   ck_assert(ev_data.is_added == EINA_FALSE);
-   ck_assert(ev_data.child == it[2]);
+   fail_if(genlist == current);
+   fail_if(counter == 2);
+   fail_if(ev_data.is_added == EINA_FALSE);
+   fail_if(ev_data.child == it[2]);
 
 }
 EFL_END_TEST
@@ -347,10 +347,10 @@ EFL_START_TEST(elm_genlist_test_atspi_children_events_del2)
    efl_access_object_event_handler_add(_children_changed_cb, NULL);
    elm_genlist_clear(genlist);
 
-   ck_assert(genlist == current);
-   ck_assert(counter == 1);
-   ck_assert(ev_data.is_added == EINA_FALSE);
-   ck_assert(ev_data.child == it);
+   fail_if(genlist == current);
+   fail_if(counter == 1);
+   fail_if(ev_data.is_added == EINA_FALSE);
+   fail_if(ev_data.child == it);
 
 }
 EFL_END_TEST

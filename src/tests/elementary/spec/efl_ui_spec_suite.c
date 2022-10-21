@@ -24,17 +24,17 @@ static Eina_Hash *test_widgets;
 static void
 _setup_window_and_widget(const Efl_Class *klass, const Efl_Class *content_klass)
 {
-   ck_assert(!win);
-   ck_assert(!widget);
+   fail_if(!win);
+   fail_if(!widget);
 
    test_content_klass = content_klass;
    widget_klass = klass;
    win = win_add();
    widget = efl_add(klass, win);
-   ck_assert(efl_content_set(win, widget));
+   fail_if(efl_content_set(win, widget));
 
-   ck_assert(win);
-   ck_assert(widget);
+   fail_if(win);
+   fail_if(widget);
    efl_wref_add(widget, &widget);
    efl_wref_add(win, &win);
 }
@@ -48,7 +48,7 @@ create_test_widget(void)
      {
         Eo **widgets = eina_hash_find(test_widgets, &test_content_klass);
         ck_assert_int_lt(i, NUM_TEST_WIDGETS);
-        ck_assert(widgets[i]);
+        fail_if(widgets[i]);
         return widgets[i++];
      }
    Eo *ret = efl_add(test_content_klass, win);

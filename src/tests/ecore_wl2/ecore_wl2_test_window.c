@@ -17,10 +17,10 @@ EFL_START_TEST(wl2_window_new)
    Ecore_Wl2_Window *win;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 }
 EFL_END_TEST
 
@@ -32,13 +32,13 @@ EFL_START_TEST(wl2_window_surface_test)
    int id = -1;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    surf = ecore_wl2_window_surface_get(win);
-   ck_assert(surf != NULL);
+   fail_if(surf != NULL);
 
    id = ecore_wl2_window_surface_id_get(win);
    ck_assert_int_gt(id, 0);
@@ -54,10 +54,10 @@ EFL_START_TEST(wl2_window_rotation)
    int rot = -1;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    rot = ecore_wl2_window_rotation_get(win);
    ck_assert_int_ge(rot, 0);
@@ -75,12 +75,12 @@ EFL_START_TEST(wl2_window_display_get)
    Ecore_Wl2_Window *win;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
-   ck_assert(ecore_wl2_window_display_get(win) != NULL);
+   fail_if(ecore_wl2_window_display_get(win) != NULL);
 }
 EFL_END_TEST
 
@@ -91,10 +91,10 @@ EFL_START_TEST(wl2_window_alpha)
    Eina_Bool alpha = EINA_FALSE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_alpha_set(win, EINA_TRUE);
 
@@ -110,10 +110,10 @@ EFL_START_TEST(wl2_window_floating_mode)
    Eina_Bool f = EINA_FALSE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_floating_mode_set(win, EINA_TRUE);
 
@@ -129,10 +129,10 @@ EFL_START_TEST(wl2_window_focus_skip)
    Eina_Bool skip = EINA_FALSE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_focus_skip_set(win, EINA_TRUE);
 
@@ -148,10 +148,10 @@ EFL_START_TEST(wl2_window_fullscreen)
    Eina_Bool full = EINA_FALSE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_fullscreen_set(win, EINA_TRUE);
 
@@ -167,10 +167,10 @@ EFL_START_TEST(wl2_window_maximize)
    Eina_Bool m = EINA_FALSE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_maximized_set(win, EINA_TRUE);
 
@@ -186,10 +186,10 @@ EFL_START_TEST(wl2_window_preferred_rot)
    int rot = 0;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_preferred_rotation_set(win, 90);
 
@@ -205,10 +205,10 @@ EFL_START_TEST(wl2_window_rotation_app)
    Eina_Bool r = EINA_FALSE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_rotation_app_set(win, EINA_TRUE);
 
@@ -224,10 +224,10 @@ EFL_START_TEST(wl2_wm_window_rotation_app)
    Eina_Bool r = EINA_FALSE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_wm_rotation_supported_set(win, EINA_TRUE);
 
@@ -243,10 +243,10 @@ EFL_START_TEST(wl2_window_geometry)
    int x, y, w, h;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_geometry_set(win, 10, 10, 100, 100);
 
@@ -266,10 +266,10 @@ EFL_START_TEST(wl2_window_type)
    Ecore_Wl2_Window_Type type = ECORE_WL2_WINDOW_TYPE_NONE;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_type_set(win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
@@ -334,15 +334,15 @@ EFL_START_TEST(wl2_window_activated)
    td->frame_callback_count = 0;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -377,10 +377,10 @@ EFL_START_TEST(wl2_window_aspect)
    unsigned int aspect;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_aspect_set(win, 1, 1, 3);
    ecore_wl2_window_aspect_get(win, &w, &h, &aspect);
@@ -398,10 +398,10 @@ EFL_START_TEST(wl2_window_title)
    const char *title;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_title_set(win, "TEST");
    title = ecore_wl2_window_title_get(win);
@@ -417,10 +417,10 @@ EFL_START_TEST(wl2_window_class)
    const char *class;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_class_set(win, "TEST");
    class = ecore_wl2_window_class_get(win);
@@ -439,10 +439,10 @@ EFL_START_TEST(wl2_window_available_rotation)
    unsigned int ret_count;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_available_rotations_set(win, rots, 2);
 
@@ -464,10 +464,10 @@ EFL_START_TEST(wl2_window_role)
    const char *role;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_role_set(win, "TEST");
    role = ecore_wl2_window_role_get(win);
@@ -483,10 +483,10 @@ EFL_START_TEST(wl2_window_input_region)
    int x, y, w, h;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_input_region_set(win, 10, 10, 100, 100);
 
@@ -505,10 +505,10 @@ EFL_START_TEST(wl2_window_opaque_region)
    int x, y, w, h;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_opaque_region_set(win, 10, 10, 100, 100);
 
@@ -528,15 +528,15 @@ EFL_START_TEST(wl2_window_popup_input)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ecore_wl2_window_type_set(win, ECORE_WL2_WINDOW_TYPE_MENU);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   ck_assert(itr != NULL);
+   fail_if(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, input)
      {
@@ -584,15 +584,15 @@ EFL_START_TEST(wl2_window_commit)
    td->frame_callback_count = 0;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -645,15 +645,15 @@ EFL_START_TEST(wl2_window_frame_callback)
    td->frame_callback_count = 0;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -681,15 +681,15 @@ EFL_START_TEST(wl2_window_free)
    td = calloc(1, sizeof(Test_Data));
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -729,15 +729,15 @@ EFL_START_TEST(wl2_window_hide)
    td->frame_callback_count = 0;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -764,15 +764,15 @@ EFL_START_TEST(wl2_window_shell_surface_exists)
    td->frame_callback_count = 0;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -805,15 +805,15 @@ EFL_START_TEST(wl2_window_show)
    td->frame_callback_count = 0;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -861,15 +861,15 @@ EFL_START_TEST(wl2_window_update_begin)
    td->frame_callback_count = 0;
 
    td->display = _display_connect();
-   ck_assert(td->display != NULL);
+   fail_if(td->display != NULL);
 
    td->win = _window_create(td->display);
-   ck_assert(td->win != NULL);
+   fail_if(td->win != NULL);
 
    ecore_wl2_window_type_set(td->win, ECORE_WL2_WINDOW_TYPE_TOPLEVEL);
 
    td->surface = _surface_get(td->win);
-   ck_assert(td->surface != NULL);
+   fail_if(td->surface != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -892,10 +892,10 @@ EFL_START_TEST(wl2_window_move)
    Ecore_Wl2_Window *win;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    //FIXME: Need some discussion about how to validate this API in TC.
    ecore_wl2_window_move(NULL, NULL);
@@ -909,10 +909,10 @@ EFL_START_TEST(wl2_window_resize)
    Ecore_Wl2_Window *win;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    //FIXME: Need some discussion about how to validate this API in TC.
    ecore_wl2_window_resize(NULL, NULL, 0);
@@ -927,10 +927,10 @@ EFL_START_TEST(wl2_window_resizing_get)
    Eina_Bool ret;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    ret = ecore_wl2_window_resizing_get(win);
    fail_if (ret == EINA_TRUE);
@@ -944,10 +944,10 @@ EFL_START_TEST(wl2_window_output_find)
    Ecore_Wl2_Output *output;
 
    disp = _display_connect();
-   ck_assert(disp != NULL);
+   fail_if(disp != NULL);
 
    win = _window_create(disp);
-   ck_assert(win != NULL);
+   fail_if(win != NULL);
 
    //FIXME: Need some discussion about how to validate this API in TC.
    output = ecore_wl2_window_output_find(win);

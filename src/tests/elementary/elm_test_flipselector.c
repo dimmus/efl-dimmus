@@ -16,12 +16,12 @@ EFL_START_TEST(elm_flipselector_legacy_type_check)
    flipselector = elm_flipselector_add(win);
 
    type = elm_object_widget_type_get(flipselector);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Flipselector"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Flipselector"));
 
    type = evas_object_type_get(flipselector);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_flipselector"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_flipselector"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    flipselector = elm_flipselector_add(win);
    role = efl_access_object_role_get(flipselector);
 
-   ck_assert(role == EFL_ACCESS_ROLE_LIST);
+   fail_if(role == EFL_ACCESS_ROLE_LIST);
 
 }
 EFL_END_TEST

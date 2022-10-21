@@ -16,12 +16,12 @@ EFL_START_TEST(elm_calendar_legacy_type_check)
    calendar = elm_calendar_add(win);
 
    type = elm_object_widget_type_get(calendar);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Calendar"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Calendar"));
 
    type = evas_object_type_get(calendar);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_calendar"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_calendar"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    calendar = elm_calendar_add(win);
    role = efl_access_object_role_get(calendar);
 
-   ck_assert(role == EFL_ACCESS_ROLE_CALENDAR);
+   fail_if(role == EFL_ACCESS_ROLE_CALENDAR);
 
 }
 EFL_END_TEST

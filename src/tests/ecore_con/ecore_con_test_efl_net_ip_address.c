@@ -177,8 +177,7 @@ _assert_found_internal(const char *file, int line, const struct resolve_ctx *ctx
                        "Expected error=%d (%s), got %d (%s) resolving=%s",
                        err, err ? eina_error_msg_get(err) : "success",
                        ctx->err, ctx->err ? eina_error_msg_get(ctx->err) : "success",
-                       string,
-                       NULL);
+                       string);
 
    if (err) return;
 
@@ -194,8 +193,7 @@ _assert_found_internal(const char *file, int line, const struct resolve_ctx *ctx
    _ck_assert_failed(file, line, "Failed",
                      "Expected found=%hhu, got %hhu resolving=%s",
                      expected, found,
-                     string,
-                     NULL);
+                     string);
 }
 
 static Eina_Value

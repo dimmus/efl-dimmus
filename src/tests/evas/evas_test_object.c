@@ -65,15 +65,15 @@ EFL_START_TEST(evas_object_animation_simple)
    Efl_Canvas_Animation *animation = efl_add(EFL_CANVAS_ANIMATION_CLASS, evas);
 
    ck_assert_ptr_eq(efl_canvas_object_animation_get(obj) , NULL);
-   ck_assert(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
+   fail_if(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
 
    efl_canvas_object_animation_start(obj, animation, 1.0, 0.0);
    ck_assert_ptr_eq(efl_canvas_object_animation_get(obj) , animation);
-   ck_assert(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), 0.0));
+   fail_if(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), 0.0));
 
    efl_canvas_object_animation_stop(obj);
    ck_assert_ptr_eq(efl_canvas_object_animation_get(obj) , NULL);
-   ck_assert(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
+   fail_if(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
 
    efl_canvas_object_animation_start(obj, animation, 1.0, 0.0);
    efl_canvas_object_animation_stop(obj);
@@ -93,7 +93,7 @@ EFL_START_TEST(evas_object_animation_progress)
    efl_canvas_object_animation_start(obj, animation, 1.0, 0.0);
    efl_loop_time_set(efl_main_loop_get(), efl_loop_time_get(efl_main_loop_get()) + 0.5);
    efl_event_callback_call(obj, EFL_CANVAS_OBJECT_EVENT_ANIMATOR_TICK, NULL);
-   ck_assert(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), 0.5));
+   fail_if(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), 0.5));
    efl_canvas_object_animation_stop(obj);
 }
 EFL_END_TEST
@@ -191,16 +191,16 @@ EFL_START_TEST(evas_object_animation_events)
    ck_assert_int_eq(called_changed, 1);
    ck_assert_ptr_eq(animation_changed_ev, animation);
    ck_assert_int_eq(called_running, 1);
-   ck_assert(EINA_DBL_EQ(animation_running_position, 0.0));
+   fail_if(EINA_DBL_EQ(animation_running_position, 0.0));
 
    _simulate_time_passing(obj, start, 1.0);
 
    ck_assert_int_eq(called_changed, 2);
    ck_assert_ptr_eq(animation_changed_ev, NULL);
    ck_assert_int_eq(called_running, 2);
-   ck_assert(EINA_DBL_EQ(animation_running_position, 1.0));
+   fail_if(EINA_DBL_EQ(animation_running_position, 1.0));
    ck_assert_ptr_eq(efl_canvas_object_animation_get(obj), NULL);
-   ck_assert(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
+   fail_if(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
 }
 EFL_END_TEST
 

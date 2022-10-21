@@ -119,7 +119,7 @@ static void _generic_call_event4(Eo *obj, Generic_Data* pd EINA_UNUSED)
 {
   static const char *s = "42";
   Eina_Array* p = eina_array_new(1);
-  ck_assert(eina_array_push(p, s));
+  fail_if(eina_array_push(p, s));
   efl_event_callback_call(obj, GENERIC_EVENT_PREFIX_EVENT4, p);
   eina_array_free(p);
 }
