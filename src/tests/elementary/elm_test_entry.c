@@ -18,12 +18,12 @@ EFL_START_TEST(elm_entry_legacy_type_check)
    entry = elm_entry_add(win);
 
    type = elm_object_widget_type_get(entry);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Entry"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Entry"));
 
    type = evas_object_type_get(entry);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_entry"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_entry"));
 
 }
 EFL_END_TEST
@@ -102,22 +102,22 @@ EFL_START_TEST(elm_entry_atspi_text_char_get)
    expected = eina_unicode_utf8_to_unicode(txt, NULL);
 
    val = efl_access_text_character_get(entry, -1);
-   ck_assert(val == 0);
+   fail_if(val == 0);
 
    val = efl_access_text_character_get(entry, 0);
-   ck_assert(val == expected[0]);
+   fail_if(val == expected[0]);
 
    val = efl_access_text_character_get(entry, 1);
-   ck_assert(val == expected[1]);
+   fail_if(val == expected[1]);
 
    val = efl_access_text_character_get(entry, 2);
-   ck_assert(val == expected[2]);
+   fail_if(val == expected[2]);
 
    val = efl_access_text_character_get(entry, 6);
-   ck_assert(val == expected[6]);
+   fail_if(val == expected[6]);
 
    val = efl_access_text_character_get(entry, 26);
-   ck_assert(val == 0);
+   fail_if(val == 0);
 
    free(expected);
 }
@@ -136,7 +136,7 @@ EFL_START_TEST(elm_entry_atspi_text_char_count)
    elm_object_text_set(entry, mtxt);
 
    val = efl_access_text_character_count_get(entry);
-   ck_assert(val == 12);
+   fail_if(val == 12);
 
 }
 EFL_END_TEST
@@ -157,29 +157,29 @@ EFL_START_TEST(elm_entry_atspi_text_string_get_char)
    start = 1;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_CHAR, &start, &end, &val);
    ck_assert_str_eq(val, "o");
-   ck_assert(start == 1);
-   ck_assert(end == 2);
+   fail_if(start == 1);
+   fail_if(end == 2);
    if (val) free(val);
 
    start = 8;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_CHAR, &start, &end, &val);
    ck_assert_str_eq(val, "ś");
-   ck_assert(start == 8);
-   ck_assert(end == 9);
+   fail_if(start == 8);
+   fail_if(end == 9);
    if (val) free(val);
 
    start = 11;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_CHAR, &start, &end, &val);
    ck_assert_str_eq(val, " ");
-   ck_assert(start == 11);
-   ck_assert(end == 12);
+   fail_if(start == 11);
+   fail_if(end == 12);
    if (val) free(val);
 
    start = 111;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_CHAR, &start, &end, &val);
-   ck_assert(start == -1);
-   ck_assert(end == -1);
-   ck_assert(val == NULL);
+   fail_if(start == -1);
+   fail_if(end == -1);
+   fail_if(val == NULL);
 
 }
 EFL_END_TEST
@@ -200,29 +200,29 @@ EFL_START_TEST(elm_entry_atspi_text_string_get_word)
    start = 1;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_WORD, &start, &end, &val);
    ck_assert_str_eq(val, "Lorem");
-   ck_assert(start == 0);
-   ck_assert(end == 5);
+   fail_if(start == 0);
+   fail_if(end == 5);
    if (val) free(val);
 
    start = 6;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_WORD, &start, &end, &val);
    ck_assert_str_eq(val, "ipśum");
-   ck_assert(start == 6);
-   ck_assert(end == 11);
+   fail_if(start == 6);
+   fail_if(end == 11);
    if (val) free(val);
 
    start = 19;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_WORD, &start, &end, &val);
    ck_assert_str_eq(val, "dolor");
-   ck_assert(start == 14);
-   ck_assert(end == 19);
+   fail_if(start == 14);
+   fail_if(end == 19);
    if (val) free(val);
 
    start = 111;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_WORD, &start, &end, &val);
-   ck_assert(start == -1);
-   ck_assert(end == -1);
-   ck_assert(val == NULL);
+   fail_if(start == -1);
+   fail_if(end == -1);
+   fail_if(val == NULL);
    if (val) free(val);
 
 }
@@ -244,29 +244,29 @@ EFL_START_TEST(elm_entry_atspi_text_string_get_paragraph)
    start = 1;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_PARAGRAPH, &start, &end, &val);
    ck_assert_str_eq(val, "Lorem ipśum");
-   ck_assert(start == 0);
-   ck_assert(end == 11);
+   fail_if(start == 0);
+   fail_if(end == 11);
    if (val) free(val);
 
    start = 20;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_PARAGRAPH, &start, &end, &val);
    ck_assert_str_eq(val, "   dolor sit");
-   ck_assert(start == 12);
-   ck_assert(end == 24);
+   fail_if(start == 12);
+   fail_if(end == 24);
    if (val) free(val);
 
    start = 25;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_PARAGRAPH, &start, &end, &val);
    ck_assert_str_eq(val, " amęt");
-   ck_assert(start == 25);
-   ck_assert(end == 30);
+   fail_if(start == 25);
+   fail_if(end == 30);
    if (val) free(val);
 
    start = 111;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_WORD, &start, &end, &val);
-   ck_assert(start == -1);
-   ck_assert(end == -1);
-   ck_assert(val == NULL);
+   fail_if(start == -1);
+   fail_if(end == -1);
+   fail_if(val == NULL);
    if (val) free(val);
 
 }
@@ -291,15 +291,15 @@ EFL_START_TEST(elm_entry_atspi_text_string_get_line)
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_LINE, &start, &end, &val);
 
    ck_assert_str_eq(val, "Lorem ipśum");
-   ck_assert(start == 0);
-   ck_assert(end == 11);
+   fail_if(start == 0);
+   fail_if(end == 11);
    if (val) free(val);
 
    start = 13;
    efl_access_text_string_get(entry, EFL_ACCESS_TEXT_GRANULARITY_LINE, &start, &end, &val);
    ck_assert_str_eq(val, "   dolor sit amęt");
-   ck_assert(start == 12);
-   ck_assert(end == 29);
+   fail_if(start == 12);
+   fail_if(end == 29);
    if (val) free(val);
 
 }
@@ -318,13 +318,13 @@ EFL_START_TEST(elm_entry_atspi_text_text_get)
 
    // invalid ranges
    val = efl_access_text_get(entry, 6, 100);
-   ck_assert(val == NULL);
+   fail_if(val == NULL);
    val = efl_access_text_get(entry, -6, 10);
-   ck_assert(val == NULL);
+   fail_if(val == NULL);
    val = efl_access_text_get(entry, -6, -10);
-   ck_assert(val == NULL);
+   fail_if(val == NULL);
    val = efl_access_text_get(entry, 60, 100);
-   ck_assert(val == NULL);
+   fail_if(val == NULL);
 
    // proper range
    val = efl_access_text_get(entry, 6, 17);
@@ -348,32 +348,32 @@ EFL_START_TEST(elm_entry_atspi_text_selections)
    elm_object_text_set(entry, txt);
 
    val = efl_access_text_selections_count_get(entry);
-   ck_assert(val == 0);
+   fail_if(val == 0);
 
    elm_entry_select_region_set(entry, 2, 4);
    val = efl_access_text_selections_count_get(entry);
-   ck_assert(val == 1);
+   fail_if(val == 1);
    efl_access_text_access_selection_get(entry, 0, &start, &end);
-   ck_assert(start == 2);
-   ck_assert(end == 4);
+   fail_if(start == 2);
+   fail_if(end == 4);
 
    elm_entry_select_region_set(entry, 6, 10);
    val = efl_access_text_selections_count_get(entry);
-   ck_assert(val == 1);
+   fail_if(val == 1);
    efl_access_text_access_selection_get(entry, 0, &start, &end);
-   ck_assert(start == 6);
-   ck_assert(end == 10);
+   fail_if(start == 6);
+   fail_if(end == 10);
 
    elm_entry_select_none(entry);
    ret = efl_access_text_selection_add(entry, 2, 5);
-   ck_assert(ret == EINA_TRUE);
+   fail_if(ret == EINA_TRUE);
    str = elm_entry_selection_get(entry);
    ck_assert_str_eq(str, "rem");
 
    ret = efl_access_text_selection_remove(entry, 0);
-   ck_assert(ret == EINA_TRUE);
+   fail_if(ret == EINA_TRUE);
    str = elm_entry_selection_get(entry);
-   ck_assert(str == NULL);
+   fail_if(str == NULL);
 
 }
 EFL_END_TEST
@@ -388,7 +388,7 @@ EFL_START_TEST(elm_atspi_role_get)
    entry = elm_entry_add(win);
    role = efl_access_object_role_get(entry);
 
-   ck_assert(role == EFL_ACCESS_ROLE_ENTRY);
+   fail_if(role == EFL_ACCESS_ROLE_ENTRY);
 
 }
 EFL_END_TEST
@@ -471,11 +471,11 @@ EFL_START_TEST(elm_entry_text_set)
 
    entry = elm_entry_add(win);
 
-   ck_assert(elm_layout_text_set(entry, NULL, entry_text));
+   fail_if(elm_layout_text_set(entry, NULL, entry_text));
    ck_assert_str_eq(elm_object_text_get(entry), entry_text);
 
    elm_entry_scrollable_set(entry, EINA_TRUE);
-   ck_assert(elm_layout_text_set(entry, NULL, entry_text2));
+   fail_if(elm_layout_text_set(entry, NULL, entry_text2));
    ck_assert_str_eq(elm_object_text_get(entry), entry_text2);
 }
 EFL_END_TEST
@@ -509,29 +509,29 @@ EFL_START_TEST(elm_entry_file_get_set)
    win = win_add(NULL, "entry", ELM_WIN_BASIC);
    entry = elm_entry_add(win);
 
-   ck_assert(elm_entry_file_set(entry, TESTS_SRC_DIR"/testfile_entry.txt", ELM_TEXT_FORMAT_PLAIN_UTF8));
+   fail_if(elm_entry_file_set(entry, TESTS_SRC_DIR"/testfile_entry.txt", ELM_TEXT_FORMAT_PLAIN_UTF8));
    elm_entry_file_get(entry, &file_path, &format);
    fprintf(stderr, "elm_entry_file_get_set1 %s, %s, %d\n", elm_object_text_get(entry), file_path, format);
 
    ck_assert_str_eq(elm_object_text_get(entry), "hello world<br/>");
    ck_assert_str_eq(file_path, TESTS_SRC_DIR"/testfile_entry.txt");
-   ck_assert(format == ELM_TEXT_FORMAT_PLAIN_UTF8);
+   fail_if(format == ELM_TEXT_FORMAT_PLAIN_UTF8);
 
-   ck_assert(elm_entry_file_set(entry, TESTS_SRC_DIR"/testfile_entry2.txt", ELM_TEXT_FORMAT_PLAIN_UTF8));
+   fail_if(elm_entry_file_set(entry, TESTS_SRC_DIR"/testfile_entry2.txt", ELM_TEXT_FORMAT_PLAIN_UTF8));
    elm_entry_file_get(entry, &file_path, &format);
    fprintf(stderr, "elm_entry_file_get_set2 %s, %s, %d\n", elm_object_text_get(entry), file_path, format);
 
    ck_assert_str_eq(elm_object_text_get(entry), "hello elementary<br/>hello entry<br/>");
    ck_assert_str_eq(file_path, TESTS_SRC_DIR"/testfile_entry2.txt");
-   ck_assert(format == ELM_TEXT_FORMAT_PLAIN_UTF8);
+   fail_if(format == ELM_TEXT_FORMAT_PLAIN_UTF8);
 
-   ck_assert(elm_entry_file_set(entry, NULL, ELM_TEXT_FORMAT_PLAIN_UTF8));
+   fail_if(elm_entry_file_set(entry, NULL, ELM_TEXT_FORMAT_PLAIN_UTF8));
    elm_entry_file_get(entry, &file_path, &format);
    fprintf(stderr, "elm_entry_file_get_set3 %s, %s, %d\n", elm_object_text_get(entry), file_path, format);
 
    ck_assert_str_eq(elm_object_text_get(entry), "");
-   ck_assert(file_path == NULL);
-   ck_assert(format == ELM_TEXT_FORMAT_PLAIN_UTF8);
+   fail_if(file_path == NULL);
+   fail_if(format == ELM_TEXT_FORMAT_PLAIN_UTF8);
 
    fprintf(stderr, "elm_entry_file_get_set4\n");
 
@@ -556,17 +556,17 @@ EFL_START_TEST(elm_entry_test_text_class)
    elm_object_text_set(entry3, "hello");
 
    edje_object_file_get(elm_layout_edje_get(entry1), &filename, NULL);
-   ck_assert(filename != NULL);
+   fail_if(filename != NULL);
 
-   ck_assert(edje_file_text_class_set(filename, "entry_text", "Serif:Style=Bold", 24));
+   fail_if(edje_file_text_class_set(filename, "entry_text", "Serif:Style=Bold", 24));
 
-   ck_assert(edje_object_text_class_get(elm_layout_edje_get(entry1), "entry_text", &font, &font_size));
+   fail_if(edje_object_text_class_get(elm_layout_edje_get(entry1), "entry_text", &font, &font_size));
    ck_assert_int_eq(font_size, 24);
    ck_assert_str_eq(font, "Serif:Style=Bold");
-   ck_assert(edje_object_text_class_get(elm_layout_edje_get(entry2), "entry_text", &font, &font_size));
+   fail_if(edje_object_text_class_get(elm_layout_edje_get(entry2), "entry_text", &font, &font_size));
    ck_assert_int_eq(font_size, 24);
    ck_assert_str_eq(font, "Serif:Style=Bold");
-   ck_assert(edje_object_text_class_get(elm_layout_edje_get(entry3), "entry_text", &font, &font_size));
+   fail_if(edje_object_text_class_get(elm_layout_edje_get(entry3), "entry_text", &font, &font_size));
    ck_assert_int_eq(font_size, 24);
    ck_assert_str_eq(font, "Serif:Style=Bold");
 
@@ -579,16 +579,16 @@ EFL_START_TEST(elm_entry_test_text_class)
    ck_assert_int_eq(w2, w3);
    ck_assert_int_eq(h2, h3);
 
-   ck_assert(edje_object_text_class_set(elm_layout_edje_get(entry1), "entry_text", "Sans", 50));
-   ck_assert(edje_object_text_class_set(elm_layout_edje_get(entry2), "entry_text", "Serif", 20));
+   fail_if(edje_object_text_class_set(elm_layout_edje_get(entry1), "entry_text", "Sans", 50));
+   fail_if(edje_object_text_class_set(elm_layout_edje_get(entry2), "entry_text", "Serif", 20));
 
-   ck_assert(edje_object_text_class_get(elm_layout_edje_get(entry1), "entry_text", &font, &font_size));
+   fail_if(edje_object_text_class_get(elm_layout_edje_get(entry1), "entry_text", &font, &font_size));
    ck_assert_int_eq(font_size, 50);
    ck_assert_str_eq(font, "Sans");
-   ck_assert(edje_object_text_class_get(elm_layout_edje_get(entry2), "entry_text", &font, &font_size));
+   fail_if(edje_object_text_class_get(elm_layout_edje_get(entry2), "entry_text", &font, &font_size));
    ck_assert_int_eq(font_size, 20);
    ck_assert_str_eq(font, "Serif");
-   ck_assert(edje_object_text_class_get(elm_layout_edje_get(entry3), "entry_text", &font, &font_size));
+   fail_if(edje_object_text_class_get(elm_layout_edje_get(entry3), "entry_text", &font, &font_size));
    ck_assert_int_eq(font_size, 24);
    ck_assert_str_eq(font, "Serif:Style=Bold");
 
@@ -604,7 +604,7 @@ EFL_START_TEST(elm_entry_test_text_class)
    entry4 = elm_entry_add(win);
 
    elm_object_text_set(entry4, "hello");
-   ck_assert(edje_object_text_class_get(elm_layout_edje_get(entry4), "entry_text", &font, &font_size));
+   fail_if(edje_object_text_class_get(elm_layout_edje_get(entry4), "entry_text", &font, &font_size));
    ck_assert_int_eq(font_size, 24);
    ck_assert_str_eq(font, "Serif:Style=Bold");
 }
@@ -668,7 +668,7 @@ EFL_START_TEST(elm_entry_textnodes_with_no_format)
    evas_textblock_cursor_char_next(c2);
    evas_textblock_cursor_range_delete(c1, c2);
    elm_entry_cursor_pos_set(entry, 0);
-   ck_assert(elm_entry_cursor_down(entry));
+   fail_if(elm_entry_cursor_down(entry));
 
    evas_object_del(entry);
    evas_object_del(win);

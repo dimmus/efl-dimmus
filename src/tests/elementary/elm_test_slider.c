@@ -16,12 +16,12 @@ EFL_START_TEST(elm_slider_legacy_type_check)
    slider = elm_slider_add(win);
 
    type = elm_object_widget_type_get(slider);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Slider"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Slider"));
 
    type = evas_object_type_get(slider);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_slider"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_slider"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    slider = elm_slider_add(win);
    role = efl_access_object_role_get(slider);
 
-   ck_assert(role == EFL_ACCESS_ROLE_SLIDER);
+   fail_if(role == EFL_ACCESS_ROLE_SLIDER);
 
 }
 EFL_END_TEST
@@ -151,8 +151,8 @@ EFL_START_TEST(elm_slider_indicator_format_set_get_p)
    elm_slider_indicator_format_set(slider, "%1.0f");
    fmt = elm_slider_indicator_format_get(slider);
 
-   ck_assert(fmt != NULL);
-   ck_assert(!strcmp(fmt, "%1.0f"));
+   fail_if(fmt != NULL);
+   fail_if(!strcmp(fmt, "%1.0f"));
 }
 EFL_END_TEST
 
@@ -162,7 +162,7 @@ EFL_START_TEST(elm_slider_indicator_format_get_n)
 
    fmt = elm_slider_indicator_format_get(NULL);
 
-   ck_assert(fmt == NULL);
+   fail_if(fmt == NULL);
 }
 EFL_END_TEST
 
@@ -172,7 +172,7 @@ EFL_START_TEST(elm_slider_unit_format_get_n)
 
    fmt = elm_slider_unit_format_get(NULL);
 
-   ck_assert(fmt == NULL);
+   fail_if(fmt == NULL);
 }
 EFL_END_TEST
 

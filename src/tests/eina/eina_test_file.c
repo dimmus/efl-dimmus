@@ -810,8 +810,8 @@ EFL_START_TEST(eina_test_file_mktemp)
      {
         tmpfile = NULL;
         fd = eina_file_mkstemp(patterns[k], &tmpfile);
-        ck_assert(fd >= 0);
-        ck_assert(!!tmpfile);
+        fail_if(fd >= 0);
+        fail_if(!!tmpfile);
         file = eina_file_open(tmpfile, EINA_FALSE);
         fail_if(!file);
         eina_file_close(file);

@@ -16,12 +16,12 @@ EFL_START_TEST(elm_bubble_legacy_type_check)
    bubble = elm_bubble_add(win);
 
    type = elm_object_widget_type_get(bubble);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Bubble"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Bubble"));
 
    type = evas_object_type_get(bubble);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_bubble"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_bubble"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    bubble = elm_bubble_add(win);
    role = efl_access_object_role_get(bubble);
 
-   ck_assert(role == EFL_ACCESS_ROLE_FILLER);
+   fail_if(role == EFL_ACCESS_ROLE_FILLER);
 
 }
 EFL_END_TEST
@@ -49,7 +49,7 @@ EFL_START_TEST(elm_bubble_test_callbacks)
    win = win_add(NULL, "bubble", ELM_WIN_BASIC);
 
    ic = elm_icon_add(win);
-   ck_assert(elm_image_file_set(ic, ELM_IMAGE_DATA_DIR "/images/logo_small.png", NULL));
+   fail_if(elm_image_file_set(ic, ELM_IMAGE_DATA_DIR "/images/logo_small.png", NULL));
    elm_image_resizable_set(ic, EINA_FALSE, EINA_FALSE);
    evas_object_size_hint_aspect_set(ic, EVAS_ASPECT_CONTROL_HORIZONTAL, 1, 1);
 

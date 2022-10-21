@@ -19,8 +19,8 @@
 
 EFL_START_TEST(base2)
 {
-   ck_assert(win);
-   ck_assert(widget);
+   fail_if(win);
+   fail_if(widget);
 }
 EFL_END_TEST
 

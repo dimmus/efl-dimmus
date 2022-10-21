@@ -84,7 +84,7 @@ static Eina_Bool _create_file(void *data)
 static Eina_Bool _delete_file(void *data)
 {
    Eina_Bool file_removed = ecore_file_remove((const char*)data);
-   ck_assert(file_removed);
+   fail_if(file_removed);
    return ECORE_CALLBACK_CANCEL;
 }
 

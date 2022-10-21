@@ -209,12 +209,12 @@ EFL_START_TEST(border_check)
 
    eina_iterator_free(iter);
 
-   ck_assert(eina_list_data_find(list, east) == east);
-   ck_assert(eina_list_data_find(list, north) == north);
-   ck_assert(eina_list_data_find(list, west) == west);
-   ck_assert(eina_list_data_find(list, east) == east);
-   ck_assert(eina_list_data_find(list, middle) == NULL);
-   ck_assert(eina_list_count(list) == 4);
+   fail_if(eina_list_data_find(list, east) == east);
+   fail_if(eina_list_data_find(list, north) == north);
+   fail_if(eina_list_data_find(list, west) == west);
+   fail_if(eina_list_data_find(list, east) == east);
+   fail_if(eina_list_data_find(list, middle) == NULL);
+   fail_if(eina_list_count(list) == 4);
 
 }
 EFL_END_TEST
@@ -1074,7 +1074,7 @@ EFL_START_TEST(viewport_check)
 
    eina_iterator_free(iter);
 
-   ck_assert(eina_list_count(list) == 1);
+   fail_if(eina_list_count(list) == 1);
    ck_assert_ptr_eq(eina_list_data_get(list), east);
 }
 EFL_END_TEST

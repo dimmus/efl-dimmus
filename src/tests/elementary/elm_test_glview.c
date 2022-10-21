@@ -18,12 +18,12 @@ EFL_START_TEST(elm_glview_legacy_type_check)
    if (glview)
      {
         type = elm_object_widget_type_get(glview);
-        ck_assert(type != NULL);
-        ck_assert(!strcmp(type, "Elm_Glview"));
+        fail_if(type != NULL);
+        fail_if(!strcmp(type, "Elm_Glview"));
 
         type = evas_object_type_get(glview);
-        ck_assert(type != NULL);
-        ck_assert(!strcmp(type, "elm_glview"));
+        fail_if(type != NULL);
+        fail_if(!strcmp(type, "elm_glview"));
      }
 
 }
@@ -42,7 +42,7 @@ EFL_START_TEST(elm_atspi_role_get)
    if (glview)
      {
         role = efl_access_object_role_get(glview);
-        ck_assert(role == EFL_ACCESS_ROLE_ANIMATION);
+        fail_if(role == EFL_ACCESS_ROLE_ANIMATION);
      }
 
 }

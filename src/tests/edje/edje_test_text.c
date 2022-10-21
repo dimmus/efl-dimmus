@@ -35,27 +35,27 @@ EFL_START_TEST(edje_test_text_cursor)
 
    /* Move cursor to the 0 pos from 1 pos */
    old_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
-   ck_assert(edje_object_part_text_cursor_prev(obj, "text", EDJE_CURSOR_MAIN));
+   fail_if(edje_object_part_text_cursor_prev(obj, "text", EDJE_CURSOR_MAIN));
    new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
    ck_assert_int_ne(old_pos, new_pos);
 
    /* Move cursor to the -1 pos from 0 pos. It has to fail. */
    old_pos = new_pos;
-   ck_assert(!edje_object_part_text_cursor_prev(obj, "text", EDJE_CURSOR_MAIN));
+   fail_if(!edje_object_part_text_cursor_prev(obj, "text", EDJE_CURSOR_MAIN));
    new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
    ck_assert_int_eq(old_pos, new_pos);
 
    /* Jump to 2nd line from 1st line.
     * It has to return EINA_TRUE which means success. */
    old_pos = new_pos;
-   ck_assert(edje_object_part_text_cursor_down(obj, "text", EDJE_CURSOR_MAIN));
+   fail_if(edje_object_part_text_cursor_down(obj, "text", EDJE_CURSOR_MAIN));
    new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
    ck_assert_int_ne(old_pos, new_pos);
 
    /* Try to jump to 3rd line from 2nd line. But, 3rd line does not exist.
     * So, it has to return EINA_FALSE which means failure. */
    old_pos = new_pos;
-   ck_assert(!edje_object_part_text_cursor_down(obj, "text", EDJE_CURSOR_MAIN));
+   fail_if(!edje_object_part_text_cursor_down(obj, "text", EDJE_CURSOR_MAIN));
    new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
    ck_assert_int_eq(old_pos, new_pos);
 
@@ -63,28 +63,28 @@ EFL_START_TEST(edje_test_text_cursor)
    for (i = 0; i < 3; i++)
      {
         old_pos = new_pos;
-        ck_assert(edje_object_part_text_cursor_next(obj, "text", EDJE_CURSOR_MAIN));
+        fail_if(edje_object_part_text_cursor_next(obj, "text", EDJE_CURSOR_MAIN));
         new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
         ck_assert_int_ne(old_pos, new_pos);
      }
 
    /* Move cursor to the next of the end of 2nd line which does not exist. */
    old_pos = new_pos;
-   ck_assert(!edje_object_part_text_cursor_next(obj, "text", EDJE_CURSOR_MAIN));
+   fail_if(!edje_object_part_text_cursor_next(obj, "text", EDJE_CURSOR_MAIN));
    new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
    ck_assert_int_eq(old_pos, new_pos);
 
    /* Jump to 1st line from 2nd line.
     * It has to return EINA_TRUE which means success. */
    old_pos = new_pos;
-   ck_assert(edje_object_part_text_cursor_up(obj, "text", EDJE_CURSOR_MAIN));
+   fail_if(edje_object_part_text_cursor_up(obj, "text", EDJE_CURSOR_MAIN));
    new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
    ck_assert_int_ne(old_pos, new_pos);
 
    /* Try to jump to the above of 1st line from 1st line. But, there is no such line.
     * So, it has to return EINA_FALSE which means failure. */
    old_pos = new_pos;
-   ck_assert(!edje_object_part_text_cursor_up(obj, "text", EDJE_CURSOR_MAIN));
+   fail_if(!edje_object_part_text_cursor_up(obj, "text", EDJE_CURSOR_MAIN));
    new_pos = edje_object_part_text_cursor_pos_get(obj, "text", EDJE_CURSOR_MAIN);
    ck_assert_int_eq(old_pos, new_pos);
 
@@ -102,7 +102,7 @@ EFL_START_TEST(edje_test_textblock)
    evas = _setup_evas();
 
    obj = edje_object_add(evas);
-   ck_assert(edje_object_file_set(obj, test_layout_get("test_textblock.edj"), "test_textblock"));
+   fail_if(edje_object_file_set(obj, test_layout_get("test_textblock.edj"), "test_textblock"));
    txt = edje_object_part_text_get(obj, "text");
    ck_assert_ptr_ne(txt, NULL);
    ck_assert_int_eq(strcmp(txt, "Bye"), 0);
@@ -112,7 +112,7 @@ EFL_START_TEST(edje_test_textblock)
    ck_assert_int_eq(strcmp(txt, buf), 0);
 
    Evas_Object *obj2 = edje_object_add(evas);
-   ck_assert(edje_object_file_set(obj2, test_layout_get("test_textblock.edj"), "test_tc_textblock"));
+   fail_if(edje_object_file_set(obj2, test_layout_get("test_textblock.edj"), "test_tc_textblock"));
    Evas_Object *tb = (Evas_Object*)edje_object_part_object_get(obj2, "tb");
    ck_assert_ptr_ne(tb, NULL);
    int w = 0, h = 0;
@@ -132,7 +132,7 @@ EFL_START_TEST(edje_test_textblock)
    ck_assert_int_ne(w, w2);
    ck_assert_int_ne(h, h2);
 
-   ck_assert(edje_object_file_set(obj2, test_layout_get("test_textblock.edj"), "test_tc_textblock2"));
+   fail_if(edje_object_file_set(obj2, test_layout_get("test_textblock.edj"), "test_tc_textblock2"));
    tb = (Evas_Object*)edje_object_part_object_get(obj2, "tb2");
    ck_assert_ptr_ne(tb, NULL);
    st = evas_object_textblock_style_get(tb);
@@ -162,9 +162,9 @@ EFL_START_TEST(edje_test_text_ellipsis)
 
    layout = efl_add(EFL_CANVAS_LAYOUT_CLASS, evas,
          efl_gfx_hint_size_min_set(efl_added, EINA_SIZE2D(160, 40)));
-   ck_assert(!efl_file_set(layout, test_layout_get("test_text.edj")));
+   fail_if(!efl_file_set(layout, test_layout_get("test_text.edj")));
    efl_file_key_set(layout, "test");
-   ck_assert(!efl_file_load(layout));
+   fail_if(!efl_file_load(layout));
 
    efl_text_ellipsis_set(efl_part(layout, "text"), 1.0);
 
@@ -180,9 +180,9 @@ EFL_START_TEST(edje_test_text_wrap)
 
    layout = efl_add(EFL_CANVAS_LAYOUT_CLASS, evas,
          efl_gfx_hint_size_min_set(efl_added, EINA_SIZE2D(160, 40)));
-   ck_assert(!efl_file_set(layout, test_layout_get("test_text.edj")));
+   fail_if(!efl_file_set(layout, test_layout_get("test_text.edj")));
    efl_file_key_set(layout, "test");
-   ck_assert(!efl_file_load(layout));
+   fail_if(!efl_file_load(layout));
 
    efl_text_wrap_set(efl_part(layout, "text"), EFL_TEXT_FORMAT_WRAP_WORD);
 
@@ -198,9 +198,9 @@ EFL_START_TEST(edje_test_text_font)
 
    layout = efl_add(EFL_CANVAS_LAYOUT_CLASS, evas,
          efl_gfx_hint_size_min_set(efl_added, EINA_SIZE2D(160, 40)));
-   ck_assert(!efl_file_set(layout, test_layout_get("test_text.edj")));
+   fail_if(!efl_file_set(layout, test_layout_get("test_text.edj")));
    efl_file_key_set(layout, "test");
-   ck_assert(!efl_file_load(layout));
+   fail_if(!efl_file_load(layout));
 
    efl_text_font_family_set(efl_part(layout, "text"), "Sans");
    efl_text_font_size_set(efl_part(layout, "text"), 14);
@@ -217,9 +217,9 @@ EFL_START_TEST(edje_test_text_color)
 
    layout = efl_add(EFL_CANVAS_LAYOUT_CLASS, evas,
          efl_gfx_hint_size_min_set(efl_added, EINA_SIZE2D(160, 40)));
-   ck_assert(!efl_file_set(layout, test_layout_get("test_text.edj")));
+   fail_if(!efl_file_set(layout, test_layout_get("test_text.edj")));
    efl_file_key_set(layout, "test");
-   ck_assert(!efl_file_load(layout));
+   fail_if(!efl_file_load(layout));
 
    efl_text_color_set(efl_part(layout, "text"), 255, 255, 255, 255);
 
@@ -338,7 +338,7 @@ _basic_check(Eo *layout, Eina_Bool set)
         ck_assert_int_eq(wrap, EFL_TEXT_FORMAT_WRAP_WORD);
 
         ellipsis = efl_text_ellipsis_get(efl_part(layout, "text"));
-        ck_assert(EINA_DBL_EQ(ellipsis, 1.0));
+        fail_if(EINA_DBL_EQ(ellipsis, 1.0));
 
         font = efl_text_font_family_get(efl_part(layout, "text"));
         size = efl_text_font_size_get(efl_part(layout, "text"));
@@ -357,15 +357,15 @@ EFL_START_TEST(edje_test_text_part)
    layout = efl_add(EFL_CANVAS_LAYOUT_CLASS, evas,
          efl_gfx_hint_size_min_set(efl_added, EINA_SIZE2D(160, 40)));
 
-   ck_assert(!efl_file_set(layout, test_layout_get("test_text.edj")));
+   fail_if(!efl_file_set(layout, test_layout_get("test_text.edj")));
    efl_file_key_set(layout, "test");
-   ck_assert(!efl_file_load(layout));
+   fail_if(!efl_file_load(layout));
    _basic_check(layout, EINA_TRUE);
 
    // Load again and check persistance
-   ck_assert(!efl_file_set(layout, test_layout_get("test_text.edj")));
+   fail_if(!efl_file_set(layout, test_layout_get("test_text.edj")));
    efl_file_key_set(layout, "test2");
-   ck_assert(!efl_file_load(layout));
+   fail_if(!efl_file_load(layout));
    _basic_check(layout, EINA_FALSE);
 
 }

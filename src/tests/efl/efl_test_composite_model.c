@@ -183,13 +183,13 @@ EFL_START_TEST(efl_test_boolean_model)
    eina_value_setup(&v, EINA_VALUE_TYPE_INT);
 
    base_model = efl_add_ref(EFL_GENERIC_MODEL_CLASS, efl_main_loop_get());
-   ck_assert(!!base_model);
+   fail_if(!!base_model);
 
    for (i = 0; i < child_number; ++i)
      {
         child = efl_model_child_add(base_model);
-        ck_assert(!!child);
-        ck_assert(eina_value_set(&v, base_ints[i]));
+        fail_if(!!child);
+        fail_if(eina_value_set(&v, base_ints[i]));
         efl_model_property_set(child, "test_p_int", &v);
      }
 
@@ -198,7 +198,7 @@ EFL_START_TEST(efl_test_boolean_model)
                        efl_boolean_model_boolean_add(efl_added, "test_p_true", EINA_TRUE),
                        efl_boolean_model_boolean_add(efl_added, "test_p_false", EINA_FALSE),
                        efl_boolean_model_boolean_add(efl_added, "test_odd_even", EINA_FALSE));
-   ck_assert(!!model);
+   fail_if(!!model);
 
    future = efl_model_children_slice_get(model, 0, efl_model_children_count_get(model));
    future = efl_future_then(model, future,
@@ -418,8 +418,8 @@ _check_index(Eo *o EINA_UNUSED, void *data EINA_UNUSED, const Eina_Value v)
         idx = efl_composite_model_index_get(target);
         p_original = efl_model_property_get(target, "original");
         fail_if(!eina_value_uint64_convert(p_original, &original));
-        ck_assert(original < (uint64_t)child_number);
-        ck_assert(idx < (uint64_t)child_number);
+        fail_if(original < (uint64_t)child_number);
+        fail_if(idx < (uint64_t)child_number);
 
         eina_value_free(p_original);
      }
@@ -439,13 +439,13 @@ EFL_START_TEST(efl_test_filter_model)
    eina_value_setup(&v, EINA_VALUE_TYPE_INT);
 
    base_model = efl_add_ref(EFL_GENERIC_MODEL_CLASS, efl_main_loop_get());
-   ck_assert(!!base_model);
+   fail_if(!!base_model);
 
    for (i = 0; i < child_number; ++i)
      {
         child = efl_model_child_add(base_model);
-        ck_assert(!!child);
-        ck_assert(eina_value_set(&v, base_ints[i]));
+        fail_if(!!child);
+        fail_if(eina_value_set(&v, base_ints[i]));
         efl_model_property_set(child, "test_p_int", &v);
         efl_model_property_set(child, "original", eina_value_int_new(i));
      }
@@ -455,12 +455,12 @@ EFL_START_TEST(efl_test_filter_model)
                        efl_boolean_model_boolean_add(efl_added, "test_p_true", EINA_TRUE),
                        efl_boolean_model_boolean_add(efl_added, "test_p_false", EINA_FALSE),
                        efl_boolean_model_boolean_add(efl_added, "ready", EINA_FALSE));
-   ck_assert(!!model);
+   fail_if(!!model);
 
    filter = efl_add_ref(EFL_FILTER_MODEL_CLASS, efl_main_loop_get(),
                         efl_ui_view_model_set(efl_added, model),
                         efl_filter_model_filter_set(efl_added, NULL, _filter_cb, NULL));
-   ck_assert(!!filter);
+   fail_if(!!filter);
    ck_assert_int_eq(efl_model_children_count_get(filter), 0);
 
    future = efl_model_children_slice_get(model, 0, efl_model_children_count_get(model));

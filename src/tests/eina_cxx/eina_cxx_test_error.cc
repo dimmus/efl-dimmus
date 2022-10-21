@@ -32,21 +32,21 @@ EFL_START_TEST(eina_cxx_get_error)
   ::eina_error_set(0);
 
   efl::eina::error_code ec1 = efl::eina::get_error_code();
-  ck_assert(!ec1);
+  fail_if(!ec1);
 
   ::eina_error_set(my_error);
 
   efl::eina::error_code ec2 = efl::eina::get_error_code();
-  ck_assert(!!ec2);
+  fail_if(!!ec2);
 
-  ck_assert(ec2.message() == "Message 1");
+  fail_if(ec2.message() == "Message 1");
 
   ::eina_error_set(ENOMEM);
 
   efl::eina::error_code ec3 = efl::eina::get_error_code();
-  ck_assert(!!ec3);
+  fail_if(!!ec3);
 
-  ck_assert(ec3.message() == strerror(ENOMEM));
+  fail_if(ec3.message() == strerror(ENOMEM));
 }
 EFL_END_TEST
 
@@ -75,9 +75,9 @@ EFL_START_TEST(eina_cxx_throw_on_error)
     }
   catch(efl::eina::system_error const& e)
     {
-      ck_assert(e.code().value() == my_error_2);
-      ck_assert(e.code().message() == "Message 2");
-      ck_assert(!efl::eina::get_error_code());
+      fail_if(e.code().value() == my_error_2);
+      fail_if(e.code().message() == "Message 2");
+      fail_if(!efl::eina::get_error_code());
     }
 }
 EFL_END_TEST

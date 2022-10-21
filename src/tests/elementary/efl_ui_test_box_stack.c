@@ -143,8 +143,8 @@ EFL_START_TEST (efl_ui_box_stack_class_check)
 
    class = efl_class_name_get(layout);
 
-   ck_assert(class != NULL);
-   ck_assert(!strcmp(class, "Efl.Ui.Box_Stack"));
+   fail_if(class != NULL);
+   fail_if(!strcmp(class, "Efl.Ui.Box_Stack"));
 }
 EFL_END_TEST
 

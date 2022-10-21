@@ -52,7 +52,7 @@ EFL_START_TEST(edje_test_edje_reload)
    edje_object_signal_callback_add(obj, "load", "", _callback, &called);
    fail_unless(edje_object_file_set(obj, layout, "test_group"));
    rect = evas_object_rectangle_add(evas);
-   ck_assert(edje_object_part_swallow(obj, "swallow", rect));
+   fail_if(edje_object_part_swallow(obj, "swallow", rect));
    edje_object_message_signal_process(obj);
    /* load should be called */
    ck_assert_int_eq(called, 1);
@@ -72,17 +72,17 @@ EFL_START_TEST(edje_test_edje_reload)
                        GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
                        NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
                        NULL);
-   ck_assert(handle != INVALID_HANDLE_VALUE);
+   fail_if(handle != INVALID_HANDLE_VALUE);
    GetSystemTime(&st);
-   ck_assert(GetDateFormatW(LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, NULL, date, sizeof(date) / sizeof(date[0])));
-   ck_assert(GetTimeFormatW(LOCALE_USER_DEFAULT, 0, &st, NULL, time, sizeof(time) / sizeof(time[0])));
-   ck_assert(SystemTimeToFileTime(&st, &modtime));
-   ck_assert(SetFileTime(handle, NULL, NULL, &modtime));
+   fail_if(GetDateFormatW(LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, NULL, date, sizeof(date) / sizeof(date[0])));
+   fail_if(GetTimeFormatW(LOCALE_USER_DEFAULT, 0, &st, NULL, time, sizeof(time) / sizeof(time[0])));
+   fail_if(SystemTimeToFileTime(&st, &modtime));
+   fail_if(SetFileTime(handle, NULL, NULL, &modtime));
    CloseHandle(handle);
 #else
    struct timespec t[2] = {0};
    t[0].tv_nsec = t[1].tv_nsec = UTIME_NOW;
-   ck_assert(!utimensat(0, layout, t, 0));
+   fail_if(!utimensat(0, layout, t, 0));
 #endif
 
    called = 0;

@@ -168,7 +168,8 @@ EFL_START_TEST(efl_io_model_test_test_file)
 
    filemodel = efl_add(EFL_IO_MODEL_CLASS, efl_main_loop_get(),
                        efl_io_model_path_set(efl_added, EFL_MODEL_TEST_FILENAME_PATH));
-   fail_if(!filemodel, "ERROR: Cannot init model!\n");
+   // fail_if(!filemodel, "ERROR: Cannot init model!\n");
+   ck_assert_msg(!filemodel, "ERROR: Cannot init model!\n");
 
    handler = ecore_event_handler_add(ECORE_EVENT_SIGNAL_EXIT, exit_func, NULL);
 

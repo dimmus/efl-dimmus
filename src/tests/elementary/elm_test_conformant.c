@@ -16,12 +16,12 @@ EFL_START_TEST(elm_conformant_legacy_type_check)
    conformant = elm_conformant_add(win);
 
    type = elm_object_widget_type_get(conformant);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Conformant"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Conformant"));
 
    type = evas_object_type_get(conformant);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_conformant"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_conformant"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    conformant = elm_conformant_add(win);
    role = efl_access_object_role_get(conformant);
 
-   ck_assert(role == EFL_ACCESS_ROLE_FILLER);
+   fail_if(role == EFL_ACCESS_ROLE_FILLER);
 
 }
 EFL_END_TEST

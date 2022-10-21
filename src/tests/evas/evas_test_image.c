@@ -282,7 +282,7 @@ EFL_START_TEST(evas_object_image_loader_orientation)
 
         r_d = evas_object_image_data_get(rot, EINA_FALSE);
 
-        fail_if(res[i].compare_func(d, r_d, r_w, r_h),
+        ck_assert_msg(res[i].compare_func(d, r_d, r_w, r_h),
                 "Image orientation test failed: exif orientation flag: %s\n", res[i].desc);
      }
 
@@ -332,7 +332,7 @@ EFL_START_TEST(evas_object_image_orient)
 
         r_d = evas_object_image_data_get(orig, EINA_FALSE);
 
-        fail_if(res[i].compare_func(d, r_d, r_w, r_h),
+        ck_assert_msg(res[i].compare_func(d, r_d, r_w, r_h),
                 "Image orientation test failed: orient flag: %s\n", res[i].desc);
      }
 
@@ -622,7 +622,7 @@ EFL_START_TEST(evas_object_image_partially_load_orientation)
         evas_object_image_size_get(rot, &r_w, &r_h);
         fail_if(w * h != r_w * r_h);
         r_d = evas_object_image_data_get(rot, EINA_FALSE);
-        fail_if(res[i].compare_func(d, r_d, r_w, r_h),
+        ck_assert_msg(res[i].compare_func(d, r_d, r_w, r_h),
                 "Image orientation partially load test failed: exif orientation flag: %s\n", res[i].desc);
         evas_object_del(rot);
      }
@@ -783,25 +783,25 @@ EFL_START_TEST(evas_object_image_api)
    o = evas_object_image_filled_add(e);
    /* test file load */
    evas_object_image_file_set(o, TESTS_IMG_DIR"/Light.jpg", NULL);
-   ck_assert(!!efl_file_get(o));
+   fail_if(!!efl_file_get(o));
    pix = evas_object_image_data_get(o, EINA_FALSE);
-   ck_assert(!!pix);
+   fail_if(!!pix);
    evas_object_image_size_get(o, &w, &h);
-   ck_assert(w && h);
+   fail_if(w && h);
    /* test file unload */
    evas_object_image_file_set(o, NULL, NULL);
-   ck_assert(!efl_file_get(o));
+   fail_if(!efl_file_get(o));
    pix = evas_object_image_data_get(o, EINA_FALSE);
-   ck_assert(!pix);
+   fail_if(!pix);
    evas_object_image_size_get(o, &w, &h);
-   ck_assert(!w && !h);
+   fail_if(!w && !h);
    /* test file load after unload */
    evas_object_image_file_set(o, TESTS_IMG_DIR"/Light.jpg", NULL);
-   ck_assert(!!efl_file_get(o));
+   fail_if(!!efl_file_get(o));
    pix = evas_object_image_data_get(o, EINA_FALSE);
-   ck_assert(!!pix);
+   fail_if(!!pix);
    evas_object_image_size_get(o, &w, &h);
-   ck_assert(w && h);
+   fail_if(w && h);
 
    evas_free(e);
 }
@@ -956,7 +956,7 @@ EFL_START_TEST(evas_object_image_map_unmap)
         // first quarter: same image
         for (y = 0; y < h / 4; y++)
           for (x = 0; x < w; x++)
-            fail_if(orig[y*stride/4 + x] != dest[y*stride2/4+x], "pixels differ [1]");
+            ck_assert_msg(orig[y*stride/4 + x] != dest[y*stride2/4+x], "pixels differ [1]");
 
         // middle zone top: grey gradient
         for (y = r.y; y < (r.y + r.h / 4); y++)
@@ -964,7 +964,7 @@ EFL_START_TEST(evas_object_image_map_unmap)
             {
                uint32_t c = (x - r.x) & 0xFF;
                c = 0xFF000000 | (c << 16) | (c << 8) | c;
-               fail_if(dest[y*stride/4 + x] != c, "pixels differ [2]");
+               ck_assert_msg(dest[y*stride/4 + x] != c, "pixels differ [2]");
             }
 
         // middle zone: grey image
@@ -973,15 +973,15 @@ EFL_START_TEST(evas_object_image_map_unmap)
             {
                uint32_t c = dest[y*stride/4 + x] & 0xFF;
                c = 0xFF000000 | (c << 16) | (c << 8) | c;
-               fail_if(dest[y*stride/4 + x] != c, "pixels differ [2bis]");
+               ck_assert_msg(dest[y*stride/4 + x] != c, "pixels differ [2bis]");
             }
 
         // next lines: green & red
         y = r.y + r.h / 2;
         for (x = r.x; x < r.x + r.w; x++)
           {
-             fail_if(dest[y*stride/4 + x] != 0xFF00FF00, "pixels differ [3]");
-             fail_if(dest[(y+1)*stride/4 + x] != 0xFFFF0000, "pixels differ [4]");
+             ck_assert_msg(dest[y*stride/4 + x] != 0xFF00FF00, "pixels differ [3]");
+             ck_assert_msg(dest[(y+1)*stride/4 + x] != 0xFFFF0000, "pixels differ [4]");
           }
 
         efl_gfx_buffer_unmap(o, sorig);
@@ -1212,12 +1212,12 @@ EFL_START_TEST(evas_object_image_load_head_skip)
    evas_object_image_file_set(obj, img_path, NULL);
    evas_object_image_preload(obj, EINA_FALSE);
 
-   ck_assert(!efl_file_mmap_get(obj));
-   ck_assert(!efl_file_loaded_get(obj));
+   fail_if(!efl_file_mmap_get(obj));
+   fail_if(!efl_file_loaded_get(obj));
    ecore_main_loop_begin();
    ck_assert_int_eq(called, 1);
-   ck_assert(efl_file_loaded_get(obj));
-   ck_assert(efl_file_mmap_get(obj));
+   fail_if(efl_file_loaded_get(obj));
+   fail_if(efl_file_mmap_get(obj));
 
    evas_free(e);
 }

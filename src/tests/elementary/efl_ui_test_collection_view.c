@@ -57,8 +57,8 @@ _children_get(Eo *obj EINA_UNUSED, void *data EINA_UNUSED, const Eina_Value v)
         relative = eina_value_to_string(rel_val);
         title = eina_value_to_string(title_val);
 
-        ck_assert(eina_streq(relative, "Relative index 5"));
-        ck_assert(eina_streq(title, "Initial index 5"));
+        fail_if(eina_streq(relative, "Relative index 5"));
+        fail_if(eina_streq(title, "Initial index 5"));
         free(relative);
         free(title);
         break;
@@ -135,7 +135,7 @@ EFL_START_TEST(test_efl_ui_collection_view_select)
 
    /* nothing selected yet */
    sel_val = efl_model_property_get(model, "child.selected");
-   ck_assert(eina_value_type_get(sel_val) == EINA_VALUE_TYPE_ERROR);
+   fail_if(eina_value_type_get(sel_val) == EINA_VALUE_TYPE_ERROR);
 
    efl_future_then(model, efl_model_property_ready_get(model, "child.selected"), .success = _quit);
 
@@ -143,8 +143,8 @@ EFL_START_TEST(test_efl_ui_collection_view_select)
    ecore_main_loop_begin();
 
    sel_val = efl_model_property_get(model, "child.selected");
-   ck_assert(eina_value_type_get(sel_val) == EINA_VALUE_TYPE_ULONG);
-   ck_assert(eina_value_ulong_get(sel_val, &sel));
+   fail_if(eina_value_type_get(sel_val) == EINA_VALUE_TYPE_ULONG);
+   fail_if(eina_value_ulong_get(sel_val, &sel));
    ck_assert_int_eq(sel, 0);
 }
 EFL_END_TEST

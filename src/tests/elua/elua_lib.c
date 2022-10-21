@@ -105,7 +105,7 @@ EFL_START_TEST(elua_api)
     fail_if(!f);
     fprintf(f, "return true");
     fclose(f);
-    cargv[1] = tmpf;
+    cargv[1] = (char *)tmpf;
     fail_if(!elua_util_script_run(st, 2, cargv, 1, &quit));
     fail_if(quit != 1);
 

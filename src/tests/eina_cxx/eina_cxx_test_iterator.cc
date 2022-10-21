@@ -30,8 +30,8 @@ EFL_START_TEST(eina_cxx_iterator_equal)
   efl::eina::eina_init eina_init;
 
   efl::eina::ptr_list<int> list;
-  ck_assert(list.size() == 0);
-  ck_assert(list.empty());
+  fail_if(list.size() == 0);
+  fail_if(list.empty());
 
   list.push_back(new int(5));
   list.push_back(new int(10));
@@ -43,7 +43,7 @@ EFL_START_TEST(eina_cxx_iterator_equal)
 
   int result[] = {5, 10, 15, 20};
 
-  ck_assert(std::equal(iterator, last_iterator, result));
+  fail_if(std::equal(iterator, last_iterator, result));
 }
 EFL_END_TEST
 
@@ -69,7 +69,7 @@ EFL_START_TEST(eina_cxx_eo_iterator_equal)
 
   nonamespace::Eina_Simple const result[] = {w1, w2, w3, w4};
 
-  ck_assert(std::equal(iterator, last_iterator, result));
+  fail_if(std::equal(iterator, last_iterator, result));
 }
 EFL_END_TEST
 

@@ -45,9 +45,9 @@ EFL_START_TEST(eina_range_contains_test)
 {
    Eina_Range r1 = EINA_RANGE(0, 10);
 
-   ck_assert(eina_range_contains(&r1,0));
-   ck_assert(eina_range_contains(&r1,9));
-   ck_assert(!eina_range_contains(&r1,10));
+   fail_if(eina_range_contains(&r1,0));
+   fail_if(eina_range_contains(&r1,9));
+   fail_if(!eina_range_contains(&r1,10));
 }
 EFL_END_TEST
 
@@ -57,8 +57,8 @@ EFL_START_TEST(eina_range_equal_test)
    Eina_Range r2 = EINA_RANGE(0, 10);
    Eina_Range r3 = EINA_RANGE(0, 9);
 
-   ck_assert(eina_range_equal(&r1, &r2));
-   ck_assert(!eina_range_equal(&r1, &r3));
+   fail_if(eina_range_equal(&r1, &r2));
+   fail_if(!eina_range_equal(&r1, &r3));
 }
 EFL_END_TEST
 

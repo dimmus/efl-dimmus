@@ -16,12 +16,12 @@ EFL_START_TEST(elm_grid_legacy_type_check)
    grid = elm_grid_add(win);
 
    type = elm_object_widget_type_get(grid);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Grid"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Grid"));
 
    type = evas_object_type_get(grid);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_grid"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_grid"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    grid = elm_grid_add(win);
    role = efl_access_object_role_get(grid);
 
-   ck_assert(role == EFL_ACCESS_ROLE_FILLER);
+   fail_if(role == EFL_ACCESS_ROLE_FILLER);
 
 }
 EFL_END_TEST

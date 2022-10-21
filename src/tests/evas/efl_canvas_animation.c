@@ -23,9 +23,9 @@ EFL_START_TEST(efl_canvas_animation_negative_double_checking)
    EXPECT_ERROR_END;
 
    efl_animation_start_delay_set(animation, 1.0);
-   ck_assert(EINA_DBL_EQ(efl_animation_start_delay_get(animation), 1.0));
+   fail_if(EINA_DBL_EQ(efl_animation_start_delay_get(animation), 1.0));
    efl_animation_start_delay_set(animation, 0.0);
-   ck_assert(EINA_DBL_EQ(efl_animation_start_delay_get(animation), 0.0));
+   fail_if(EINA_DBL_EQ(efl_animation_start_delay_get(animation), 0.0));
    EXPECT_ERROR_START;
    efl_animation_start_delay_set(animation, -1.0);
    ck_assert_int_eq(efl_animation_start_delay_get(animation), 0.0);
@@ -49,9 +49,9 @@ _duration_zero_anim_running_cb(void *data, const Efl_Event *event)
    double animation_running_position = *((double*) event->info);
 
    if (animation_speed > 0.0)
-     ck_assert(EINA_DBL_EQ(animation_running_position, 1.0));
+     fail_if(EINA_DBL_EQ(animation_running_position, 1.0));
    else
-     ck_assert(EINA_DBL_EQ(animation_running_position, 0.0));
+     fail_if(EINA_DBL_EQ(animation_running_position, 0.0));
 }
 
 static void
@@ -72,13 +72,13 @@ EFL_START_TEST(efl_canvas_animation_duration_zero)
    efl_event_callback_add(obj, EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_PROGRESS_UPDATED, _duration_zero_anim_running_cb, &animation_speed);
    efl_event_callback_add(obj, EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_PROGRESS_UPDATED, helper_inc_int , &running);
    efl_canvas_object_animation_start(obj, animation, animation_speed, 0.0);
-   ck_assert(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
+   fail_if(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
    ck_assert_int_eq(running, 1);
 
    running = 0;
    animation_speed = -1.0;
    efl_canvas_object_animation_start(obj, animation, animation_speed, 0.0);
-   ck_assert(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
+   fail_if(EINA_DBL_EQ(efl_canvas_object_animation_progress_get(obj), -1.0));
    ck_assert_int_eq(running, 1);
 }
 EFL_END_TEST

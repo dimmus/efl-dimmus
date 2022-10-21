@@ -59,8 +59,8 @@ thread_fn_cancel(void *arg, Eina_Thread t EINA_UNUSED)
 {
    Eina_Condition *cond = arg;
 
-   ck_assert(eina_thread_cancellable_set(EINA_TRUE, NULL));
-   ck_assert(eina_condition_signal(cond));
+   fail_if(eina_thread_cancellable_set(EINA_TRUE, NULL));
+   fail_if(eina_condition_signal(cond));
 
    for (size_t i = 0; i < 100; ++i)
      {
@@ -79,7 +79,7 @@ EFL_START_TEST(eina_thread_test_cleanup_execute)
 {
    Eina_Thread t;
    int flag = 0;
-   ck_assert(eina_thread_create(&t, EINA_THREAD_NORMAL, -1, thread_fn_execute, &flag));
+   fail_if(eina_thread_create(&t, EINA_THREAD_NORMAL, -1, thread_fn_execute, &flag));
    eina_thread_join(t);
    ck_assert_uint_eq(flag, 1);
 }
@@ -89,7 +89,7 @@ EFL_START_TEST(eina_thread_test_cleanup_skip)
 {
    Eina_Thread t;
    int flag = 2;
-   ck_assert(eina_thread_create(&t, EINA_THREAD_NORMAL, -1, thread_fn_skip, &flag));
+   fail_if(eina_thread_create(&t, EINA_THREAD_NORMAL, -1, thread_fn_skip, &flag));
    eina_thread_join(t);
    ck_assert_uint_eq(flag, 2);
 }
@@ -101,13 +101,13 @@ EFL_START_TEST(eina_thread_test_cancel)
    Eina_Lock mutex;
    Eina_Condition cond;
 
-   ck_assert(eina_lock_new(&mutex));
-   ck_assert(eina_condition_new(&cond, &mutex));
+   fail_if(eina_lock_new(&mutex));
+   fail_if(eina_condition_new(&cond, &mutex));
 
-   ck_assert(eina_thread_create(&t, EINA_THREAD_NORMAL, -1, thread_fn_cancel, &cond));
-   ck_assert(eina_lock_take(&mutex));
-   ck_assert(eina_condition_wait(&cond));
-   ck_assert(eina_thread_cancel(t));
+   fail_if(eina_thread_create(&t, EINA_THREAD_NORMAL, -1, thread_fn_cancel, &cond));
+   fail_if(eina_lock_take(&mutex));
+   fail_if(eina_condition_wait(&cond));
+   fail_if(eina_thread_cancel(t));
    ck_assert_ptr_eq(eina_thread_join(t), EINA_THREAD_JOIN_CANCELED);
 
    eina_condition_free(&cond);

@@ -53,18 +53,18 @@ _timer2_cb(void *data)
      timer->num_elem = 0;
 
    // check add/delay timer 2
-   fail_if(timer->add_timer2 > 1, "Error add/delay timer");
+   ck_assert_msg(timer->add_timer2 > 1, "Error add/delay timer");
 
    // check set new delay for timer 1
    ecore_timer_delay(timer->timer1, timer->delay_1[timer->num_elem]);
 
    // check set new interval for timer 1
    ecore_timer_interval_set(timer->timer1, timer->interval_1[timer->num_elem]);
-   fail_if(!EINA_DBL_EQ(timer->interval_1[timer->num_elem], ecore_timer_interval_get(timer->timer1)), "Error set new interval");
+   ck_assert_msg(!EINA_DBL_EQ(timer->interval_1[timer->num_elem], ecore_timer_interval_get(timer->timer1)), "Error set new interval");
 
    // check set new precision
    ecore_timer_precision_set(timer->precision[timer->num_elem]);
-   fail_if(!EINA_DBL_EQ(timer->precision[timer->num_elem], ecore_timer_precision_get()), "Error set new precision");
+   ck_assert_msg(!EINA_DBL_EQ(timer->precision[timer->num_elem], ecore_timer_precision_get()), "Error set new precision");
 
    // check removal timer 2
    if (ecore_timer_del(timer->timer2))
@@ -100,7 +100,7 @@ _timer4_cb(void *data)
    // check frezze/thaw timer 3
    if (freeze_thaw)
    {
-      fail_if(timer->check_freeze_thaw_timer3 != timer->count_timer3, "Error frezze/thaw timer");
+      ck_assert_msg(timer->check_freeze_thaw_timer3 != timer->count_timer3, "Error frezze/thaw timer");
 
       ecore_timer_thaw(timer->timer3);
       freeze_thaw = 0;
@@ -153,7 +153,7 @@ EFL_START_TEST(ecore_test_timers)
    timer.timer4 = ecore_timer_add(TIMEOUT_4, _timer4_cb, &timer);
    timer.timer5 = ecore_timer_add(TIMEOUT_5, _timer5_cb, &timer);
 
-   fail_if((!timer.timer1 || !timer.timer2 || !timer.timer3 || !timer.timer4 || !timer.timer5), "Error add timer\n");
+   ck_assert_msg((!timer.timer1 || !timer.timer2 || !timer.timer3 || !timer.timer4 || !timer.timer5), "Error add timer\n");
 
    ecore_main_loop_begin();
 
@@ -207,7 +207,7 @@ EFL_START_TEST(ecore_test_timer_inside_call)
    c->t = ecore_timer_add(0.01, _timeri_cb, c);
    ecore_timer_add(1.0, timeout_timer_cb, NULL);
 
-   fail_if(!c->t, "Error add timer\n");
+   ck_assert_msg(!c->t, "Error add timer\n");
 
    ecore_main_loop_begin();
 }
@@ -217,7 +217,7 @@ EFL_END_TEST
 EFL_START_TEST(ecore_test_timer_valid_callbackfunc)
 {
    Ecore_Timer *t = NULL;
-   fail_if((t = ecore_timer_add(0.5, NULL, NULL)), "ERROR: Invalid callback func!\n");
+   ck_assert_msg((t = ecore_timer_add(0.5, NULL, NULL)), "ERROR: Invalid callback func!\n");
 }
 EFL_END_TEST
 
@@ -259,7 +259,7 @@ _timer_cb(void *data)
 {
    count++;
    int num = (intptr_t) data;
-   fail_if (num != count, "Error timer is called out of order");
+   ck_assert_msg(num != count, "Error timer is called out of order");
    if (count == 8) ecore_main_loop_quit();
    return ECORE_CALLBACK_CANCEL;
 }

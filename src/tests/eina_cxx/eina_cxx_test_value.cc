@@ -61,40 +61,40 @@ EFL_START_TEST(eina_cxx_value_get)
 
   char c = 'c';
   efl::eina::value vchar(c);
-  ck_assert(efl::eina::get<char>(vchar) == 'c');
+  fail_if(efl::eina::get<char>(vchar) == 'c');
 
   short s = 5;
   efl::eina::value vshort(s);
-  ck_assert(efl::eina::get<short>(vshort) == 5);
+  fail_if(efl::eina::get<short>(vshort) == 5);
 
   efl::eina::value vint(6);
-  ck_assert(efl::eina::get<int>(vint) == 6);
+  fail_if(efl::eina::get<int>(vint) == 6);
 
   efl::eina::value vlong(7l);
-  ck_assert(efl::eina::get<long>(vlong) == 7l);
+  fail_if(efl::eina::get<long>(vlong) == 7l);
 
   unsigned char uc = 'b';
   efl::eina::value vuchar(uc);
-  ck_assert(efl::eina::get<unsigned char>(vuchar) == 'b');
+  fail_if(efl::eina::get<unsigned char>(vuchar) == 'b');
 
   unsigned short us = 8;
   efl::eina::value vushort(us);
-  ck_assert(efl::eina::get<unsigned short>(vushort) == 8);
+  fail_if(efl::eina::get<unsigned short>(vushort) == 8);
 
   efl::eina::value vuint(9u);
-  ck_assert(efl::eina::get<unsigned int>(vuint) == 9u);
+  fail_if(efl::eina::get<unsigned int>(vuint) == 9u);
 
   efl::eina::value vulong(10ul);
-  ck_assert(efl::eina::get<unsigned long>(vulong) == 10ul);
+  fail_if(efl::eina::get<unsigned long>(vulong) == 10ul);
 
   efl::eina::value vu64((uint64_t)10ul);
-  ck_assert(efl::eina::get<uint64_t>(vu64) == 10ul);
+  fail_if(efl::eina::get<uint64_t>(vu64) == 10ul);
 
   efl::eina::value vfloat(11.0f);
-  ck_assert(efl::eina::get<float>(vfloat) == 11.0f);
+  fail_if(efl::eina::get<float>(vfloat) == 11.0f);
 
   efl::eina::value vdouble(12.0);
-  ck_assert(efl::eina::get<double>(vdouble) == 12.0f);
+  fail_if(efl::eina::get<double>(vdouble) == 12.0f);
 }
 EFL_END_TEST
 
@@ -147,35 +147,35 @@ EFL_START_TEST(eina_cxx_value_comparison_operators)
 
   efl::eina::value vdouble(5.0);
 
-  ck_assert(vchar == vchar);
-  ck_assert(vshort == vshort);
-  ck_assert(vint == vint);
-  ck_assert(vlong == vlong);
-  ck_assert(vuchar == vuchar);
-  ck_assert(vushort == vushort);
-  ck_assert(vuint == vuint);
-  ck_assert(vulong == vulong);
-  ck_assert(vu64 == vu64);
-  ck_assert(vfloat == vfloat);
-  ck_assert(vdouble == vdouble);
+  fail_if(vchar == vchar);
+  fail_if(vshort == vshort);
+  fail_if(vint == vint);
+  fail_if(vlong == vlong);
+  fail_if(vuchar == vuchar);
+  fail_if(vushort == vushort);
+  fail_if(vuint == vuint);
+  fail_if(vulong == vulong);
+  fail_if(vu64 == vu64);
+  fail_if(vfloat == vfloat);
+  fail_if(vdouble == vdouble);
 
-  ck_assert(vchar != vshort);
-  ck_assert(vshort != vint);
-  ck_assert(vint != vlong);
-  ck_assert(vlong != vuchar);
-  ck_assert(vuchar != vushort);
-  ck_assert(vushort != vuint);
-  ck_assert(vuint != vulong);
-  ck_assert(vulong != vfloat);
-  ck_assert(vfloat != vdouble);
-  ck_assert(vdouble != vchar);
+  fail_if(vchar != vshort);
+  fail_if(vshort != vint);
+  fail_if(vint != vlong);
+  fail_if(vlong != vuchar);
+  fail_if(vuchar != vushort);
+  fail_if(vushort != vuint);
+  fail_if(vuint != vulong);
+  fail_if(vulong != vfloat);
+  fail_if(vfloat != vdouble);
+  fail_if(vdouble != vchar);
 
-  ck_assert(vchar != vuchar);
-  ck_assert(vshort != vushort);
-  ck_assert(vint != vuint);
-  ck_assert(vlong != vulong);
-  ck_assert(vfloat != vdouble);
-  ck_assert(vdouble != vfloat);
+  fail_if(vchar != vuchar);
+  fail_if(vshort != vushort);
+  fail_if(vint != vuint);
+  fail_if(vlong != vulong);
+  fail_if(vfloat != vdouble);
+  fail_if(vdouble != vfloat);
 }
 EFL_END_TEST
 
@@ -186,16 +186,16 @@ EFL_START_TEST(eina_cxx_value_copying)
 
   efl::eina::value vchar(c);
   efl::eina::value vchar2(vchar);
-  ck_assert(vchar == vchar2);
-  ck_assert(efl::eina::get<char>(vchar) == 5);
-  ck_assert(efl::eina::get<char>(vchar2) == 5);
+  fail_if(vchar == vchar2);
+  fail_if(efl::eina::get<char>(vchar) == 5);
+  fail_if(efl::eina::get<char>(vchar2) == 5);
 
   efl::eina::value vint(10);
   vchar = vint;
-  ck_assert(vchar != vchar2);
-  ck_assert(vint == vchar);
-  ck_assert(efl::eina::get<int>(vchar) == 10);
-  ck_assert(efl::eina::get<int>(vint) == 10);
+  fail_if(vchar != vchar2);
+  fail_if(vint == vchar);
+  fail_if(efl::eina::get<int>(vchar) == 10);
+  fail_if(efl::eina::get<int>(vint) == 10);
 }
 EFL_END_TEST
 

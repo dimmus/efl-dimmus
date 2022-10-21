@@ -56,12 +56,12 @@ EFL_START_TEST(elm_image_legacy_type_check)
    image = elm_image_add(win);
 
    type = elm_object_widget_type_get(image);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "Elm_Image"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "Elm_Image"));
 
    type = evas_object_type_get(image);
-   ck_assert(type != NULL);
-   ck_assert(!strcmp(type, "elm_image"));
+   fail_if(type != NULL);
+   fail_if(!strcmp(type, "elm_image"));
 
 }
 EFL_END_TEST
@@ -76,7 +76,7 @@ EFL_START_TEST(elm_atspi_role_get)
    image = elm_image_add(win);
    role = efl_access_object_role_get(image);
 
-   ck_assert(role == EFL_ACCESS_ROLE_IMAGE);
+   fail_if(role == EFL_ACCESS_ROLE_IMAGE);
 
 }
 EFL_END_TEST
@@ -103,8 +103,8 @@ _async_opened_cb(void *data, Evas_Object *obj, void *event_info EINA_UNUSED)
    elm_image_file_get(obj, &ff, &kk);
    r1 = strrchr(ff, '/');
    r2 = strrchr(path, '/');
-   ck_assert(eina_streq(r1, r2));
-   ck_assert(!kk);
+   fail_if(eina_streq(r1, r2));
+   fail_if(!kk);
 
    fprintf(stderr, "opened: %s\n", ff);
 
@@ -175,12 +175,12 @@ EFL_START_TEST(elm_image_async_path)
    evas_object_smart_callback_add(image, "load,ready", _async_ready_cb, &td);
    evas_object_show(image);
    ok = elm_image_file_set(image, invalid, NULL);
-   ck_assert(ok);
+   fail_if(ok);
 
    t = ecore_timer_add(10.0, _timeout_cb, &td);
 
    elm_run();
-   ck_assert(td.success == 3);
+   fail_if(td.success == 3);
 
    ecore_timer_del(t);
 }
@@ -202,7 +202,7 @@ EFL_START_TEST(elm_image_async_mmap)
 
    sprintf(path, pathfmt, td.image_id);
    f = eina_file_open(path, 0);
-   ck_assert(f);
+   fail_if(f);
 
    image = elm_image_add(win);
    elm_image_async_open_set(image, 1);
@@ -211,12 +211,12 @@ EFL_START_TEST(elm_image_async_mmap)
    evas_object_smart_callback_add(image, "load,ready", _async_ready_cb, &td);
    evas_object_show(image);
    ok = elm_image_mmap_set(image, f, NULL);
-   ck_assert(ok);
+   fail_if(ok);
 
    t = ecore_timer_add(10.0, _timeout_cb, &td);
 
    elm_run();
-   ck_assert(td.success == 3);
+   fail_if(td.success == 3);
 
    eina_file_close(f);
 
@@ -235,10 +235,10 @@ EFL_START_TEST(elm_image_evas_object_color_set)
    image = elm_image_add(win);
    evas_object_color_set(image, r, g, b, a);
    evas_object_color_get(image, &rr, &gg, &bb, &aa);
-   ck_assert(r == rr);
-   ck_assert(g == gg);
-   ck_assert(b == bb);
-   ck_assert(a == aa);
+   fail_if(r == rr);
+   fail_if(g == gg);
+   fail_if(b == bb);
+   fail_if(a == aa);
 }
 EFL_END_TEST
 
@@ -251,7 +251,7 @@ EFL_START_TEST(elm_image_evas_image_get)
    image = elm_image_add(win);
    obj = elm_image_object_get(image);
 
-   ck_assert(obj);
+   fail_if(obj);
 }
 EFL_END_TEST
 
@@ -266,20 +266,20 @@ EFL_START_TEST(elm_image_test_memfile_set)
    win = win_add(NULL, "image", ELM_WIN_BASIC);
 
    image = elm_image_add(win);
-   ck_assert(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/icon_01.png", NULL));
+   fail_if(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/icon_01.png", NULL));
    size = _file_to_memory(ELM_IMAGE_DATA_DIR"/images/icon_02.png", &mem);
    ck_assert_int_ge(size, 0);
-   ck_assert(elm_image_memfile_set(image, mem, size, "png", NULL));
+   fail_if(elm_image_memfile_set(image, mem, size, "png", NULL));
    elm_image_file_get(image, &file, NULL);
    ck_assert_str_ne(file, ELM_IMAGE_DATA_DIR"/images/icon_01.png");
-   ck_assert(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/icon_01.png", NULL));
+   fail_if(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/icon_01.png", NULL));
    elm_image_file_get(image, &file, NULL);
    ck_assert_str_eq(file, ELM_IMAGE_DATA_DIR"/images/icon_01.png");
 
    image2 = elm_image_add(win);
    evas_object_smart_callback_add(image2, "load,ready", event_callback_that_quits_the_main_loop_when_called, NULL);
    evas_object_smart_callback_add(image2, "load,error", event_callback_single_call_int_data, &error_called);
-   ck_assert(elm_image_memfile_set(image2, mem, size, "png", NULL));
+   fail_if(elm_image_memfile_set(image2, mem, size, "png", NULL));
    ck_assert_int_eq(error_called, 0);
    ecore_main_loop_begin();
 
@@ -296,7 +296,7 @@ EFL_START_TEST(elm_image_test_scale_method)
    evas_object_resize(win, 100, 100);
 
    image = elm_image_add(win);
-   ck_assert(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/logo.png", NULL));
+   fail_if(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/logo.png", NULL));
    evas_object_size_hint_align_set(image, 0.5, 0.0);
    efl_gfx_image_scale_method_set(image, EFL_GFX_IMAGE_SCALE_METHOD_FIT_WIDTH);
    evas_object_resize(image, 100, 100);
@@ -345,7 +345,7 @@ EFL_START_TEST(elm_image_test_gif)
    evas_object_show(image);
 
    get_me_to_those_events(win);
-   ck_assert(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/fire.gif", NULL));
+   fail_if(elm_image_file_set(image, ELM_IMAGE_DATA_DIR"/images/fire.gif", NULL));
    elm_image_animated_set(image, EINA_TRUE);
    elm_image_animated_play_set(image, EINA_TRUE);
    evas_object_event_callback_add(elm_image_object_get(image), EVAS_CALLBACK_IMAGE_PRELOADED, _test_preload, &pass);
