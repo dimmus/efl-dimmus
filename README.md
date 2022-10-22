@@ -1,6 +1,7 @@
 <p align="center">
-![EFL](/data/readme/efl.png)
+<img src="[https://mesonbuild.com/assets/images/meson_logo.png](https://github.com/Dimmus/efl/blob/master/data/readme/efl.png)">
 </p>
+
 # EFL
 
 #### Status
