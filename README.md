@@ -1,5 +1,5 @@
 <p align="center">
-<img src="[https://mesonbuild.com/assets/images/meson_logo.png](https://github.com/Dimmus/efl/blob/master/data/readme/efl.png)">
+<img src="https://raw.githubusercontent.com/Dimmus/efl/master/data/readme/efl.png">
 </p>
 
 # EFL
