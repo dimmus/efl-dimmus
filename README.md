@@ -1,14 +1,14 @@
-[![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
-
+<p align="center">
 ![EFL](/data/readme/efl.png)
+</p>
 # EFL
 
------
+#### Status
+
+[![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
 
 *Please report bugs/issues at*
 [git.enlightenment.org](https://git.enlightenment.org/enlightenment/efl/issues)
-
------
 
 EFL is a collection of libraries for handling many common tasks a
 developer may have such as data structures, communication, rendering,
