@@ -1,3 +1,4 @@
+[![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
 ![EFL](/data/readme/efl.png)
 # EFL
 
