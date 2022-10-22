@@ -546,3 +546,5 @@ change that, then:
   * Make sure you do not enable **Wayland** i.e. Meson option `-Dwl=false` (this is default anyway if not provided)
   * Make sure you do not enable **DRM** i.e. Meson option `-Ddrm=false` (this is default anyway if not provided)
   * Make sure **OpenGL** is **full** i.e. Meson option `-Dopengl=full`
+  
+  [![Packaging status](https://repology.org/badge/vertical-allrepos/efl.svg)](https://repology.org/project/efl/versions)
