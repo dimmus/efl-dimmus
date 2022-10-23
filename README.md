@@ -11,6 +11,8 @@
 *Please report bugs/issues at*
 [git.enlightenment.org](https://git.enlightenment.org/enlightenment/efl/issues)
 
+[API/ABI changes review for EFL](https://abi-laboratory.pro/index.php?view=timeline&l=efl)
+
 EFL is a collection of libraries for handling many common tasks a
 developer may have such as data structures, communication, rendering,
 widgets and more.
