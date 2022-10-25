@@ -2569,7 +2569,7 @@ _edje_part_recalc_single_filter(Edje *ed,
                                        "r3=%d,g3=%d,b3=%d,a3=%d}";
                                  int len = sizeof(fmt) + 20;
                                  len += strlen(data->name);
-                                 buffer = alloca(len);
+                                 buffer = malloc(len); // Invoking alloca within a loop may lead to a stack overflow because the memory is not released until the function returns.
                                  snprintf(buffer, len - 1, fmt,
                                           (int) cc->r, (int) cc->g, (int) cc->b, (int) cc->a,
                                           (int) cc->r2, (int) cc->g2, (int) cc->b2, (int) cc->a2,
@@ -2590,6 +2590,7 @@ _edje_part_recalc_single_filter(Edje *ed,
                          }
                        free(ccname);
                     }
+                  free(buffer);
                }
              else
                 efl_gfx_filter_data_set(obj, data->name, data->value, EINA_FALSE);
