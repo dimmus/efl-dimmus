@@ -437,7 +437,8 @@ _message_iter_struct_to_eina_value(Eldbus_Message_Iter *iter)
    for (z = 0; z < eina_array_count(st_values); z++)
      {
         Eina_Value *v = eina_array_data_get(st_values, z);
-        sprintf(name, ARG, z);
+        //sprintf(name, ARG, z); // This 'call to sprintf' operation requires 14 bytes but the destination is only 7 bytes.
+        snprintf(name, 7, ARG, z);
         eina_value_struct_value_set(value_st, name, v);
         eina_value_free(v);
      }
