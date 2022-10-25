@@ -458,7 +458,7 @@ static Ecore_Evas_Engine_Func _ecore_sdl_engine_func =
 };
 
 static Ecore_Evas*
-_ecore_evas_internal_sdl_new(int rmethod, const char* name, int w, int h, int fullscreen, int hwsurface, int noframe, int alpha)
+_ecore_evas_internal_sdl_new(int rmethod, const char* name, int w, int h, int fullscreen, int hwsurface, int noframe EINA_UNUSED, int alpha)
 {
    Ecore_Evas_SDL_Switch_Data *swd;
    Ecore_Evas *ee;
@@ -542,7 +542,8 @@ _ecore_evas_internal_sdl_new(int rmethod, const char* name, int w, int h, int fu
              void *pixels;
              int pitch;
 
-             swd->r = SDL_CreateRenderer(swd->w, -1, 0);
+             //swd->r = SDL_CreateRenderer(swd->w, -1, 0);
+             swd->r = SDL_CreateRenderer(swd->w, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
              if (!swd->r)
                {
                   ERR("SDL_CreateRenderer failed.");
@@ -625,6 +626,8 @@ _ecore_evas_internal_sdl_new(int rmethod, const char* name, int w, int h, int fu
 
  on_error:
    ecore_evas_free(ee);
+   SDL_DestroyWindow(swd->w);
+	SDL_Quit();
    return NULL;
 }
 
