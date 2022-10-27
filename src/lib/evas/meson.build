@@ -49,7 +49,10 @@ evas_image_savers_file = [
      ['tiff',    'shared', [tiff]],
      ['webp',    'shared', [webp]],
 ]
-json = dependency('rlottie', required: get_option('evas-loaders-disabler').contains('json') == false)
+
+# Need only rlottie version higher then 0.1 where we have node->keypath support (see vg_common_json.c #89)
+# In Ubuntu 20.04 we have only version 0.0.1 so have no support for JSON loader
+json = dependency('rlottie', required: get_option('evas-loaders-disabler').contains('json') == false, version: '>=0.1')
 
 evas_vg_loaders_file = [
   ['eet', [eet]],
