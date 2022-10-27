@@ -688,7 +688,7 @@ on_null:
         efl_del_api_generation = _efl_object_init_generation;
      }
    if (op != _efl_del_api_op_id)
-     WRN("NULL passed to function %s().", func_name);
+     ERR("NULL passed to function %s().", func_name);
    return EINA_FALSE;
 }
 
