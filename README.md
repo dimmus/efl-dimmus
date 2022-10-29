@@ -7,6 +7,7 @@
 #### Status
 
 [![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6640/badge)](https://bestpractices.coreinfrastructure.org/projects/6640)
 
 *Please report bugs/issues at*
 [git.enlightenment.org](https://git.enlightenment.org/enlightenment/efl/issues)
