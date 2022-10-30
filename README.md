@@ -27,7 +27,7 @@ Config files installed to help developers build against EFL.
 
 -----
 
-<div align="center"> <a href="http://www.enlightenment.org/">Homepage</a> | <a href="https://www.enlightenment.org/download/">Downloads</a> | <a href="https://www.enlightenment.org/news">News</a> | <a href="https://store.nyxt.atlas.engineer/">Store</a> | <a href="https://www.enlightenment.org/develop/start.md">Developer's Manual</a> | <a href="https://www.enlightenment.org/contact/">Contact</a> | <a href="https://kiwiirc.com/nextclient/irc.libera.chat/e">Chat</a> </div>
+<div align="center"> <a href="http://www.enlightenment.org/">Homepage</a> | <a href="https://www.enlightenment.org/download/">Downloads</a> | <a href="https://www.enlightenment.org/news">News</a> | <a href="https://www.enlightenment.org/develop/start.md">Developer's Manual</a> | <a href="https://www.enlightenment.org/contact/">Contact</a> | <a href="https://kiwiirc.com/nextclient/irc.libera.chat/e">Chat</a> </div>
 
 -----
 
