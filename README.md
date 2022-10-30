@@ -1,16 +1,9 @@
-<p align="center">
-<img src="https://raw.githubusercontent.com/Dimmus/efl/master/data/readme/efl.png">
-</p>
+<img src="https://raw.githubusercontent.com/Dimmus/efl/master/data/readme/efl.png" align="right"/>
 
-# EFL
-
-#### Status
+# Enlightenment Founation Library (EFL)
 
 [![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6640/badge)](https://bestpractices.coreinfrastructure.org/projects/6640)
-
-*Please report bugs/issues at*
-[git.enlightenment.org](https://git.enlightenment.org/enlightenment/efl/issues)
 
 [API/ABI changes review for EFL](https://abi-laboratory.pro/index.php?view=timeline&l=efl)
 
@@ -30,9 +23,15 @@ in the data/ directory. Licensing details are listed in COPYING and
 the licenses/ directory. The pc/ directory holds all the Package
 Config files installed to help developers build against EFL.
 
-For more documentation please see:
+*Attention:* EFL is under active development.  Feel free to report bugs [here](https://github.com/dimmus/efl/issues) or to the official [repo](https://git.enlightenment.org/enlightenment/efl/issues), instabilities or feature wishes.
 
-[www.enlightenment.org/doc](https://www.enlightenment.org/docs)
+-----
+
+<div align="center"> <a href="http://www.enlightenment.org/">Homepage</a> | <a href="https://www.enlightenment.org/download/">Downloads</a> | <a href="https://www.enlightenment.org/news">News</a> | <a href="https://store.nyxt.atlas.engineer/">Store</a> | <a href="https://www.enlightenment.org/develop/start.md">Developer's Manual</a> | <a href="https://www.enlightenment.org/contact/">Contact</a> | <a href="https://kiwiirc.com/nextclient/irc.libera.chat/e">Chat</a> </div>
+
+-----
+
+For more documentation please see: [www.enlightenment.org/doc](https://www.enlightenment.org/docs)
 
 ## Platforms
 
