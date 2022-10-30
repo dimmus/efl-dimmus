@@ -1,13 +1,13 @@
 <img src="https://raw.githubusercontent.com/Dimmus/efl/master/data/readme/efl.png" align="right"/>
 
-# Enlightenment Founation Library (EFL)
+# Enlightenment Founation Library
 
 [![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6640/badge)](https://bestpractices.coreinfrastructure.org/projects/6640)
 
 [API/ABI changes review for EFL](https://abi-laboratory.pro/index.php?view=timeline&l=efl)
 
-EFL is a collection of libraries for handling many common tasks a
+*Enlightenment Founation Library (EFL)* is a collection of libraries for handling many common tasks a
 developer may have such as data structures, communication, rendering,
 widgets and more.
 
@@ -23,7 +23,7 @@ in the data/ directory. Licensing details are listed in COPYING and
 the licenses/ directory. The pc/ directory holds all the Package
 Config files installed to help developers build against EFL.
 
-*Attention:* EFL is under active development.  Feel free to report bugs [here](https://github.com/dimmus/efl/issues) or to the official [repo](https://git.enlightenment.org/enlightenment/efl/issues), instabilities or feature wishes.
+**Attention:** EFL is under active development.  Feel free to report bugs [here](https://github.com/dimmus/efl/issues) or to the official [repo](https://git.enlightenment.org/enlightenment/efl/issues), instabilities or feature wishes.
 
 -----
 
