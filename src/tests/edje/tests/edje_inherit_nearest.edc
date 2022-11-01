@@ -20,6 +20,7 @@ collections
             description
             {
                state: "inherit-test" 0;
+               // FIX: it should be in TEST, but not the compile time warning
                inherit: "default" 1; // edje_cc should throw error or warning.
             }
          }
