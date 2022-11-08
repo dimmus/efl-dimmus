@@ -33,7 +33,7 @@ EFL_START_TEST(efl_ui_layout_test_property_bind)
 
    ly = efl_add(EFL_UI_LAYOUT_CLASS, win);
    snprintf(buf, sizeof(buf), "%s/objects/test.edj", ELM_TEST_DATA_DIR);
-   fail_if(efl_file_simple_load(ly, buf, "layout"));
+   ck_assert(efl_file_simple_load(ly, buf, "layout"));
 
    model = efl_add(EFL_GENERIC_MODEL_CLASS, win);
 
@@ -82,7 +82,7 @@ EFL_START_TEST(efl_ui_layout_test_property_bind_provider)
 
    ly = efl_add(EFL_UI_LAYOUT_CLASS, win);
    snprintf(buf, sizeof(buf), "%s/objects/test.edj", ELM_TEST_DATA_DIR);
-   fail_if(efl_file_simple_load(ly, buf, "layout"));
+   ck_assert(efl_file_simple_load(ly, buf, "layout"));
 
    model = efl_add(EFL_GENERIC_MODEL_CLASS, win);
 
@@ -186,7 +186,7 @@ EFL_START_TEST(efl_ui_layout_test_layout_theme)
    ck_assert_int_eq(err, 0);
    efl_ui_layout_theme_get(layout, &klass, &group, &style);
    ck_assert_str_eq(klass, "button");
-   fail_if(!group);
+   ck_assert(!group);
    ck_assert_str_eq(style, "anchor");
    ck_assert_int_eq(called, 1);
 }

@@ -16,12 +16,12 @@ EFL_START_TEST(elm_label_legacy_type_check)
    label = elm_label_add(win);
 
    type = elm_object_widget_type_get(label);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Label"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Label"));
 
    type = evas_object_type_get(label);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_label"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_label"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    label = elm_label_add(win);
    role = efl_access_object_role_get(label);
 
-   fail_if(role == EFL_ACCESS_ROLE_LABEL);
+   ck_assert(role == EFL_ACCESS_ROLE_LABEL);
 
 }
 EFL_END_TEST

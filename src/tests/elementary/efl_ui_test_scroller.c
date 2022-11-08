@@ -160,8 +160,8 @@ EFL_START_TEST(efl_ui_test_scroller_scrollbar)
    efl_loop_iterate(efl_main_loop_get());
 
    efl_ui_scrollbar_bar_visibility_get(sc, &hbar_visible, &vbar_visible);
-   fail_if(hbar_visible == EINA_FALSE);
-   fail_if(vbar_visible == EINA_FALSE);
+   ck_assert(hbar_visible == EINA_FALSE);
+   ck_assert(vbar_visible == EINA_FALSE);
 
    /*Scrollbar auto mode test.*/
    efl_add(EFL_CANVAS_RECTANGLE_CLASS, evas_object_evas_get(sc),
@@ -171,8 +171,8 @@ EFL_START_TEST(efl_ui_test_scroller_scrollbar)
    efl_loop_iterate(efl_main_loop_get());
 
    efl_ui_scrollbar_bar_visibility_get(sc, &hbar_visible, &vbar_visible);
-   fail_if(hbar_visible == EINA_TRUE);
-   fail_if(vbar_visible == EINA_TRUE);
+   ck_assert(hbar_visible == EINA_TRUE);
+   ck_assert(vbar_visible == EINA_TRUE);
 
    /*Scrollbar off mode test.*/
    efl_ui_scrollbar_bar_mode_set(sc, EFL_UI_SCROLLBAR_MODE_OFF, EFL_UI_SCROLLBAR_MODE_OFF);
@@ -180,8 +180,8 @@ EFL_START_TEST(efl_ui_test_scroller_scrollbar)
    efl_loop_iterate(efl_main_loop_get());
 
    efl_ui_scrollbar_bar_visibility_get(sc, &hbar_visible, &vbar_visible);
-   fail_if(hbar_visible == EINA_FALSE);
-   fail_if(vbar_visible == EINA_FALSE);
+   ck_assert(hbar_visible == EINA_FALSE);
+   ck_assert(vbar_visible == EINA_FALSE);
 
    /*Scrollbar on mode test.*/
    efl_ui_scrollbar_bar_mode_set(sc, EFL_UI_SCROLLBAR_MODE_ON, EFL_UI_SCROLLBAR_MODE_ON);
@@ -189,8 +189,8 @@ EFL_START_TEST(efl_ui_test_scroller_scrollbar)
    efl_loop_iterate(efl_main_loop_get());
 
    efl_ui_scrollbar_bar_visibility_get(sc, &hbar_visible, &vbar_visible);
-   fail_if(hbar_visible == EINA_TRUE);
-   fail_if(vbar_visible == EINA_TRUE);
+   ck_assert(hbar_visible == EINA_TRUE);
+   ck_assert(vbar_visible == EINA_TRUE);
 }
 EFL_END_TEST
 

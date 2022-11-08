@@ -16,12 +16,12 @@ EFL_START_TEST(elm_panel_legacy_type_check)
    panel = elm_panel_add(win);
 
    type = elm_object_widget_type_get(panel);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Panel"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Panel"));
 
    type = evas_object_type_get(panel);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_panel"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_panel"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    panel = elm_panel_add(win);
    role = efl_access_object_role_get(panel);
 
-   fail_if(role == EFL_ACCESS_ROLE_PANEL);
+   ck_assert(role == EFL_ACCESS_ROLE_PANEL);
 
 }
 EFL_END_TEST

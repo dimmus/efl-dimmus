@@ -234,8 +234,8 @@ EFL_START_TEST (efl_ui_box_flow_class_check)
 
    class = efl_class_name_get(layout);
 
-   fail_if(class != NULL);
-   fail_if(!strcmp(class, "Efl.Ui.Box_Flow"));
+   ck_assert(class != NULL);
+   ck_assert(!strcmp(class, "Efl.Ui.Box_Flow"));
 }
 EFL_END_TEST
 

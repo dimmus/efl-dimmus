@@ -16,12 +16,12 @@ EFL_START_TEST(elm_segment_control_legacy_type_check)
    segment_control = elm_segment_control_add(win);
 
    type = elm_object_widget_type_get(segment_control);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Segment_Control"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Segment_Control"));
 
    type = evas_object_type_get(segment_control);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_segment_control"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_segment_control"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    segmentcontrol = elm_segment_control_add(win);
    role = efl_access_object_role_get(segmentcontrol);
 
-   fail_if(role == EFL_ACCESS_ROLE_LIST);
+   ck_assert(role == EFL_ACCESS_ROLE_LIST);
 
 }
 EFL_END_TEST

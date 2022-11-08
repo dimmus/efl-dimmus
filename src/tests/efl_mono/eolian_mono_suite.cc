@@ -27,10 +27,10 @@
 
 EFL_START_TEST(eolian_mono_test_util_ends_with)
 {
-  fail_if(eolian_mono::utils::ends_with("SomeFlags", "Flags"));
-  fail_if(eolian_mono::utils::ends_with("Flags", "Flags"));
-  fail_if(!eolian_mono::utils::ends_with("Flagz", "Flags"));
-  fail_if(!eolian_mono::utils::ends_with("FlagsSome", "Flags"));
+  ck_assert(eolian_mono::utils::ends_with("SomeFlags", "Flags"));
+  ck_assert(eolian_mono::utils::ends_with("Flags", "Flags"));
+  ck_assert(!eolian_mono::utils::ends_with("Flagz", "Flags"));
+  ck_assert(!eolian_mono::utils::ends_with("FlagsSome", "Flags"));
 }
 EFL_END_TEST
 

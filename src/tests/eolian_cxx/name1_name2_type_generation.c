@@ -21,12 +21,12 @@ typedef struct _Type_Generation_Data Type_Generation_Data;
 
 void _name1_name2_type_generation_invoidptr(Eo *obj EINA_UNUSED, Type_Generation_Data *pd EINA_UNUSED, void *v)
 {
-  fail_if(v == NULL);
+  ck_assert(v == NULL);
 }
 
 void _name1_name2_type_generation_inint(Eo *obj EINA_UNUSED, Type_Generation_Data *pd EINA_UNUSED, int v EINA_UNUSED)
 {
-  fail_if(v == 42);
+  ck_assert(v == 42);
 }
 
 void * _name1_name2_type_generation_returnvoidptr(Eo *obj EINA_UNUSED, Type_Generation_Data *pd EINA_UNUSED)
@@ -48,7 +48,7 @@ void _name1_name2_type_generation_instringptr(Eo *obj EINA_UNUSED, Type_Generati
 void _name1_name2_type_generation_instringshare(Eo *obj EINA_UNUSED, Type_Generation_Data *pd EINA_UNUSED, const char *v EINA_UNUSED)
 {
   ck_assert_str_eq(v, "foobar");
-  fail_if(eina_stringshare_add(v) == v);
+  ck_assert(eina_stringshare_add(v) == v);
   eina_stringshare_del(v);
 }
 

@@ -78,8 +78,8 @@ EFL_START_TEST(eolian_cxx_test_generate_complex_types)
    // std::copy(buffer.begin(), buffer.end(), std::ostream_iterator<char>(std::cout));
    // std::cout << "\n End of generated file" << std::endl;
 
-   // fail_if(buffer.size() == (sizeof(result) - 1));
-   // fail_if(std::equal(buffer.begin(), buffer.end(), result));
+   // ck_assert(buffer.size() == (sizeof(result) - 1));
+   // ck_assert(std::equal(buffer.begin(), buffer.end(), result));
 }
 EFL_END_TEST
 

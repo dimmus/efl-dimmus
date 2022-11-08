@@ -19,7 +19,7 @@ EFL_START_TEST(elm_code_line_create_test)
    elm_code_file_line_append(file, "a test string...", 16, NULL);
    line = elm_code_file_line_get(file, 1);
 
-   fail_if(!!line);
+   ck_assert(!!line);
 
    elm_code_free(code);
    elm_shutdown();

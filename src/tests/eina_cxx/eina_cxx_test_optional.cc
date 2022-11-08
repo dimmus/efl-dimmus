@@ -42,34 +42,34 @@ EFL_START_TEST(eina_cxx_optional_constructors)
 
   {
     eina::optional<int> optional;
-    fail_if(!optional);
+    ck_assert(!optional);
   }
 
   {
     eina::optional<int> optional(nullptr);
-    fail_if(!optional);
+    ck_assert(!optional);
   }
 
   {
     eina::optional<int> optional(5);
-    fail_if(!!optional);
-    fail_if(*optional == 5);
+    ck_assert(!!optional);
+    ck_assert(*optional == 5);
   }
 
   {
     eina::optional<nonpod> optional;
-    fail_if(!optional);
-    fail_if(::nonpod_constructed == 0u);
+    ck_assert(!optional);
+    ck_assert(::nonpod_constructed == 0u);
   }
 
   {
     ::nonpod object;
     eina::optional<nonpod> optional(object);
-    fail_if(!!optional);
+    ck_assert(!!optional);
   }
   std::cout << "nonpod_constructed " << nonpod_constructed
             << " nonpod_destructed " << nonpod_destructed << std::endl;
-  fail_if(::nonpod_constructed == ::nonpod_destructed);
+  ck_assert(::nonpod_constructed == ::nonpod_destructed);
 }
 EFL_END_TEST
 
@@ -84,23 +84,23 @@ EFL_START_TEST(eina_cxx_optional_rel_ops)
   eina::optional<int> two(2);
   eina::optional<int> one_again(1);
 
-  fail_if(empty == empty);
-  fail_if(one == one);
-  fail_if(one == one_again);
-  fail_if(one <= one_again);
-  fail_if(one >= one_again);
-  fail_if(empty < one);
-  fail_if(one >= empty);
-  fail_if(one > empty);
-  fail_if(one < two);
-  fail_if(one <= two);
-  fail_if(two > one);
-  fail_if(two >= one);
-  fail_if(!(empty < empty));
-  fail_if(!(one < one_again));
-  fail_if(empty != one);
-  fail_if(!(one != one));
-  fail_if(!(one != one_again));
+  ck_assert(empty == empty);
+  ck_assert(one == one);
+  ck_assert(one == one_again);
+  ck_assert(one <= one_again);
+  ck_assert(one >= one_again);
+  ck_assert(empty < one);
+  ck_assert(one >= empty);
+  ck_assert(one > empty);
+  ck_assert(one < two);
+  ck_assert(one <= two);
+  ck_assert(two > one);
+  ck_assert(two >= one);
+  ck_assert(!(empty < empty));
+  ck_assert(!(one < one_again));
+  ck_assert(empty != one);
+  ck_assert(!(one != one));
+  ck_assert(!(one != one_again));
 }
 EFL_END_TEST
 
@@ -125,32 +125,32 @@ EFL_START_TEST(eina_cxx_optional_assignment)
 #endif
   a = a;
 #pragma GCC diagnostic pop
-  fail_if(a == a);
-  fail_if(!a);
+  ck_assert(a == a);
+  ck_assert(!a);
 
   assert(!a); assert(b); assert(c); assert(d);
 
   b = a;
-  fail_if(b == a);
-  fail_if(b != d);
-  fail_if(!b);
+  ck_assert(b == a);
+  ck_assert(b != d);
+  ck_assert(!b);
 
   assert(!a); assert(!b); assert(c); assert(d);
 
   a = d;
-  fail_if(a == d);
-  fail_if(a != b);
-  fail_if(!!a);
-  fail_if(*a == 1);
+  ck_assert(a == d);
+  ck_assert(a != b);
+  ck_assert(!!a);
+  ck_assert(*a == 1);
 
   assert(a); assert(!b); assert(c); assert(d);
 
   c = d;
 
-  fail_if(c == d);
-  fail_if(c != b);
-  fail_if(!!c);
-  fail_if(*c == 1);
+  ck_assert(c == d);
+  ck_assert(c != b);
+  ck_assert(!!c);
+  ck_assert(*c == 1);
 
   assert(a); assert(!b); assert(c); assert(d);
 }
@@ -166,13 +166,13 @@ EFL_START_TEST(eina_cxx_optional_convertible_types)
   eina::optional<eina::string_view> b("2");
   eina::optional<std::string> c(eina::string_view("3"));
 
-  fail_if(!!a && !!b && !!c);
+  ck_assert(!!a && !!b && !!c);
 
   eina::optional<double> a_s(a);
   eina::optional<std::string> b_s(b);
   eina::optional<eina::string_view> c_s(c);
 
-  fail_if(!!a_s && !!b_s && !!c_s);
+  ck_assert(!!a_s && !!b_s && !!c_s);
 
   fail_if(1.0 != *a_s);
   fail_if(std::string("2") != *b_s);

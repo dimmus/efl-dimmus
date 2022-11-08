@@ -58,7 +58,7 @@ EFL_START_TEST(evas_render_engines)
    for (itr = built_engines; *itr != NULL; itr++)
      {
         Eina_Bool found = _find_list(lst, *itr);
-        ck_assert_msg(!found, "module should be built, but was not found: %s", *itr);
+        fail_if(!found, "module should be built, but was not found: %s", *itr);
      }
 
    evas_render_method_list_free(lst);
@@ -72,7 +72,7 @@ EFL_START_TEST(evas_render_lookup)
    for (itr = built_engines; *itr != NULL; itr++)
      {
         int id = evas_render_method_lookup(*itr);
-        ck_assert_msg(id == 0, "could not load engine: %s", *itr);
+        fail_if(id == 0, "could not load engine: %s", *itr);
      }
 }
 EFL_END_TEST
@@ -116,7 +116,7 @@ EFL_START_TEST(evas_render_callbacks)
    /* 500 x 500 */
    einfo->info.dest_buffer_row_bytes = 500 * sizeof(int);
    einfo->info.dest_buffer = malloc(einfo->info.dest_buffer_row_bytes * 500);
-   fail_if(evas_engine_info_set(evas, (Evas_Engine_Info *)einfo));
+   ck_assert(evas_engine_info_set(evas, (Evas_Engine_Info *)einfo));
 
    rect = evas_object_rectangle_add(evas);
    evas_object_color_set(rect, 255, 0, 0, 255);

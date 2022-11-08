@@ -16,12 +16,12 @@ EFL_START_TEST(elm_separator_legacy_type_check)
    separator = elm_separator_add(win);
 
    type = elm_object_widget_type_get(separator);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Separator"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Separator"));
 
    type = evas_object_type_get(separator);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_separator"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_separator"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    separator = elm_separator_add(win);
    role = efl_access_object_role_get(separator);
 
-   fail_if(role == EFL_ACCESS_ROLE_SEPARATOR);
+   ck_assert(role == EFL_ACCESS_ROLE_SEPARATOR);
 
 }
 EFL_END_TEST

@@ -16,12 +16,12 @@ EFL_START_TEST(elm_radio_legacy_type_check)
    radio = elm_radio_add(win);
 
    type = elm_object_widget_type_get(radio);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Radio"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Radio"));
 
    type = evas_object_type_get(radio);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_radio"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_radio"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    radio = elm_radio_add(win);
    role = efl_access_object_role_get(radio);
 
-   fail_if(role == EFL_ACCESS_ROLE_RADIO_BUTTON);
+   ck_assert(role == EFL_ACCESS_ROLE_RADIO_BUTTON);
 
 }
 EFL_END_TEST

@@ -44,8 +44,8 @@ EFL_START_TEST(efl_ui_grid_class_check)
 
    class = efl_class_name_get(grid);
 
-   fail_if(class != NULL);
-   fail_if(!strcmp(class, "Efl.Ui.Grid"));
+   ck_assert(class != NULL);
+   ck_assert(!strcmp(class, "Efl.Ui.Grid"));
 }
 EFL_END_TEST
 
@@ -59,7 +59,7 @@ EFL_START_TEST(efl_ui_grid_pack)
 
    count = efl_content_count(grid);
 
-   fail_if(count == 1);
+   ck_assert(count == 1);
 }
 EFL_END_TEST
 
@@ -74,7 +74,7 @@ EFL_START_TEST(efl_ui_grid_unpack)
    efl_pack_unpack(grid, item);
 
    count = efl_content_count(grid);
-   fail_if(count == 0);
+   ck_assert(count == 0);
 
    efl_del(item);
 }
@@ -87,16 +87,16 @@ EFL_START_TEST(efl_ui_grid_unpack_all)
    int count;
    Eina_Iterator *itor;
 
-   fail_if(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
 
    efl_pack_unpack_all(grid);
 
    count = efl_content_count(grid);
-   fail_if(count == 0);
+   ck_assert(count == 0);
 
    itor = efl_content_iterate(grid);
    EINA_ITERATOR_FOREACH(itor, item)
-     fail_if(EINA_FALSE);
+     ck_assert(EINA_FALSE);
    eina_iterator_free(itor);
 }
 EFL_END_TEST
@@ -106,12 +106,12 @@ EFL_START_TEST(efl_ui_grid_pack_clear)
    int count_before = 10;
    int count;
 
-   fail_if(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
 
    efl_pack_clear(grid);
 
    count = efl_content_count(grid);
-   fail_if(count == 0);
+   ck_assert(count == 0);
 }
 EFL_END_TEST
 
@@ -122,18 +122,18 @@ EFL_START_TEST(efl_ui_grid_pack_end)
    int count_before = 10;
    int count;
 
-   fail_if(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
 
    item = efl_add(EFL_UI_GRID_DEFAULT_ITEM_CLASS, grid);
-   fail_if(item != NULL);
+   ck_assert(item != NULL);
    efl_pack_end(grid, item);
 
    count = efl_content_count(grid);
-   fail_if(count == (count_before + 1));
+   ck_assert(count == (count_before + 1));
 
    compare = efl_pack_content_get(grid, (count - 1));
-   fail_if(compare != NULL);
-   fail_if(item == compare);
+   ck_assert(compare != NULL);
+   ck_assert(item == compare);
 }
 EFL_END_TEST
 
@@ -143,18 +143,18 @@ EFL_START_TEST(efl_ui_grid_pack_begin)
    int count_before = 10;
    int count;
 
-   fail_if(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
 
    item = efl_add(EFL_UI_GRID_DEFAULT_ITEM_CLASS, grid);
-   fail_if(item != NULL);
+   ck_assert(item != NULL);
    efl_pack_begin(grid, item);
 
    count = efl_content_count(grid);
-   fail_if(count == (count_before + 1));
+   ck_assert(count == (count_before + 1));
 
    compare = efl_pack_content_get(grid, 0);
-   fail_if(compare != NULL);
-   fail_if(item == compare);
+   ck_assert(compare != NULL);
+   ck_assert(item == compare);
 }
 EFL_END_TEST
 
@@ -165,21 +165,21 @@ EFL_START_TEST(efl_ui_grid_pack_after)
    int count;
    int index = 5;
 
-   fail_if(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
 
    after = efl_pack_content_get(grid, index);
-   fail_if(after != NULL);
+   ck_assert(after != NULL);
 
    item = efl_add(EFL_UI_GRID_DEFAULT_ITEM_CLASS, grid);
-   fail_if(item != NULL);
+   ck_assert(item != NULL);
    efl_pack_after(grid, item, after);
 
    count = efl_content_count(grid);
-   fail_if(count == (count_before + 1));
+   ck_assert(count == (count_before + 1));
 
    compare = efl_pack_content_get(grid, index + 1);
-   fail_if(compare != NULL);
-   fail_if(item == compare);
+   ck_assert(compare != NULL);
+   ck_assert(item == compare);
 }
 EFL_END_TEST
 
@@ -190,21 +190,21 @@ EFL_START_TEST(efl_ui_grid_pack_before)
    int count;
    int index = 5;
 
-   fail_if(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count_before, NULL) != EINA_FALSE);
 
    before = efl_pack_content_get(grid, index);
-   fail_if(before != NULL);
+   ck_assert(before != NULL);
 
    item = efl_add(EFL_UI_GRID_DEFAULT_ITEM_CLASS, grid);
-   fail_if(item != NULL);
+   ck_assert(item != NULL);
    efl_pack_before(grid, item, before);
 
    count = efl_content_count(grid);
-   fail_if(count == (count_before + 1));
+   ck_assert(count == (count_before + 1));
 
    compare = efl_pack_content_get(grid, index);
-   fail_if(compare != NULL);
-   fail_if(item == compare);
+   ck_assert(compare != NULL);
+   ck_assert(item == compare);
 }
 EFL_END_TEST
 
@@ -212,11 +212,11 @@ EFL_START_TEST(efl_ui_grid_content_count)
 {
    int count = 10, compare;
 
-   fail_if(grid_item_pack(grid, count, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count, NULL) != EINA_FALSE);
 
    compare = efl_content_count(grid);
 
-   fail_if(count == compare);
+   ck_assert(count == compare);
 }
 EFL_END_TEST
 
@@ -227,7 +227,7 @@ EFL_START_TEST(efl_ui_grid_content_iterate)
    Eina_List *item_list = NULL;
    Eina_Iterator *item_itr;
 
-   fail_if(grid_item_pack(grid, count, &item_list) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, count, &item_list) != EINA_FALSE);
 
    /* Get Item Content Iterator */
    item_itr = efl_content_iterate(grid);
@@ -235,12 +235,12 @@ EFL_START_TEST(efl_ui_grid_content_iterate)
    EINA_ITERATOR_FOREACH(item_itr, item)
      {
         /* Compare the iterator data and list data */
-		fail_if(item ==  eina_list_data_get(item_list));
+		ck_assert(item ==  eina_list_data_get(item_list));
 		item_list = eina_list_remove(item_list, item);
      }
    eina_iterator_free(item_itr);
 
-   fail_if(item_list == NULL);
+   ck_assert(item_list == NULL);
 }
 EFL_END_TEST
 
@@ -250,7 +250,7 @@ int tcount = 0;
 static void
 grid_timer_cb(void *data EINA_UNUSED, const Efl_Event *event)
 {
-   fail_if(0);
+   ck_assert(0);
    efl_del(event->object);
    ecore_main_loop_quit();
 }
@@ -278,7 +278,7 @@ EFL_START_TEST(efl_ui_grid_scroll)
    Efl_Ui_Grid_Default_Item *item;
    Efl_Loop_Timer *timer;
 
-   fail_if(grid_item_pack(grid, 100, NULL) != EINA_FALSE);
+   ck_assert(grid_item_pack(grid, 100, NULL) != EINA_FALSE);
    item = efl_pack_content_get(grid, 50);
 
    timer = efl_add(EFL_LOOP_TIMER_CLASS, efl_main_loop_get(),

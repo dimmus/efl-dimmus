@@ -21,12 +21,12 @@ _generate_base_model(void)
    eina_value_setup(&v, EINA_VALUE_TYPE_INT);
 
    base_model = efl_add_ref(EFL_GENERIC_MODEL_CLASS, efl_main_loop_get());
-   fail_if(!!base_model);
+   ck_assert(!!base_model);
    for (i = 0; i < child_number; ++i)
      {
         child = efl_model_child_add(base_model);
-        fail_if(!!child);
-        fail_if(eina_value_set(&v, base_ints[i]));
+        ck_assert(!!child);
+        ck_assert(eina_value_set(&v, base_ints[i]));
         efl_model_property_set(child, "test_p_int", &v);
      }
    eina_value_flush(&v);
@@ -42,7 +42,7 @@ _property_error_expected(Efl_Model *model, const char *property)
 
    v = efl_model_property_get(model, property);
    ck_assert_ptr_eq(eina_value_type_get(v), EINA_VALUE_TYPE_ERROR);
-   fail_if(eina_value_error_get(v, &err));
+   ck_assert(eina_value_error_get(v, &err));
    eina_value_free(v);
 
    return err;
@@ -56,7 +56,7 @@ _property_uint_expected(Efl_Model *model, const char *property)
 
    v = efl_model_property_get(model, property);
    ck_assert_ptr_eq(eina_value_type_get(v), EINA_VALUE_TYPE_UINT);
-   fail_if(eina_value_uint_get(v, &r));
+   ck_assert(eina_value_uint_get(v, &r));
    eina_value_free(v);
 
    return r;
@@ -159,7 +159,7 @@ EFL_START_TEST(efl_ui_homogeneous_model_test)
 
    model = efl_add_ref(EFL_UI_HOMOGENEOUS_MODEL_CLASS, efl_main_loop_get(),
                        efl_ui_view_model_set(efl_added, base_model));
-   fail_if(!!model);
+   ck_assert(!!model);
 
    future = efl_model_children_slice_get(model, 0, efl_model_children_count_get(model));
    efl_future_then(model, future, .success = _children_homogeneous_slice_get_then);
@@ -230,7 +230,7 @@ EFL_START_TEST(efl_ui_exact_model_test)
 
    model = efl_add_ref(EFL_UI_EXACT_MODEL_CLASS, efl_main_loop_get(),
                        efl_ui_view_model_set(efl_added, base_model));
-   fail_if(!!model);
+   ck_assert(!!model);
 
    future = efl_model_children_slice_get(model, 0, efl_model_children_count_get(model));
    efl_future_then(model, future, .success = _children_exact_slice_get_then);
@@ -257,7 +257,7 @@ _child_updated_average(Efl_Model *model, void *data, const Eina_Value v)
    int got = 0;
 
    r = efl_model_property_get(model, "total.height");
-   fail_if(eina_value_int_convert(r, &got));
+   ck_assert(eina_value_int_convert(r, &got));
    ck_assert_int_eq(got, *ex);
    eina_value_free(r);
 
@@ -318,7 +318,7 @@ EFL_START_TEST(efl_ui_average_model_test)
 
    model = efl_add_ref(EFL_UI_AVERAGE_MODEL_CLASS, efl_main_loop_get(),
                        efl_ui_view_model_set(efl_added, base_model));
-   fail_if(!!model);
+   ck_assert(!!model);
 
    future = efl_model_children_slice_get(model, 0, efl_model_children_count_get(model));
    efl_future_then(model, future, .success = _children_average_slice_get_then);

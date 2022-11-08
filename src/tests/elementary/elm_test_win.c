@@ -79,32 +79,32 @@ EFL_START_TEST(elm_win_legacy_type_check)
    win = win_add(NULL, "win", ELM_WIN_BASIC);
 
    type = elm_object_widget_type_get(win);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Win"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Win"));
 
    type = evas_object_type_get(win);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_win"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_win"));
 
    win_socket = win_add(NULL, "win", ELM_WIN_SOCKET_IMAGE);
 
    type = elm_object_widget_type_get(win_socket);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Win"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Win"));
 
    type = evas_object_type_get(win_socket);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_win"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_win"));
 
    win_inlined = win_add(win, "win", ELM_WIN_INLINED_IMAGE);
 
    type = elm_object_widget_type_get(win_inlined);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Win"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Win"));
 
    type = evas_object_type_get(win_inlined);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_win"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_win"));
 }
 EFL_END_TEST
 
@@ -117,7 +117,7 @@ EFL_START_TEST(elm_atspi_role_get)
 
    role = efl_access_object_role_get(win);
 
-   fail_if(role == EFL_ACCESS_ROLE_WINDOW);
+   ck_assert(role == EFL_ACCESS_ROLE_WINDOW);
 
 }
 EFL_END_TEST
@@ -130,13 +130,13 @@ EFL_START_TEST(elm_atspi_component_screen_position)
    Eo *win = win_add(NULL, "win", ELM_WIN_BASIC);
 
    ret = efl_access_component_screen_position_set(win, 45, 45);
-   fail_if(ret == EINA_TRUE);
+   ck_assert(ret == EINA_TRUE);
 
    Ecore_Evas *ee = ecore_evas_ecore_evas_get(evas_object_evas_get(win));
-   fail_if(ee != NULL);
+   ck_assert(ee != NULL);
    ecore_evas_geometry_get(ee, &x, &y, NULL, NULL);
 
-   fail_if((x == 45) && (y == 45));
+   ck_assert((x == 45) && (y == 45));
 
 }
 EFL_END_TEST
@@ -157,7 +157,7 @@ EFL_START_TEST(elm_win_autohide)
 
         Eina_Bool visible;
         visible = efl_gfx_entity_visible_get(win);
-        fail_if(visible == EINA_FALSE);
+        ck_assert(visible == EINA_FALSE);
      }
 }
 EFL_END_TEST
@@ -177,7 +177,7 @@ EFL_START_TEST (elm_win_test_app_exit_on_windows_close)
    ecore_timer_add(_timeout_fail, _timer_fail_flag_cb, &fail_flag);
 
    exit_val = efl_loop_begin(efl_loop_get(win));
-   fail_if(eina_value_int_get(exit_val, &code));
+   ck_assert(eina_value_int_get(exit_val, &code));
    ck_assert_int_eq(code, 66);
    efl_ui_win_exit_on_all_windows_closed_set(&EINA_VALUE_EMPTY);
 }
@@ -200,9 +200,9 @@ EFL_START_TEST(elm_win_policy_quit_last_window_hidden)
    Eina_Bool visible;
    visible = efl_gfx_entity_visible_get(win);
 
-   fail_if(fail_flag == EINA_FALSE);
-   fail_if(efl_ref_count(win) >= 1);
-   fail_if(visible == EINA_FALSE);
+   ck_assert(fail_flag == EINA_FALSE);
+   ck_assert(efl_ref_count(win) >= 1);
+   ck_assert(visible == EINA_FALSE);
 
 }
 EFL_END_TEST
@@ -222,7 +222,7 @@ EFL_START_TEST(elm_win_test_exit_on_close)
    ecore_timer_add(_timeout_fail, _timer_fail_flag_cb, &fail_flag);
 
    exit_val = efl_loop_begin(efl_loop_get(win));
-   fail_if(eina_value_int_get(exit_val, &code));
+   ck_assert(eina_value_int_get(exit_val, &code));
    ck_assert_int_eq(code, 66);
 }
 EFL_END_TEST
@@ -246,9 +246,9 @@ EFL_START_TEST(elm_win_autohide_and_policy_quit_last_window_hidden)
         Eina_Bool visible;
         visible = efl_gfx_entity_visible_get(win);
 
-        fail_if(fail_flag == EINA_FALSE);
-        fail_if(efl_ref_count(win) >= 1);
-        fail_if(visible == EINA_FALSE);
+        ck_assert(fail_flag == EINA_FALSE);
+        ck_assert(efl_ref_count(win) >= 1);
+        ck_assert(visible == EINA_FALSE);
      }
 }
 EFL_END_TEST

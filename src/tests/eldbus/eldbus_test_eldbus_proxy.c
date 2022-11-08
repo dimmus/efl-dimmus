@@ -141,7 +141,7 @@ EFL_START_TEST(utc_eldbus_proxy_info_get_call_p)
 
    eldbus_proxy_unref(proxy_ref);
 
-   fail_if(eldbus_proxy_interface_get(proxy) != NULL);
+   ck_assert(eldbus_proxy_interface_get(proxy) != NULL);
 
    Eldbus_Pending *pending = eldbus_proxy_call(proxy, method_name, _proxy_message_cb, &cb_data, -1, empty_string);
    ck_assert_ptr_ne(NULL, pending);
@@ -293,9 +293,9 @@ EFL_START_TEST(utc_eldbus_proxy_send_and_block_p)
    ck_assert_ptr_ne(NULL, message_reply);
 
    //eldbus_message_error_get(message_reply, &errname, &errmsg)
-   fail_if(eldbus_message_error_get(message_reply, &errname, &errmsg) == EINA_FALSE);
+   ck_assert(eldbus_message_error_get(message_reply, &errname, &errmsg) == EINA_FALSE);
 
-   fail_if(eldbus_message_arguments_get(message_reply, "s", &text_reply) == EINA_TRUE);
+   ck_assert(eldbus_message_arguments_get(message_reply, "s", &text_reply) == EINA_TRUE);
 
    if (text_reply)
      printf("is reply message is not null\n");

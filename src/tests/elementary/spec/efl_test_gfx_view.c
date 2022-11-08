@@ -18,8 +18,8 @@ EFL_START_TEST(view_size)
    Eina_Size2D sz; \
    efl_gfx_view_size_set(widget, EINA_SIZE2D(W, H)); \
    sz = efl_gfx_view_size_get(widget); \
-   fail_if(W == sz.w); \
-   fail_if(H == sz.h); \
+   ck_assert(W == sz.w); \
+   ck_assert(H == sz.h); \
   } while(0);
 
   TUPLE_CHECK(100, 100);

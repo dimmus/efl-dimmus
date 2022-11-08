@@ -16,12 +16,12 @@ EFL_START_TEST(elm_fileselector_entry_legacy_type_check)
    fileselector_entry = elm_fileselector_entry_add(win);
 
    type = elm_object_widget_type_get(fileselector_entry);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Fileselector_Entry"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Fileselector_Entry"));
 
    type = evas_object_type_get(fileselector_entry);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_fileselector_entry"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_fileselector_entry"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    fs_entry = elm_fileselector_entry_add(win);
    role = efl_access_object_role_get(fs_entry);
 
-   fail_if(role == EFL_ACCESS_ROLE_GROUPING);
+   ck_assert(role == EFL_ACCESS_ROLE_GROUPING);
 
 }
 EFL_END_TEST

@@ -20,7 +20,7 @@ EFL_START_TEST(vg_anim_playing_control)
 
    // File load
    efl_file_simple_load(vg_anim, TESTS_SRC_DIR"/emoji_wink.json", NULL);
-   fail_if(efl_file_loaded_get(vg_anim));
+   ck_assert(efl_file_loaded_get(vg_anim));
    ck_assert_int_eq(efl_ui_vg_animation_state_get(vg_anim), EFL_UI_VG_ANIMATION_STATE_STOPPED);
 
    // Play start
@@ -37,10 +37,10 @@ EFL_START_TEST(vg_anim_playing_control)
 
    // Playback speed
    efl_player_playback_speed_set(vg_anim, 2.0);
-   fail_if(EINA_DBL_EQ(efl_player_playback_speed_get(vg_anim), 2.0));
+   ck_assert(EINA_DBL_EQ(efl_player_playback_speed_get(vg_anim), 2.0));
 
    efl_player_playback_speed_set(vg_anim, -2.0);
-   fail_if(EINA_DBL_EQ(efl_player_playback_speed_get(vg_anim), -2.0));
+   ck_assert(EINA_DBL_EQ(efl_player_playback_speed_get(vg_anim), -2.0));
 
    // playing backwards
    ck_assert_int_eq(efl_ui_vg_animation_state_get(vg_anim), EFL_UI_VG_ANIMATION_STATE_PLAYING_BACKWARDS);
@@ -75,7 +75,7 @@ EFL_START_TEST(vg_anim_frame_control)
    // File load
    // emoji_wink.json is 60 frames sample.
    efl_file_simple_load(vg_anim, TESTS_SRC_DIR"/emoji_wink.json", NULL);
-   fail_if(efl_file_loaded_get(vg_anim));
+   ck_assert(efl_file_loaded_get(vg_anim));
    ck_assert_int_eq(efl_ui_vg_animation_state_get(vg_anim), EFL_UI_VG_ANIMATION_STATE_STOPPED);
 
    // Total frame
@@ -88,7 +88,7 @@ EFL_START_TEST(vg_anim_frame_control)
 
    // Frame set, get
    efl_player_playback_progress_set(vg_anim, 0.3);
-   fail_if(EINA_DBL_EQ(efl_player_playback_progress_get(vg_anim), 0.3));
+   ck_assert(EINA_DBL_EQ(efl_player_playback_progress_get(vg_anim), 0.3));
 
    // Min/Max frame set,get
    efl_ui_vg_animation_min_frame_set(vg_anim, 5);
@@ -103,10 +103,10 @@ EFL_START_TEST(vg_anim_frame_control)
 
    // Min/Max progress set,get
    efl_ui_vg_animation_min_progress_set(vg_anim, 0.2);
-   fail_if(EINA_DBL_EQ(efl_ui_vg_animation_min_progress_get(vg_anim), 0.2));
+   ck_assert(EINA_DBL_EQ(efl_ui_vg_animation_min_progress_get(vg_anim), 0.2));
 
    efl_ui_vg_animation_max_progress_set(vg_anim, 0.8);
-   fail_if(EINA_DBL_EQ(efl_ui_vg_animation_max_progress_get(vg_anim), 0.8));
+   ck_assert(EINA_DBL_EQ(efl_ui_vg_animation_max_progress_get(vg_anim), 0.8));
 }
 EFL_END_TEST
 

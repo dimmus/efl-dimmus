@@ -16,12 +16,12 @@ EFL_START_TEST(elm_progressbar_legacy_type_check)
    progressbar = elm_progressbar_add(win);
 
    type = elm_object_widget_type_get(progressbar);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Progressbar"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Progressbar"));
 
    type = evas_object_type_get(progressbar);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_progressbar"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_progressbar"));
 
 }
 EFL_END_TEST
@@ -40,7 +40,7 @@ EFL_START_TEST(elm_progressbar_custom_unit_check)
    elm_progressbar_unit_format_set(progressbar, format);
    DISABLE_ABORT_ON_CRITICAL_END;
    elm_progressbar_value_set(progressbar, .50);
-   fail_if(!strcmp(elm_object_part_text_get(progressbar, "elm.text.status"), "50 percent (50%)"));
+   ck_assert(!strcmp(elm_object_part_text_get(progressbar, "elm.text.status"), "50 percent (50%)"));
 }
 EFL_END_TEST
 
@@ -54,7 +54,7 @@ EFL_START_TEST(elm_atspi_role_get)
    progressbar = elm_progressbar_add(win);
    role = efl_access_object_role_get(progressbar);
 
-   fail_if(role == EFL_ACCESS_ROLE_PROGRESS_BAR);
+   ck_assert(role == EFL_ACCESS_ROLE_PROGRESS_BAR);
 
 }
 EFL_END_TEST
@@ -65,7 +65,7 @@ EFL_START_TEST(elm_progressbar_unit_format_get_n)
 
    fmt = elm_progressbar_unit_format_get(NULL);
 
-   fail_if(fmt == NULL);
+   ck_assert(fmt == NULL);
 }
 EFL_END_TEST
 

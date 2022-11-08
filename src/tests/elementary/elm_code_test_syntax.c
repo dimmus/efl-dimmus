@@ -42,11 +42,11 @@ EFL_START_TEST(elm_code_syntax_lookup)
    Elm_Code_Syntax *syntax;
 
    syntax = elm_code_syntax_for_mime_get("text/x-csrc");
-   fail_if(!!syntax);
+   ck_assert(!!syntax);
    syntax = elm_code_syntax_for_mime_get("text/x-chdr");
-   fail_if(!!syntax);
+   ck_assert(!!syntax);
    syntax = elm_code_syntax_for_mime_get("text/unknown");
-   fail_if(!syntax);
+   ck_assert(!syntax);
 }
 EFL_END_TEST
 

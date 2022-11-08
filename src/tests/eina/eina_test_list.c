@@ -242,11 +242,9 @@ EFL_START_TEST(eina_test_list_merge)
       fail_if(l1 == NULL);
       fail_if(eina_list_count(l1) != 6);
    for (i = 0, l2 = l1; ((l2 != NULL) && (i < 6)); ++i, l2 = l2->next)
-   {
       fail_if(l2->data != &data[i]);
       fail_if(i != 6);
       fail_if(l2 != NULL);
-   }
 
       eina_list_free(l1);
 
@@ -264,11 +262,9 @@ EFL_START_TEST(eina_test_list_merge)
       fail_if(l1 == NULL);
       fail_if(eina_list_count(l1) != 6);
    for (i = 0, l2 = l1; ((l2 != NULL) && (i < 6)); ++i, l2 = l2->next)
-   {
       fail_if(l2->data != &data[i]);
       fail_if(i != 6);
       fail_if(l2 != NULL);
-   }
 
    l3 = eina_list_append(NULL, &data[6]);
    l3 = eina_list_append(l3, &data[7]);

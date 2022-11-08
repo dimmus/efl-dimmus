@@ -19,14 +19,14 @@ EFL_START_TEST(efl_ui_image_test_icon)
    efl_gfx_entity_visible_set(image, EINA_TRUE);
 
    ok = efl_ui_image_icon_set(image, "folder");
-   fail_if(ok);
+   ck_assert(ok);
    icon_name = efl_ui_image_icon_get(image);
    ck_assert_str_eq(icon_name, "folder");
 
    ok = efl_ui_image_icon_set(image, "None");
-   fail_if(ok == 0);
+   ck_assert(ok == 0);
    icon_name = efl_ui_image_icon_get(image);
-   fail_if(icon_name == NULL);
+   ck_assert(icon_name == NULL);
 }
 EFL_END_TEST
 

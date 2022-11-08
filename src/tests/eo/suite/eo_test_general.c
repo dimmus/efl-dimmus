@@ -991,7 +991,7 @@ EFL_START_TEST(eo_magic_checks)
         simple_a_set((Efl_Class *) buf, 1);
         simple_a_set(efl_super((Efl_Class *) buf, SIMPLE_CLASS), ++i);
         simple_a_set(efl_super(SIMPLE_CLASS, (Efl_Class *) buf), ++i);
-        ck_assert_msg(efl_class_new(NULL, (Efl_Class *) buf), NULL);
+        fail_if(efl_class_new(NULL, (Efl_Class *) buf), NULL);
 
         efl_xref(obj, (Eo *) buf);
         efl_xunref(obj, (Eo *) buf);
@@ -1442,7 +1442,7 @@ thr1(void *data, Eina_Thread t EINA_UNUSED)
    fail_if(!efl_finalized_get(d->objs));
 
    s2 = efl_add_ref(DOMAIN_CLASS, obj);
-   fail_if(s2);
+   ck_assert(s2);
    efl_parent_set(s2, NULL);
    efl_unref(s2);
 
@@ -1592,7 +1592,7 @@ EFL_START_TEST(eo_domain)
    domain_a_set(objs, 1234);
    fail_if(domain_a_get(objs) != 1234);
 
-   fail_if(SIMPLE_CLASS);
+   ck_assert(SIMPLE_CLASS);
 
    Eina_Thread t;
    Data data;
@@ -1819,20 +1819,20 @@ EFL_START_TEST(eo_test_class_replacement)
    Eo *obj;
 
    /* test basic override */
-   fail_if(efl_class_override_register(SIMPLE_CLASS, SIMPLE3_CLASS));
+   ck_assert(efl_class_override_register(SIMPLE_CLASS, SIMPLE3_CLASS));
    obj = efl_add_ref(SIMPLE_CLASS, NULL);
    fail_if(!obj);
    ck_assert_ptr_eq(efl_class_get(obj), SIMPLE3_CLASS);
    efl_unref(obj);
 
    /* test overriding with non-inheriting class */
-   fail_if(!efl_class_override_register(SIMPLE_CLASS, SIMPLE2_CLASS));
+   ck_assert(!efl_class_override_register(SIMPLE_CLASS, SIMPLE2_CLASS));
 
    /* test removing an invalid override */
-   fail_if(!efl_class_override_unregister(SIMPLE_CLASS, SIMPLE2_CLASS));
+   ck_assert(!efl_class_override_unregister(SIMPLE_CLASS, SIMPLE2_CLASS));
 
    /* test removing an override */
-   fail_if(efl_class_override_unregister(SIMPLE_CLASS, SIMPLE3_CLASS));
+   ck_assert(efl_class_override_unregister(SIMPLE_CLASS, SIMPLE3_CLASS));
    obj = efl_add_ref(SIMPLE_CLASS, NULL);
    fail_if(!obj);
    ck_assert_ptr_eq(efl_class_get(obj), SIMPLE_CLASS);

@@ -16,12 +16,12 @@ EFL_START_TEST(elm_menu_legacy_type_check)
    menu = elm_menu_add(win);
 
    type = elm_object_widget_type_get(menu);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Menu"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Menu"));
 
    type = evas_object_type_get(menu);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_menu"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_menu"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    menu = elm_menu_add(win);
    role = efl_access_object_role_get(menu);
 
-   fail_if(role == EFL_ACCESS_ROLE_MENU);
+   ck_assert(role == EFL_ACCESS_ROLE_MENU);
 
 }
 EFL_END_TEST

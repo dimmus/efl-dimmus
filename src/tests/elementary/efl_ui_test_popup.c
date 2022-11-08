@@ -22,7 +22,7 @@ _popup_layout_create(Eo *popup)
    char buf[PATH_MAX];
    Eo *layout = efl_add(EFL_UI_LAYOUT_CLASS, popup);
    snprintf(buf, sizeof(buf), "%s/objects/test.edj", ELM_TEST_DATA_DIR);
-   fail_if(efl_file_simple_load(layout, buf, "efl_ui_popup_scroll_content"));
+   ck_assert(efl_file_simple_load(layout, buf, "efl_ui_popup_scroll_content"));
    efl_canvas_group_calculate(layout);
    return layout;
 }
@@ -219,7 +219,7 @@ EFL_START_TEST(efl_ui_test_popup_backwall_img)
    popup = efl_add(EFL_UI_POPUP_CLASS, win);
 
    snprintf(buf, sizeof(buf), "%s/images/sky_01.jpg", ELM_IMAGE_DATA_DIR);
-   fail_if(efl_file_simple_load(efl_part(popup, "backwall"), buf, NULL));
+   ck_assert(efl_file_simple_load(efl_part(popup, "backwall"), buf, NULL));
    ck_assert_str_eq(efl_file_get(efl_part(popup, "backwall")), buf);
 }
 EFL_END_TEST
@@ -763,7 +763,7 @@ EFL_START_TEST(efl_ui_test_popup_text_anchor)
 
    layout = efl_add(EFL_UI_LAYOUT_CLASS, win);
    snprintf(buf, sizeof(buf), "%s/objects/test.edj", ELM_TEST_DATA_DIR);
-   fail_if(efl_file_simple_load(layout, buf, "efl_ui_popup_anchor_layout"));
+   ck_assert(efl_file_simple_load(layout, buf, "efl_ui_popup_anchor_layout"));
    efl_content_set(win, layout);
 
    popup = efl_add(EFL_UI_POPUP_CLASS, win);

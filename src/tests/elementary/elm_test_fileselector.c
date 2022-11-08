@@ -17,12 +17,12 @@ EFL_START_TEST(elm_fileselector_legacy_type_check)
    fileselector = elm_fileselector_add(win);
 
    type = elm_object_widget_type_get(fileselector);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Fileselector"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Fileselector"));
 
    type = evas_object_type_get(fileselector);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_fileselector"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_fileselector"));
 
 }
 EFL_END_TEST
@@ -37,7 +37,7 @@ EFL_START_TEST(elm_atspi_role_get)
    fileselector = elm_fileselector_add(win);
    role = efl_access_object_role_get(fileselector);
 
-   fail_if(role == EFL_ACCESS_ROLE_FILE_CHOOSER);
+   ck_assert(role == EFL_ACCESS_ROLE_FILE_CHOOSER);
 
 }
 EFL_END_TEST
@@ -105,7 +105,7 @@ EFL_START_TEST(elm_fileselector_selected)
    if (!eina_file_mkdtemp("elm_test-XXXXXX", &tmp_path))
      {
         /* can not test */
-        fail_if(EINA_FALSE);
+        ck_assert(EINA_FALSE);
         return;
      }
 
@@ -122,11 +122,11 @@ EFL_START_TEST(elm_fileselector_selected)
    fileselector = elm_fileselector_add(win);
    evas_object_smart_callback_add(fileselector, "directory,open", _ready_cb, &open);
 
-   fail_if(!elm_fileselector_selected_set(fileselector, no_exist));
+   ck_assert(!elm_fileselector_selected_set(fileselector, no_exist));
 
    open = EINA_FALSE;
-   fail_if(elm_fileselector_selected_set(fileselector, path));
-   fail_if(fileselector_test_helper_wait_flag(10, &open));
+   ck_assert(elm_fileselector_selected_set(fileselector, path));
+   ck_assert(fileselector_test_helper_wait_flag(10, &open));
 
    ck_assert_str_eq(elm_fileselector_selected_get(fileselector), path);
 
@@ -134,9 +134,9 @@ EFL_START_TEST(elm_fileselector_selected)
    evas_object_smart_callback_add(fileselector, "selected", _ready_cb, &selected);
 
    selected = EINA_FALSE;
-   fail_if(elm_fileselector_selected_set(fileselector, exist));
-   fail_if(fileselector_test_helper_wait_flag(10, &selected));
-   fail_if(selected == EINA_TRUE);
+   ck_assert(elm_fileselector_selected_set(fileselector, exist));
+   ck_assert(fileselector_test_helper_wait_flag(10, &selected));
+   ck_assert(selected == EINA_TRUE);
 
    ck_assert_str_eq(elm_fileselector_selected_get(fileselector), exist);
 

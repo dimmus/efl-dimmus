@@ -19,8 +19,8 @@ EFL_START_TEST(elm_code_create_test)
    elm_init(1, args);
    code = elm_code_create();
 
-   fail_if(!!code);
-   fail_if(elm_code_file_path_get(code->file) == NULL);
+   ck_assert(!!code);
+   ck_assert(elm_code_file_path_get(code->file) == NULL);
    elm_code_free(code);
    elm_shutdown();
 }
@@ -39,7 +39,7 @@ EFL_START_TEST(elm_code_open_test)
 
    ck_assert_ptr_ne(realpath(path, realpath1), NULL);
    ck_assert_ptr_ne(realpath(elm_code_file_path_get(code->file), realpath2), NULL);
-   fail_if(!!code);
+   ck_assert(!!code);
    ck_assert_str_eq(realpath1, realpath2);
    elm_code_free(code);
    elm_shutdown();

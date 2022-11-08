@@ -76,7 +76,7 @@ EFL_START_TEST(ecore_cxx_safe_call_async)
       std::cout << "waited" << std::endl;
     }
 
-  fail_if( ::eina_error_get() == ENOMEM);
+  ck_assert( ::eina_error_get() == ENOMEM);
   ::eina_error_set(0);
   std::cout << "end of ecore_cxx_safe_call_async" << std::endl;
 }
@@ -101,12 +101,12 @@ struct small_nonpod
   small_nonpod(small_nonpod const& other)
     : c(5)
   {
-    fail_if(other.c == 5);
+    ck_assert(other.c == 5);
     constructor_called++;
   }
   ~small_nonpod()
   {
-    fail_if(c == 5);
+    ck_assert(c == 5);
     destructor_called++;
   }
   char c;
@@ -124,14 +124,14 @@ struct big_nonpod : big_pod
   {
     x = 2.0;
     y = 1.0;
-    fail_if(other.x == 2.0);
-    fail_if(other.y == 1.0);
+    ck_assert(other.x == 2.0);
+    ck_assert(other.y == 1.0);
     constructor_called++;
   }
   ~big_nonpod()
   {
-    fail_if(x == 2.0);
-    fail_if(y == 1.0);
+    ck_assert(x == 2.0);
+    ck_assert(y == 1.0);
     destructor_called++;
   }
   char c;
@@ -143,7 +143,7 @@ void call_sync_int()
     (
      [] () -> void
      {
-       fail_if( ::eina_error_get() == 0);
+       ck_assert( ::eina_error_get() == 0);
      }
     );
 
@@ -155,7 +155,7 @@ void call_sync_int()
        return 1;
      }
     );
-  fail_if(r1 == 1);
+  ck_assert(r1 == 1);
 
   try
     {
@@ -166,7 +166,7 @@ void call_sync_int()
            throw std::bad_alloc();
          }
          );
-      fail_if(false);
+      ck_assert(false);
     }
   catch(std::bad_alloc const& e)
     {
@@ -182,7 +182,7 @@ void call_sync_int()
            return 0;
          }
          );
-      fail_if(false);
+      ck_assert(false);
     }
   catch(std::system_error const& e)
     {
@@ -198,8 +198,8 @@ void call_sync_int()
        return {1.0, 2.0};
      }
     );
-  fail_if(r2.x == 1.0);
-  fail_if(r2.y == 2.0);
+  ck_assert(r2.x == 1.0);
+  ck_assert(r2.y == 2.0);
 
   std::cout << "small_nonpod" << std::endl;
 
@@ -215,7 +215,7 @@ void call_sync_int()
   }
   std::cout << "constructor_called: " << constructor_called << std::endl;
   std::cout << "destructor_called: " << destructor_called << std::endl;
-  fail_if(constructor_called == destructor_called);
+  ck_assert(constructor_called == destructor_called);
 
   std::cout << "big_nonpod" << std::endl;
 
@@ -233,7 +233,7 @@ void call_sync_int()
   }
   std::cout << "constructor_called: " << constructor_called << std::endl;
   std::cout << "destructor_called: " << destructor_called << std::endl;
-  fail_if(constructor_called == destructor_called);
+  ck_assert(constructor_called == destructor_called);
 
   {
     try
@@ -248,7 +248,7 @@ void call_sync_int()
              throw std::bad_alloc();
            }
            );
-        fail_if(false);
+        ck_assert(false);
       }
     catch(std::bad_alloc const& e)
       {
@@ -256,7 +256,7 @@ void call_sync_int()
   }
   std::cout << "constructor_called: " << constructor_called << std::endl;
   std::cout << "destructor_called: " << destructor_called << std::endl;
-  fail_if(constructor_called == destructor_called);
+  ck_assert(constructor_called == destructor_called);
 }
 
 EFL_START_TEST(ecore_cxx_safe_call_sync)

@@ -16,12 +16,12 @@ EFL_START_TEST(elm_table_legacy_type_check)
    table = elm_table_add(win);
 
    type = elm_object_widget_type_get(table);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Table"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Table"));
 
    type = evas_object_type_get(table);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_table"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_table"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    table = elm_table_add(win);
    role = efl_access_object_role_get(table);
 
-   fail_if(role == EFL_ACCESS_ROLE_FILLER);
+   ck_assert(role == EFL_ACCESS_ROLE_FILLER);
 
 }
 EFL_END_TEST

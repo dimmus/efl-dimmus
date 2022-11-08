@@ -129,7 +129,7 @@ EFL_START_TEST(utc_eldbus_pending_data_p)
 
    ecore_main_loop_begin();
 
-   fail_if(is_response_cb == EINA_TRUE);
+   ck_assert(is_response_cb == EINA_TRUE);
 
    eldbus_message_unref(message);
    eldbus_object_unref(obj);

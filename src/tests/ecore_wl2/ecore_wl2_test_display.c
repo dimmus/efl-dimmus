@@ -12,7 +12,7 @@ EFL_START_TEST(wl2_display_create)
    Ecore_Wl2_Display *disp;
 
    disp = _display_setup();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 }
 EFL_END_TEST
 
@@ -21,7 +21,7 @@ EFL_START_TEST(wl2_display_destroy)
    Ecore_Wl2_Display *disp;
 
    disp = _display_setup();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    ecore_wl2_display_destroy(disp);
 }
@@ -33,10 +33,10 @@ EFL_START_TEST(wl2_display_get)
    struct wl_display *wdisp;
 
    disp = _display_setup();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    wdisp = ecore_wl2_display_get(disp);
-   fail_if(wdisp != NULL);
+   ck_assert(wdisp != NULL);
 }
 EFL_END_TEST
 
@@ -45,9 +45,9 @@ EFL_START_TEST(wl2_display_name_get)
    Ecore_Wl2_Display *disp;
 
    disp = _display_setup();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
-   fail_if(ecore_wl2_display_name_get(disp) != NULL);
+   ck_assert(ecore_wl2_display_name_get(disp) != NULL);
 }
 EFL_END_TEST
 
@@ -56,7 +56,7 @@ EFL_START_TEST(wl2_display_connect)
    Ecore_Wl2_Display *disp;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 }
 EFL_END_TEST
 
@@ -65,7 +65,7 @@ EFL_START_TEST(wl2_display_disconnect)
    Ecore_Wl2_Display *disp;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    ecore_wl2_display_disconnect(disp);
 }
@@ -76,9 +76,9 @@ EFL_START_TEST(wl2_display_registry_get)
    Ecore_Wl2_Display *disp;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
-   fail_if(ecore_wl2_display_registry_get(disp) != NULL);
+   ck_assert(ecore_wl2_display_registry_get(disp) != NULL);
 }
 EFL_END_TEST
 
@@ -88,10 +88,10 @@ EFL_START_TEST(wl2_display_shm_get)
    struct wl_shm *shm;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    shm = ecore_wl2_display_shm_get(disp);
-   fail_if(shm != NULL);
+   ck_assert(shm != NULL);
 }
 EFL_END_TEST
 
@@ -101,10 +101,10 @@ EFL_START_TEST(wl2_display_dmabuf_get)
    void *dma;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    dma = ecore_wl2_display_dmabuf_get(disp);
-   fail_if(dma != NULL);
+   ck_assert(dma != NULL);
 }
 EFL_END_TEST
 
@@ -116,10 +116,10 @@ EFL_START_TEST(wl2_display_globals_get)
    void *data;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    itr = ecore_wl2_display_globals_get(disp);
-   fail_if(itr != NULL);
+   ck_assert(itr != NULL);
 
    EINA_ITERATOR_FOREACH(itr, data)
      {
@@ -137,7 +137,7 @@ EFL_START_TEST(wl2_display_screen_size_get)
    int w, h;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    ecore_wl2_display_screen_size_get(disp, &w, &h);
    ck_assert_int_ne(w, 0);
@@ -151,10 +151,10 @@ EFL_START_TEST(wl2_display_inputs_get)
    Eina_Iterator *itr;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    itr = ecore_wl2_display_inputs_get(disp);
-   fail_if(itr != NULL);
+   ck_assert(itr != NULL);
 
    eina_iterator_free(itr);
 }
@@ -166,7 +166,7 @@ EFL_START_TEST(wl2_display_compositor_version_get)
    int ver;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    ver = ecore_wl2_display_compositor_version_get(disp);
    ck_assert_int_ne(ver, 0);
@@ -186,13 +186,13 @@ _test_input_find_configure_complete(void *data, int type EINA_UNUSED, void *even
    else
      test_input = ecore_wl2_display_input_find_by_name(td->display, "default");
 
-   fail_if(test_input != NULL);
+   ck_assert(test_input != NULL);
    test_input = NULL;
 
    if (getenv("E_START"))
      {
         test_input = ecore_wl2_display_input_find(td->display, 13);
-        fail_if(test_input != NULL);
+        ck_assert(test_input != NULL);
      }
 
    ecore_main_loop_quit();
@@ -211,10 +211,10 @@ EFL_START_TEST(wl2_display_input_find)
    td->height = HEIGHT;
 
    td->display = _display_connect();
-   fail_if(td->display != NULL);
+   ck_assert(td->display != NULL);
 
    td->win = _window_create(td->display);
-   fail_if(td->win != NULL);
+   ck_assert(td->win != NULL);
 
    ecore_wl2_window_show(td->win);
 
@@ -234,7 +234,7 @@ EFL_START_TEST(wl2_display_flush)
    Ecore_Wl2_Display *disp;
 
    disp = _display_connect();
-   fail_if(disp != NULL);
+   ck_assert(disp != NULL);
 
    //FIXME: Ambiguous way to check with code to make sure flushing was successful.
    //       We might think it's being verified by another TC that actually draws to the screen buffer ...
@@ -268,10 +268,10 @@ EFL_START_TEST(wl2_display_sync_is_done)
    td->height = HEIGHT;
 
    td->display = _display_connect();
-   fail_if(td->display != NULL);
+   ck_assert(td->display != NULL);
 
    td->win = _window_create(td->display);
-   fail_if(td->win != NULL);
+   ck_assert(td->win != NULL);
 
    ecore_wl2_window_show(td->win);
 

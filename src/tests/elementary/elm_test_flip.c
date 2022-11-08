@@ -16,12 +16,12 @@ EFL_START_TEST(elm_flip_legacy_type_check)
    flip = elm_flip_add(win);
 
    type = elm_object_widget_type_get(flip);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Flip"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Flip"));
 
    type = evas_object_type_get(flip);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_flip"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_flip"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    flip = elm_flip_add(win);
    role = efl_access_object_role_get(flip);
 
-   fail_if(role == EFL_ACCESS_ROLE_PAGE_TAB_LIST);
+   ck_assert(role == EFL_ACCESS_ROLE_PAGE_TAB_LIST);
 
 }
 EFL_END_TEST

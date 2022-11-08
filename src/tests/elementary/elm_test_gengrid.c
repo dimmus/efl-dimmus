@@ -18,12 +18,12 @@ EFL_START_TEST(elm_gengrid_legacy_type_check)
    gengrid = elm_gengrid_add(win);
 
    type = elm_object_widget_type_get(gengrid);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Gengrid"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Gengrid"));
 
    type = evas_object_type_get(gengrid);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_gengrid"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_gengrid"));
 
 }
 EFL_END_TEST
@@ -38,7 +38,7 @@ EFL_START_TEST(elm_atspi_role_get)
    gengrid = elm_gengrid_add(win);
    role = efl_access_object_role_get(gengrid);
 
-   fail_if(role == EFL_ACCESS_ROLE_TREE_TABLE);
+   ck_assert(role == EFL_ACCESS_ROLE_TREE_TABLE);
 
 }
 EFL_END_TEST
@@ -82,9 +82,9 @@ EFL_START_TEST(elm_atspi_children_parent)
    Elm_Object_Item *it = elm_gengrid_item_append(gengrid, &itc, NULL, NULL, NULL);
    elm_gengrid_item_fields_update(it, "*.", ELM_GENGRID_ITEM_FIELD_CONTENT);
 
-   fail_if(content != NULL);
+   ck_assert(content != NULL);
    parent = efl_provider_find(efl_parent_get(content), EFL_ACCESS_OBJECT_MIXIN);
-   fail_if(it == parent);
+   ck_assert(it == parent);
 
 }
 EFL_END_TEST

@@ -35,7 +35,7 @@ EFL_START_TEST(elm_code_widget_construct)
    win = win_add(NULL, "entry", ELM_WIN_BASIC);
    widget = elm_code_widget_add(win, code);
 
-   fail_if(!!widget);
+   ck_assert(!!widget);
    elm_code_free(code);
    elm_shutdown();
 }
@@ -53,7 +53,7 @@ EFL_START_TEST(elm_code_widget_construct_nocode)
    DISABLE_ABORT_ON_CRITICAL_START;
    widget = elm_code_widget_add(win, NULL);
    DISABLE_ABORT_ON_CRITICAL_END;
-   fail_if(!widget);
+   ck_assert(!widget);
 
    elm_shutdown();
 }
@@ -80,15 +80,15 @@ EFL_START_TEST(elm_code_widget_position)
 
    elm_code_widget_geometry_for_position_get(widget, 1, 1, &x, &y, &w, &h);
    elm_code_widget_geometry_for_position_get(widget, 1, 2, &x2, &y2, &w2, &h2);
-   fail_if(x2 > x);
-   fail_if(y2 == y);
-   fail_if(w2 == w);
-   fail_if(h2 == h);
+   ck_assert(x2 > x);
+   ck_assert(y2 == y);
+   ck_assert(w2 == w);
+   ck_assert(h2 == h);
 
    elm_code_widget_geometry_for_position_get(widget, 2, 1, &x2, &y2, &w2, &h2);
-   fail_if(x2 == x);
-   fail_if(w2 == w);
-   fail_if(h2 == h);
+   ck_assert(x2 == x);
+   ck_assert(w2 == w);
+   ck_assert(h2 == h);
 
    elm_code_free(code);
    elm_shutdown();

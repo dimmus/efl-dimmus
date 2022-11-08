@@ -260,8 +260,8 @@ EFL_START_TEST (efl_ui_table_class_check)
 
    class = efl_class_name_get(layout);
 
-   fail_if(class != NULL);
-   fail_if(!strcmp(class, "Efl.Ui.Table"));
+   ck_assert(class != NULL);
+   ck_assert(!strcmp(class, "Efl.Ui.Table"));
 }
 EFL_END_TEST
 
@@ -427,19 +427,19 @@ EFL_START_TEST (efl_ui_table_pack_table)
      btn[i] = efl_add(EFL_UI_BUTTON_CLASS, layout);
 
    //pack test
-   fail_if(efl_pack(layout, btn[0]));
+   ck_assert(efl_pack(layout, btn[0]));
    ck_assert_ptr_eq(efl_pack_table_content_get(layout, 0, 0), btn[0]);
    efl_pack_table_size_get(layout, &cols, &rows);
    ck_assert_int_eq(cols, 1);
    ck_assert_int_eq(rows, 1);
 
-   fail_if(efl_pack_table(layout, btn[1], 6, 0, 1, 1));
+   ck_assert(efl_pack_table(layout, btn[1], 6, 0, 1, 1));
    ck_assert_ptr_eq(efl_pack_table_content_get(layout, 6, 0), btn[1]);
    efl_pack_table_size_get(layout, &cols, &rows);
    ck_assert_int_eq(cols, 7);
    ck_assert_int_eq(rows, 1);
 
-   fail_if(efl_pack(layout, btn[2]));
+   ck_assert(efl_pack(layout, btn[2]));
    ck_assert_ptr_eq(efl_pack_table_content_get(layout, 7, 0), btn[2]);
    efl_pack_table_size_get(layout, &cols, &rows);
    ck_assert_int_eq(cols, 8);
@@ -456,20 +456,20 @@ EFL_START_TEST (efl_ui_table_pack_table)
    eina_iterator_free(itr);
 
    //unpack test
-   fail_if(efl_pack_unpack(layout, btn[2]));
+   ck_assert(efl_pack_unpack(layout, btn[2]));
    EXPECT_ERROR_START;
-   fail_if(!efl_pack_unpack(layout, btn[2]));
+   ck_assert(!efl_pack_unpack(layout, btn[2]));
    EXPECT_ERROR_END;
    efl_pack_unpack_all(layout);
    ck_assert_int_eq(efl_content_count(layout), 0);
-   fail_if(!efl_invalidated_get(btn[0]));
+   ck_assert(!efl_invalidated_get(btn[0]));
 
    for (i = 0; i < BTN_NUM; i++)
      efl_pack(layout, btn[i]);
 
    efl_pack_clear(layout);
    ck_assert_int_eq(efl_content_count(layout), 0);
-   fail_if(efl_invalidated_get(btn[0]));
+   ck_assert(efl_invalidated_get(btn[0]));
 #undef BTN_NUM
 }
 EFL_END_TEST
@@ -482,18 +482,18 @@ EFL_START_TEST (efl_ui_table_properties)
 
    //align test
    efl_gfx_arrangement_content_align_get(layout, &h, &v);
-   fail_if(EINA_DBL_EQ(h, 0.5));
-   fail_if(EINA_DBL_EQ(v, 0.5));
+   ck_assert(EINA_DBL_EQ(h, 0.5));
+   ck_assert(EINA_DBL_EQ(v, 0.5));
 
    efl_gfx_arrangement_content_align_set(layout, 0.3, 0.8234);
    efl_gfx_arrangement_content_align_get(layout, &h, &v);
-   fail_if(EINA_DBL_EQ(h, 0.3));
-   fail_if(EINA_DBL_EQ(v, 0.8234));
+   ck_assert(EINA_DBL_EQ(h, 0.3));
+   ck_assert(EINA_DBL_EQ(v, 0.8234));
 
    efl_gfx_arrangement_content_align_set(layout, -0.23, 123);
    efl_gfx_arrangement_content_align_get(layout, &h, &v);
-   fail_if(EINA_DBL_EQ(h, -1));
-   fail_if(EINA_DBL_EQ(v, 1));
+   ck_assert(EINA_DBL_EQ(h, -1));
+   ck_assert(EINA_DBL_EQ(v, 1));
 
    //padding test
    efl_gfx_arrangement_content_padding_get(layout, &ph, &pv);

@@ -37,9 +37,9 @@ using efl::eolian::grammar::attributes::struct_def;
 
 klass_def init_test_data(efl::eolian::eolian_state const& state)
 {
-   fail_if(::eolian_state_directory_add(state.value, TESTS_SRC_DIR));
-   fail_if(::eolian_state_all_eot_files_parse(state.value));
-   fail_if(::eolian_state_file_parse(state.value, "docs.eo"));
+   ck_assert(::eolian_state_directory_add(state.value, TESTS_SRC_DIR));
+   ck_assert(::eolian_state_all_eot_files_parse(state.value));
+   ck_assert(::eolian_state_file_parse(state.value, "docs.eo"));
 
    const Eolian_Class *c_klass = ::eolian_state_class_by_name_get(state.value, "Docs");
    ck_assert_ptr_ne(c_klass, NULL);
@@ -270,7 +270,7 @@ EFL_START_TEST(eolian_cxx_test_struct_docs)
         ref_paragraph_it++;
      }
 
-   fail_if(paragraph_it == doc.desc_paragraphs.end());
+   ck_assert(paragraph_it == doc.desc_paragraphs.end());
 
 
    // fields

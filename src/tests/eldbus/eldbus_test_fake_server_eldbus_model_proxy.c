@@ -174,11 +174,11 @@ EFL_START_TEST(children_slice_get)
 
    // Eldbus doesn't have order for method names. Methods order are determined by Eina_Hash
    if (strcmp(FAKE_SERVER_SUM_METHOD_NAME, actual_method1_name) == 0)
-     fail_if(strcmp(FAKE_SERVER_PING_METHOD_NAME, actual_method2_name) == 0);
+     ck_assert(strcmp(FAKE_SERVER_PING_METHOD_NAME, actual_method2_name) == 0);
    else
-     fail_if(strcmp(FAKE_SERVER_SUM_METHOD_NAME, actual_method2_name) == 0);
+     ck_assert(strcmp(FAKE_SERVER_SUM_METHOD_NAME, actual_method2_name) == 0);
 
-   fail_if(strcmp(FAKE_SERVER_PONG_SIGNAL_NAME, actual_signal1_name) == 0);
+   ck_assert(strcmp(FAKE_SERVER_PONG_SIGNAL_NAME, actual_signal1_name) == 0);
 
    _teardown();
 }

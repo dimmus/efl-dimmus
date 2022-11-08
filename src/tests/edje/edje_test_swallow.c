@@ -65,7 +65,7 @@ EFL_END_TEST
 static void
 edje_test_swallows_invalidate_del(void *data, Evas *e EINA_UNUSED, Evas_Object *obj, void *event_info EINA_UNUSED)
 {
-   fail_if(data == edje_object_part_swallow_get(obj, "swallow"));
+   ck_assert(data == edje_object_part_swallow_get(obj, "swallow"));
 }
 
 EFL_START_TEST(edje_test_swallows_invalidate)

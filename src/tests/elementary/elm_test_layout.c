@@ -16,12 +16,12 @@ EFL_START_TEST(elm_layout_test_legacy_type_check)
    layout = elm_layout_add(win);
 
    type = elm_object_widget_type_get(layout);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Layout"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Layout"));
 
    type = evas_object_type_get(layout);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_layout"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_layout"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    layout = elm_layout_add(win);
    role = efl_access_object_role_get(layout);
 
-   fail_if(role == EFL_ACCESS_ROLE_FILLER);
+   ck_assert(role == EFL_ACCESS_ROLE_FILLER);
 
 }
 EFL_END_TEST

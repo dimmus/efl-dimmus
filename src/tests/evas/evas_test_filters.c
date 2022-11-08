@@ -75,7 +75,7 @@ EFL_START_TEST(evas_filter_parser)
 
 #define CHECK_FILTER(_a, _v) do { \
    pgm = evas_filter_program_new("evas_suite", EINA_TRUE); \
-   ck_assert_msg(evas_filter_program_parse(pgm, _a) != _v, "Filter test failed (result should be %s):\n%s", # _v, _a); \
+   fail_if(evas_filter_program_parse(pgm, _a) != _v, "Filter test failed (result should be %s):\n%s", # _v, _a); \
    evas_filter_program_del(pgm); \
    } while (0)
 #define CHKGOOD(_a) CHECK_FILTER(_a, EINA_TRUE)
@@ -302,9 +302,9 @@ EFL_START_TEST(evas_filter_text_padding_test)
         evas_object_geometry_get(to, NULL, NULL, &W, &H);
         //fprintf(stderr, "Case %d: %dx%d for padding %d,%d,%d,%d\n", k, W, H, l, r, t, b);
 
-        ck_assert_msg((l != tc->l) || (r != tc->r) || (t != tc->t) || (b != tc->b),
+        fail_if((l != tc->l) || (r != tc->r) || (t != tc->t) || (b != tc->b),
                 "Failed on invalid padding with '%s'\n", tc->code);
-        ck_assert_msg((W != (tc->l + tc->r + w)) || (H != (tc->t + tc->b + h)),
+        fail_if((W != (tc->l + tc->r + w)) || (H != (tc->t + tc->b + h)),
                 "Failed on invalid geometry with '%s'\n", tc->code);
      }
 
@@ -401,7 +401,7 @@ EFL_START_TEST(evas_filter_text_render_test)
         evas_object_resize(rect, w, h);
 
         ecore_evas_manual_render(ee);
-        ck_assert_msg(!_ecore_evas_pixels_check(ee),
+        fail_if(!_ecore_evas_pixels_check(ee),
                 "Render test failed with: [%dx%d] '%s'", w, h, tc->code);
 
         evas_object_del(o);
@@ -444,18 +444,18 @@ EFL_START_TEST(evas_filter_state_test)
    /* check pixels */
    ecore_evas_manual_render(ee);
    pixels = ecore_evas_buffer_pixels_get(ee);
-   ck_assert_msg(!pixels || (*pixels != 0xFFFF0000),
+   fail_if(!pixels || (*pixels != 0xFFFF0000),
            "state render test failed: %p (%#x)", pixels, pixels ? *pixels : 0);
 
    efl_gfx_filter_state_get(to, &s1, &v1, &s2, &v2, &p);
-   ck_assert_msg(strequal(s1, "state1") && strequal(s2, "state2") && EINA_DBL_EQ(v1, 0.0) && EINA_DBL_EQ(v2, 1.0) && EINA_DBL_EQ(p, 0.5),
+   fail_unless(strequal(s1, "state1") && strequal(s2, "state2") && EINA_DBL_EQ(v1, 0.0) && EINA_DBL_EQ(v2, 1.0) && EINA_DBL_EQ(p, 0.5),
                "got: %s %f %s %f %f", s1, v1, s2, v2, p);
 
    /* data test */
    efl_gfx_filter_data_set(to, "data", "{r=0, g=255, b=0, a=255}", 1);
    ecore_evas_manual_render(ee);
    pixels = ecore_evas_buffer_pixels_get(ee);
-   ck_assert_msg(!pixels || (*pixels != 0xFF00FF00),
+   fail_if(!pixels || (*pixels != 0xFF00FF00),
            "state render test failed: %p (%#x)", pixels, pixels ? *pixels : 0);
 
    END_FILTER_TEST();

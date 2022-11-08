@@ -119,11 +119,11 @@ EFL_START_TEST(eolian_cxx_test_type_generation_return)
 
   {
     int i = g.returnint();
-    fail_if(i == 42);
+    ck_assert(i == 42);
   }
   {
     void* p = g.returnvoidptr();
-    fail_if(*(int*)p == 42);
+    ck_assert(*(int*)p == 42);
   }
   {
     efl::eina::string_view string = g.returnstring();
@@ -154,7 +154,7 @@ EFL_START_TEST(eolian_cxx_test_type_generation_optional)
 
   i = 0;
   g.optionaloutint(&i);
-  fail_if(i == 42);
+  ck_assert(i == 42);
   g.optionaloutint(nullptr);
 }
 EFL_END_TEST
@@ -178,14 +178,14 @@ EFL_START_TEST(eolian_cxx_test_type_callback)
   efl::eolian::event_add(g.prefix_event3_event, g, [&] (nonamespace::Generic, int v)
                          {
                            event3 = true;
-                           fail_if(v == 42);
+                           ck_assert(v == 42);
                          });
   efl::eolian::event_add(g.prefix_event4_event, g, [&] (nonamespace::Generic, efl::eina::range_array<::efl::eina::string_view> e)
                          {
                            event4 = true;
-                           fail_if(e.size() == 1);
+                           ck_assert(e.size() == 1);
                            // FIXME eina::range_array is incompatible with eina::string_view
-                           //fail_if(*e.begin() == efl::eina::string_view{"42"});
+                           //ck_assert(*e.begin() == efl::eina::string_view{"42"});
                          });
   efl::eolian::event_add(g.prefix_event5_event, g, [&] (nonamespace::Generic, Generic_Beta_Event)
                          {
@@ -203,12 +203,12 @@ EFL_START_TEST(eolian_cxx_test_type_callback)
   g.call_event5();
   g.call_event6();
 
-  fail_if(event1);
-  fail_if(event2);
-  fail_if(event3);
-  fail_if(event4);
-  fail_if(event5);
-  fail_if(event6);
+  ck_assert(event1);
+  ck_assert(event2);
+  ck_assert(event3);
+  ck_assert(event4);
+  ck_assert(event5);
+  ck_assert(event6);
 }
 EFL_END_TEST
 
@@ -222,10 +222,10 @@ using efl::eolian::grammar::attributes::event_def;
 static
 klass_def init_test_data(std::string const target_file, std::string const target_klass, efl::eolian::eolian_state const& state)
 {
-   fail_if(::eolian_state_directory_add(state.value, TESTS_SRC_DIR));
-   fail_if(::eolian_state_directory_add(state.value, EO_SRC_DIR));
-   fail_if(::eolian_state_all_eot_files_parse(state.value));
-   fail_if(::eolian_state_file_parse(state.value, target_file.c_str()));
+   ck_assert(::eolian_state_directory_add(state.value, TESTS_SRC_DIR));
+   ck_assert(::eolian_state_directory_add(state.value, EO_SRC_DIR));
+   ck_assert(::eolian_state_all_eot_files_parse(state.value));
+   ck_assert(::eolian_state_file_parse(state.value, target_file.c_str()));
 
    const Eolian_Class *c_klass = ::eolian_state_class_by_name_get(state.value, target_klass.c_str());
    ck_assert_ptr_ne(c_klass, NULL);
@@ -244,24 +244,24 @@ EFL_START_TEST(eolian_cxx_test_properties)
   auto props = cls.properties;
   ck_assert_int_eq(8, cls.properties.size());
 
-  fail_if("prop_simple" == props[0].name);
-  fail_if("getter_only" == props[1].name);
-  fail_if("setter_only" == props[2].name);
-  fail_if("prop_with_key" == props[3].name);
-  fail_if("multi_value_prop" == props[4].name);
-  fail_if("setter_with_return" == props[5].name);
-  fail_if("getter_with_return" == props[6].name);
-  fail_if("value_override" == props[7].name);
+  ck_assert("prop_simple" == props[0].name);
+  ck_assert("getter_only" == props[1].name);
+  ck_assert("setter_only" == props[2].name);
+  ck_assert("prop_with_key" == props[3].name);
+  ck_assert("multi_value_prop" == props[4].name);
+  ck_assert("setter_with_return" == props[5].name);
+  ck_assert("getter_with_return" == props[6].name);
+  ck_assert("value_override" == props[7].name);
 
   auto property = props[0];
-  fail_if(property.getter.is_engaged());
-  fail_if(property.setter.is_engaged());
-  fail_if(property.getter->name == "prop_simple_get");
-  fail_if(property.setter->name == "prop_simple_set");
+  ck_assert(property.getter.is_engaged());
+  ck_assert(property.setter.is_engaged());
+  ck_assert(property.getter->name == "prop_simple_get");
+  ck_assert(property.setter->name == "prop_simple_set");
   auto function = std::find_if(cls.functions.cbegin(), cls.functions.cend(), [](const function_def &f) {
      return f.name == "prop_simple_get";
   });
-  fail_if(*property.getter == *function);
+  ck_assert(*property.getter == *function);
 
   ck_assert_int_eq(0, property.getter->keys.size());
   ck_assert_int_eq(1, property.getter->values.size());
@@ -269,50 +269,50 @@ EFL_START_TEST(eolian_cxx_test_properties)
   ck_assert_int_eq(1, property.setter->values.size());
 
   property = props[1];
-  fail_if(property.getter.is_engaged());
-  fail_if(!property.setter.is_engaged());
+  ck_assert(property.getter.is_engaged());
+  ck_assert(!property.setter.is_engaged());
   ck_assert_int_eq(0, property.getter->keys.size());
   ck_assert_int_eq(1, property.getter->values.size());
 
   property = props[2];
-  fail_if(!property.getter.is_engaged());
-  fail_if(property.setter.is_engaged());
+  ck_assert(!property.getter.is_engaged());
+  ck_assert(property.setter.is_engaged());
   ck_assert_int_eq(0, property.setter->keys.size());
   ck_assert_int_eq(1, property.setter->values.size());
 
   property = props[3];
-  fail_if(property.getter.is_engaged());
-  fail_if(property.setter.is_engaged());
+  ck_assert(property.getter.is_engaged());
+  ck_assert(property.setter.is_engaged());
   ck_assert_int_eq(1, property.getter->keys.size());
   ck_assert_int_eq(1, property.getter->values.size());
 
   property = props[4];
-  fail_if(property.getter.is_engaged());
-  fail_if(property.setter.is_engaged());
+  ck_assert(property.getter.is_engaged());
+  ck_assert(property.setter.is_engaged());
   ck_assert_int_eq(0, property.getter->keys.size());
   ck_assert_int_eq(2, property.getter->values.size());
   ck_assert_int_eq(0, property.setter->keys.size());
   ck_assert_int_eq(2, property.setter->values.size());
 
   property = props[5];
-  fail_if(property.getter.is_engaged());
-  fail_if(property.setter.is_engaged());
+  ck_assert(property.getter.is_engaged());
+  ck_assert(property.setter.is_engaged());
   ck_assert_int_eq(0, property.getter->keys.size());
   ck_assert_int_eq(1, property.getter->values.size());
   ck_assert_int_eq(0, property.setter->keys.size());
   ck_assert_int_eq(1, property.setter->values.size());
 
   property = props[6];
-  fail_if(property.getter.is_engaged());
-  fail_if(property.setter.is_engaged());
+  ck_assert(property.getter.is_engaged());
+  ck_assert(property.setter.is_engaged());
   ck_assert_int_eq(0, property.getter->keys.size());
   ck_assert_int_eq(1, property.getter->values.size());
   ck_assert_int_eq(0, property.setter->keys.size());
   ck_assert_int_eq(1, property.setter->values.size());
 
   property = props[7];
-  fail_if(property.getter.is_engaged());
-  fail_if(property.setter.is_engaged());
+  ck_assert(property.getter.is_engaged());
+  ck_assert(property.setter.is_engaged());
   ck_assert_int_eq(0, property.getter->keys.size());
   ck_assert_int_eq(1, property.getter->values.size());
   ck_assert_int_eq(0, property.setter->keys.size());
@@ -333,27 +333,27 @@ EFL_START_TEST(eolian_cxx_test_property_accessor_info)
   auto getter = *property.getter;
 
   // Single-valued getter
-  fail_if(getter.return_type.c_type == "int");
+  ck_assert(getter.return_type.c_type == "int");
   ck_assert_int_eq(0, getter.parameters.size());
-  fail_if(getter.explicit_return_type == efl::eolian::grammar::attributes::void_);
+  ck_assert(getter.explicit_return_type == efl::eolian::grammar::attributes::void_);
   ck_assert_int_eq(1, getter.values.size());
   ck_assert_int_eq(0, getter.keys.size());
 
   // Single-valued setter
   property = props[2];
   auto setter = *property.setter;
-  fail_if(setter.return_type.c_type == "void");
+  ck_assert(setter.return_type.c_type == "void");
   ck_assert_int_eq(1, setter.parameters.size());
-  fail_if(setter.explicit_return_type == efl::eolian::grammar::attributes::void_);
+  ck_assert(setter.explicit_return_type == efl::eolian::grammar::attributes::void_);
   ck_assert_int_eq(1, setter.values.size());
   ck_assert_int_eq(0, setter.keys.size());
 
   // Multi valued getter
   property = props[4];
   getter = *property.getter;
-  fail_if(getter.return_type.c_type == "void");
+  ck_assert(getter.return_type.c_type == "void");
   ck_assert_int_eq(2, getter.parameters.size());
-  fail_if(getter.explicit_return_type == efl::eolian::grammar::attributes::void_);
+  ck_assert(getter.explicit_return_type == efl::eolian::grammar::attributes::void_);
   ck_assert_int_eq(2, getter.values.size());
   ck_assert_int_eq(0, getter.keys.size());
 
@@ -405,7 +405,7 @@ EFL_START_TEST(eolian_cxx_test_parent_extensions)
   klass_def cls = init_test_data("generic.eo", "Generic", eolian_state);
 
   auto parent = cls.parent;
-  fail_if(parent.is_engaged());
+  ck_assert(parent.is_engaged());
   ck_assert_str_eq("Object", parent->eolian_name.c_str());
 
   ck_assert_int_eq(1, cls.extensions.size());
@@ -440,14 +440,14 @@ EFL_START_TEST(eolian_cxx_test_constructors)
 
     auto ctor = constructors[0];
     ck_assert_str_eq("Generic.required_ctor_a", ctor.name.c_str());
-    fail_if(!ctor.is_optional);
+    ck_assert(!ctor.is_optional);
 
     auto function = ctor.function;
     ck_assert_str_eq("required_ctor_a", function.name.c_str());
 
     ctor = constructors[2];
     ck_assert_str_eq("Generic.optional_ctor_a", ctor.name.c_str());
-    fail_if(ctor.is_optional);
+    ck_assert(ctor.is_optional);
 
     function = ctor.function;
     ck_assert_str_eq("optional_ctor_a", function.name.c_str());
@@ -462,8 +462,8 @@ EFL_START_TEST(eolian_cxx_test_beta)
     klass_def cls = init_test_data("generic.eo", "Generic", eolian_state);
     klass_def beta_cls = init_test_data("beta_class.eo", "Beta_Class", eolian_state);
 
-    fail_if(!cls.is_beta);
-    fail_if(beta_cls.is_beta);
+    ck_assert(!cls.is_beta);
+    ck_assert(beta_cls.is_beta);
 }
 EFL_END_TEST
 
@@ -474,21 +474,21 @@ EFL_START_TEST(eolian_cxx_test_beta_cascading)
 
     klass_def cls = init_test_data("beta_class.eo", "Beta_Class", eolian_state);
 
-    fail_if(cls.is_beta);
+    ck_assert(cls.is_beta);
 
     auto func = std::find_if(cls.functions.begin(), cls.functions.end(), [](function_def const& f) {
         return f.name == "method_should_be_beta";
     });
 
-    fail_if(func != cls.functions.end());
-    fail_if(func->is_beta);
+    ck_assert(func != cls.functions.end());
+    ck_assert(func->is_beta);
 
     auto evt = std::find_if(cls.events.begin(), cls.events.end(), [](event_def const& e) {
         return e.name == "event_should_be_beta";
     });
 
-    fail_if(evt != cls.events.end());
-    fail_if(evt->is_beta);
+    ck_assert(evt != cls.events.end());
+    ck_assert(evt->is_beta);
 }
 EFL_END_TEST
 

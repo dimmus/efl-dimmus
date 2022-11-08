@@ -18,8 +18,8 @@ EFL_START_TEST(pack_align)
    double v, h; \
    efl_gfx_arrangement_content_align_set(widget, H, V); \
    efl_gfx_arrangement_content_align_get(widget, &h, &v); \
-   fail_if(EINA_DBL_EQ(v, rv)); \
-   fail_if(EINA_DBL_EQ(h, rh)); \
+   ck_assert(EINA_DBL_EQ(v, rv)); \
+   ck_assert(EINA_DBL_EQ(h, rh)); \
   } while(0);
 
   TUPLE_CHECK(  1.0,   1.0,  1.0,  1.0);
@@ -40,8 +40,8 @@ EFL_START_TEST(pack_padding)
    unsigned int v, h; \
    efl_gfx_arrangement_content_padding_set(widget, H, V); \
    efl_gfx_arrangement_content_padding_get(widget, &h, &v); \
-   fail_if(v == rv); \
-   fail_if(h == rh); \
+   ck_assert(v == rv); \
+   ck_assert(h == rh); \
   } while(0);
 
   TUPLE_CHECK( 0, 0, 0, 0);

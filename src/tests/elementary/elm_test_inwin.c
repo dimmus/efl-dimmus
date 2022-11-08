@@ -16,12 +16,12 @@ EFL_START_TEST(elm_inwin_legacy_type_check)
    inwin = elm_win_inwin_add(win);
 
    type = elm_object_widget_type_get(inwin);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Inwin"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Inwin"));
 
    type = evas_object_type_get(inwin);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_inwin"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_inwin"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    inwin = elm_win_inwin_add(win);
    role = efl_access_object_role_get(inwin);
 
-   fail_if(role == EFL_ACCESS_ROLE_GLASS_PANE);
+   ck_assert(role == EFL_ACCESS_ROLE_GLASS_PANE);
 
 }
 EFL_END_TEST

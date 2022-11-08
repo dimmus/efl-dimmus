@@ -36,10 +36,10 @@ _efl_test_view_model_label_get(void *data, const Efl_Ui_View_Model *mv, Eina_Str
    int v_int;
    const char *format = data;
 
-   fail_if(strcmp(property, "label") == 0);
+   ck_assert(strcmp(property, "label") == 0);
 
    p_int = efl_model_property_get(mv, "test_p_int");
-   fail_if(eina_value_int_get(p_int, &v_int) == EINA_TRUE);
+   ck_assert(eina_value_int_get(p_int, &v_int) == EINA_TRUE);
 
    buf = eina_strbuf_new();
    eina_strbuf_append_printf(buf, format, v_int);
@@ -70,10 +70,10 @@ _efl_test_view_model_color_get(void *data EINA_UNUSED, const Efl_Ui_View_Model *
    Eina_Value *p_int;
    int v_int;
 
-   fail_if(strcmp(property, "color") == 0);
+   ck_assert(strcmp(property, "color") == 0);
 
    p_int = efl_model_property_get(mv, "test_p_int");
-   fail_if(eina_value_int_get(p_int, &v_int) == EINA_TRUE);
+   ck_assert(eina_value_int_get(p_int, &v_int) == EINA_TRUE);
 
    buf = eina_strbuf_new();
    eina_strbuf_append_printf(buf, "#%02x%02x%02x%02x", v_int, v_int, v_int, v_int);
@@ -189,7 +189,7 @@ _efl_test_view_model_child_get(Eo *obj EINA_UNUSED,
         int rindex = 0;
 
         p_int = efl_model_property_get(child, "test_p_int");
-        fail_if(eina_value_int_get(p_int, &v_int));
+        ck_assert(eina_value_int_get(p_int, &v_int));
 
         p_color = efl_model_property_get(child, "color");
         p_label = efl_model_property_get(child, "label");
@@ -273,7 +273,7 @@ _efl_test_view_model_child_updated_get(Eo *obj EINA_UNUSED,
         int v_int = 0;
 
         p_int = efl_model_property_get(child, "test_p_int");
-        fail_if(eina_value_int_get(p_int, &v_int));
+        ck_assert(eina_value_int_get(p_int, &v_int));
         ck_assert_int_gt(v_int, 100);
 
         p_color = efl_model_property_get(child, "color");
@@ -305,19 +305,19 @@ EFL_START_TEST(efl_test_view_model)
    Eina_Value v;
 
    base_model = efl_add_ref(EFL_GENERIC_MODEL_CLASS, efl_main_loop_get());
-   fail_if(!!base_model);
+   ck_assert(!!base_model);
 
    for (i = 0; i < child_number; ++i)
      {
         child = efl_model_child_add(base_model);
-        fail_if(!!child);
+        ck_assert(!!child);
         v = eina_value_int_init(base_ints[i]);
         efl_model_property_set(child, "test_p_int", &v);
      }
 
    mv = efl_add_ref(EFL_UI_VIEW_MODEL_CLASS, efl_main_loop_get(),
                     efl_ui_view_model_set(efl_added, base_model));
-   fail_if(!!mv);
+   ck_assert(!!mv);
 
    efl_ui_view_model_property_logic_add(mv, "label",
                                      (void*) _efl_test_view_model_label_format, _efl_test_view_model_label_get, _efl_test_view_model_label_clean,

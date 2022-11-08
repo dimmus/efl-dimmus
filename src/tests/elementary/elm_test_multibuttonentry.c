@@ -16,11 +16,11 @@ EFL_START_TEST(elm_multibuttonentry_legacy_type_check)
    multibuttonentry = elm_multibuttonentry_add(win);
 
    type = elm_object_widget_type_get(multibuttonentry);
-   fail_if(type != NULL);
+   ck_assert(type != NULL);
    ck_assert_str_eq(type, "Elm_Multibuttonentry");
 
    type = evas_object_type_get(multibuttonentry);
-   fail_if(type != NULL);
+   ck_assert(type != NULL);
    ck_assert_str_eq(type, "elm_multibuttonentry");
 
 }

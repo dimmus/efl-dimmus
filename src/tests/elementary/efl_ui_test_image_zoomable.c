@@ -19,14 +19,14 @@ EFL_START_TEST(efl_ui_test_image_zoomable_icon)
    efl_gfx_entity_visible_set(img_zoomable, EINA_TRUE);
 
    ok = efl_ui_image_icon_set(img_zoomable, "folder");
-   fail_if(ok);
+   ck_assert(ok);
    icon_name = efl_ui_image_icon_get(img_zoomable);
    ck_assert_str_eq(icon_name, "folder");
 
    ok = efl_ui_image_icon_set(img_zoomable, "None");
-   fail_if(ok == 0);
+   ck_assert(ok == 0);
    icon_name = efl_ui_image_icon_get(img_zoomable);
-   fail_if(icon_name == NULL);
+   ck_assert(icon_name == NULL);
 
 }
 EFL_END_TEST

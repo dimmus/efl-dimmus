@@ -16,12 +16,12 @@ EFL_START_TEST(elm_slideshow_legacy_type_check)
    slideshow = elm_slideshow_add(win);
 
    type = elm_object_widget_type_get(slideshow);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Slideshow"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Slideshow"));
 
    type = evas_object_type_get(slideshow);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_slideshow"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_slideshow"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    slideshow = elm_slideshow_add(win);
    role = efl_access_object_role_get(slideshow);
 
-   fail_if(role == EFL_ACCESS_ROLE_DOCUMENT_PRESENTATION);
+   ck_assert(role == EFL_ACCESS_ROLE_DOCUMENT_PRESENTATION);
 
 }
 EFL_END_TEST

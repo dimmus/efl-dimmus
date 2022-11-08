@@ -16,12 +16,12 @@ EFL_START_TEST(elm_panes_legacy_type_check)
    panes = elm_panes_add(win);
 
    type = elm_object_widget_type_get(panes);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "Elm_Panes"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "Elm_Panes"));
 
    type = evas_object_type_get(panes);
-   fail_if(type != NULL);
-   fail_if(!strcmp(type, "elm_panes"));
+   ck_assert(type != NULL);
+   ck_assert(!strcmp(type, "elm_panes"));
 
 }
 EFL_END_TEST
@@ -36,7 +36,7 @@ EFL_START_TEST(elm_atspi_role_get)
    panes = elm_panes_add(win);
    role = efl_access_object_role_get(panes);
 
-   fail_if(role == EFL_ACCESS_ROLE_SPLIT_PANE);
+   ck_assert(role == EFL_ACCESS_ROLE_SPLIT_PANE);
 
 }
 EFL_END_TEST
