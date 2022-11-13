@@ -41,6 +41,35 @@ compiled and run also on Windows (using MSYS2 + mingw-w64) - please see
 [windows docs](https://www.enlightenment.org/docs/distros/windows-start.md),
 Mac OS X, FreeBSD and NetBSD.
 
+| Platform       | Downloads (stable)            | Downloads (preview)       | How to Install                         |
+| ---------------|:-----------------------------:|:-------------------------:| ---------------------------------------|
+| Source         | [64-bit][rl-linux-tar]        | [64-bit][pv-linux-tar]    |               |
+| Ubuntu         |                               |                           | [Instructions][in-ubuntu]              |
+| ArchLinux      |                               |                           | [Instructions][in-archlinux]           |
+| Debian         |                               |                           | [Instructions][in-debian]              |
+| Fedora         |                               |                           | [Instructions][in-fedora]              |
+| FreeBSD        |                               |                           | [Instructions][in-freebsd]             |
+| OpenBSD        |                               |                           | [Instructions][in-openbsd]             |
+| OpenSUSE       |                               |                           | [Instructions][in-opensuse]            |
+| Yokto          |                               |                           | [Instructions][in-yokto]               |
+| MacOS          |                               |                           | [Instructions][in-macos]               |
+| Windows        |   |  | [Instructions][in-windows]                |
+
+[rl-linux-tar]: https://download.enlightenment.org/rel/libs/efl/efl-1.26.3.tar.xz
+
+[pv-linux-tar]: https://github.com/dimmus/efl/archive/refs/tags/v1.26.999.tar.gz
+
+[in-windows]: https://phab.enlightenment.org/w/windows
+[in-ubuntu]: https://www.enlightenment.org/docs/distros/ubuntu-start.md
+[in-archlinux]: https://www.enlightenment.org/docs/distros/archlinux-start.md
+[in-debian]: https://www.enlightenment.org/docs/distros/debian-start.md
+[in-fedora]: https://www.enlightenment.org/docs/distros/fedora-start.md
+[in-freebsd]: https://www.enlightenment.org/docs/distros/freebsd-start.md
+[in-openbsd]: https://www.enlightenment.org/docs/distros/openbsd-start.md
+[in-opensuse]: https://www.enlightenment.org/docs/distros/opensuse-start.md
+[in-yokto]: https://www.enlightenment.org/docs/distros/yokto-start.md
+[in-macos]: https://www.enlightenment.org/docs/distros/osx-start.md
+
 ## Requirements
 
 EFL requires a C and C++ compiler by default. C++ exists mostly to interface
