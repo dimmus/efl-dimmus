@@ -14,8 +14,7 @@ widgets and more.
 There are many [components](https://github.com/dimmus/efl/wiki/EFL-components) inside EFL. They also build various things
 like shared libraries, loadable plug-in modules and also binary
 executables. Different elements will end up being licensed differently
-too. Below is a rundown of the components, what they do and their
-licensing.
+too.
 
 All library source is in the src/lib/ directory. All binaries are in
 src/bin/. All loadable modules are in src/modules/. All data files are
