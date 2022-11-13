@@ -72,53 +72,8 @@ Mac OS X, FreeBSD and NetBSD.
 
 ## Requirements
 
-EFL requires a C and C++ compiler by default. C++ exists mostly to interface
-to C++ libraries like Bullet and our C++ bindings.
-
-Required by default:
-
-* libpng
-* libjpeg
-* openjpeg2
-* gstreamer (Ensure all codecs you want are installed.)
-* zlib
-* luajit (lua 5.1 or 5.2 support optional)
-* libtiff
-* openssl
-* curl
-* dbus
-* libc
-* fontconfig
-* freetype2
-* fribidi
-* harfbuzz
-* libpulse
-* libsndfile
-* libx11
-* libxau
-* libxcomposite
-* libxdamage
-* libxdmcp
-* libxext
-* libxfixes
-* libxinerama
-* libxrandr
-* libxrender
-* libxss
-* libxtst
-* libxcursor
-* libxi (2.2 or newer)
-* opengl(mesa etc.) (opengl/glx/full or opengl-es2/egl. full opengl only on osx - must be explicitly specified to be full to have support)
-* giflib/libgif
-* util-linux (limbount + libblkid)
-* systemd / libudev
-* poppler / poppler-cpp
-* libraw
-* libspectre
-* librsvg
-* openmp (clang needs libomp, while gcc uses libgomp)
-* libwebp
-
+EFL requires a C and C++ compiler by default (C++ exists mostly to interface
+to C++ libraries like Bullet and our C++ bindings). The detailed list are in [requirements](https://github.com/dimmus/efl/wiki/EFL-requirements) wiki page.
 
 ### Wayland support
 
