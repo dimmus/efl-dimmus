@@ -73,7 +73,7 @@ Mac OS X, FreeBSD and NetBSD.
 ## Requirements
 
 EFL requires a C and C++ compiler by default (C++ exists mostly to interface
-to C++ libraries like Bullet and our C++ bindings). The detailed list are in [requirements](https://github.com/dimmus/efl/wiki/EFL-requirements) wiki page.
+to C++ libraries like Bullet and our C++ bindings). Find detailed list in [requirements](https://github.com/dimmus/efl/wiki/EFL-requirements) wiki page.
 
 ### Wayland support
 
