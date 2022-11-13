@@ -11,7 +11,7 @@
 developer may have such as data structures, communication, rendering,
 widgets and more.
 
-There are many components inside EFL. They also build various things
+There are many [components](https://github.com/dimmus/efl/wiki/EFL-components) inside EFL. They also build various things
 like shared libraries, loadable plug-in modules and also binary
 executables. Different elements will end up being licensed differently
 too. Below is a rundown of the components, what they do and their
