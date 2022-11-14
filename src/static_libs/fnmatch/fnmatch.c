@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include <wctype.h>
-/* #include "locale_impl.h" */
+// #include "locale_impl.h"
 
 #define END 0
 #define UNMATCHABLE -2
@@ -58,7 +58,7 @@ static int pat_next(const char *pat, size_t m, size_t *step, int flags)
 		return END;
 	}
 	*step = 1;
-	if (pat[0]=='\\' && pat[1] && !(flags & __FNM_NOESCAPE)) {
+	if (pat[0]=='\\' && pat[1] && !(flags & FNM_NOESCAPE)) {
 		*step = 2;
 		pat++;
 		esc = 1;
@@ -159,7 +159,7 @@ static int match_bracket(const char *p, int k, int kfold)
 			if (l < 0) return 0;
 			p += l-1;
 		}
-		if (wc==(wchar_t)k || wc==(wchar_t)kfold) return !inv;
+		if (wc==k || wc==kfold) return !inv;
 	}
 	return inv;
 }
@@ -171,14 +171,14 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 	size_t pinc, sinc, tailcnt=0;
 	int c, k, kfold;
 
-	if (flags & __FNM_PERIOD) {
+	if (flags & FNM_PERIOD) {
 		if (*str == '.' && *pat != '.')
-			return __FNM_NOMATCH;
+			return FNM_NOMATCH;
 	}
 	for (;;) {
 		switch ((c = pat_next(pat, m, &pinc, flags))) {
 		case UNMATCHABLE:
-			return __FNM_NOMATCH;
+			return FNM_NOMATCH;
 		case STAR:
 			pat++;
 			m--;
@@ -186,15 +186,15 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 		default:
 			k = str_next(str, n, &sinc);
 			if (k <= 0)
-				return (c==END) ? 0 : __FNM_NOMATCH;
+				return (c==END) ? 0 : FNM_NOMATCH;
 			str += sinc;
 			n -= sinc;
-			kfold = flags & __FNM_CASEFOLD ? casefold(k) : k;
+			kfold = flags & FNM_CASEFOLD ? casefold(k) : k;
 			if (c == BRACKET) {
 				if (!match_bracket(pat, k, kfold))
-					return __FNM_NOMATCH;
+					return FNM_NOMATCH;
 			} else if (c != QUESTION && k != c && kfold != c) {
-				return __FNM_NOMATCH;
+				return FNM_NOMATCH;
 			}
 			pat+=pinc;
 			m-=pinc;
@@ -211,7 +211,7 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 	for (p=ptail=pat; p<endpat; p+=pinc) {
 		switch (pat_next(p, endpat-p, &pinc, flags)) {
 		case UNMATCHABLE:
-			return __FNM_NOMATCH;
+			return FNM_NOMATCH;
 		case STAR:
 			tailcnt=0;
 			ptail = p+1;
@@ -228,7 +228,7 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 	/* Compute real str length if it was initially unknown/-1 */
 	n = strnlen(str, n);
 	endstr = str + n;
-	if (n < tailcnt) return __FNM_NOMATCH;
+	if (n < tailcnt) return FNM_NOMATCH;
 
 	/* Find the final tailcnt chars of str, accounting for UTF-8.
 	 * On illegal sequences we may get it wrong, but in that case
@@ -237,7 +237,7 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 		if ((unsigned)s[-1] < 128U || MB_CUR_MAX==1) s--;
 		else while ((unsigned char)*--s-0x80U<0x40 && s>str);
 	}
-	if (tailcnt) return __FNM_NOMATCH;
+	if (tailcnt) return FNM_NOMATCH;
 	stail = s;
 
 	/* Check that the pat and str tails match */
@@ -246,16 +246,16 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 		c = pat_next(p, endpat-p, &pinc, flags);
 		p += pinc;
 		if ((k = str_next(s, endstr-s, &sinc)) <= 0) {
-			if (c != END) return __FNM_NOMATCH;
+			if (c != END) return FNM_NOMATCH;
 			break;
 		}
 		s += sinc;
-		kfold = flags & __FNM_CASEFOLD ? casefold(k) : k;
+		kfold = flags & FNM_CASEFOLD ? casefold(k) : k;
 		if (c == BRACKET) {
 			if (!match_bracket(p-pinc, k, kfold))
-				return __FNM_NOMATCH;
+				return FNM_NOMATCH;
 		} else if (c != QUESTION && k != c && kfold != c) {
-			return __FNM_NOMATCH;
+			return FNM_NOMATCH;
 		}
 	}
 
@@ -278,8 +278,8 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 			}
 			k = str_next(s, endstr-s, &sinc);
 			if (!k)
-				return __FNM_NOMATCH;
-			kfold = flags & __FNM_CASEFOLD ? casefold(k) : k;
+				return FNM_NOMATCH;
+			kfold = flags & FNM_CASEFOLD ? casefold(k) : k;
 			if (c == BRACKET) {
 				if (!match_bracket(p-pinc, k, kfold))
 					break;
@@ -304,17 +304,17 @@ int __fnmatch(const char *pat, const char *str, int flags)
 	const char *s, *p;
 	size_t inc;
 	int c;
-	if (flags & __FNM_PATHNAME) for (;;) {
+	if (flags & FNM_PATHNAME) for (;;) {
 		for (s=str; *s && *s!='/'; s++);
 		for (p=pat; (c=pat_next(p, -1, &inc, flags))!=END && c!='/'; p+=inc);
-		if (c!=*s && (!*s || !(flags & __FNM_LEADING_DIR)))
-			return __FNM_NOMATCH;
+		if (c!=*s && (!*s || !(flags & FNM_LEADING_DIR)))
+			return FNM_NOMATCH;
 		if (fnmatch_internal(pat, p-pat, str, s-str, flags))
-			return __FNM_NOMATCH;
+			return FNM_NOMATCH;
 		if (!c) return 0;
 		str = s+1;
 		pat = p+inc;
-	} else if (flags & __FNM_LEADING_DIR) {
+	} else if (flags & FNM_LEADING_DIR) {
 		for (s=str; *s; s++) {
 			if (*s != '/') continue;
 			if (!fnmatch_internal(pat, -1, str, s-str, flags))
