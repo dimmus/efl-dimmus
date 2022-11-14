@@ -4,7 +4,7 @@
  * Line breaking in a Unicode sequence.  Designed to be used in a
  * generic text renderer.
  *
- * Copyright (C) 2008-2018 Wu Yongwei <wuyongwei at gmail dot com>
+ * Copyright (C) 2008-2020 Wu Yongwei <wuyongwei at gmail dot com>
  * Copyright (C) 2013 Petr Filipsky <philodej at gmail dot com>
  *
  * This software is provided 'as-is', without any express or implied
@@ -31,9 +31,9 @@
  * Unicode 5.0.0:
  *      <URL:http://www.unicode.org/reports/tr14/tr14-19.html>
  *
- * This library has been updated according to Revision 43, for
- * Unicode 12.0.0:
- *      <URL:http://www.unicode.org/reports/tr14/tr14-43.html>
+ * This library has been updated according to Revision 45, for
+ * Unicode 13.0.0:
+ *      <URL:http://www.unicode.org/reports/tr14/tr14-45.html>
  *
  * The Unicode Terms of Use are available at
  *      <URL:http://www.unicode.org/copyright.html>
@@ -48,6 +48,9 @@
  * @author  Wu Yongwei
  * @author  Petr Filipsky
  */
+
+#ifndef LINEBREAKDEF_H
+#define LINEBREAKDEF_H
 
 #include "unibreakdef.h"
 
@@ -111,6 +114,12 @@ enum LineBreakClass
     LBP_XX          /**< Unknown */
 };
 
+enum BreakOutputType
+{
+    LBOT_PER_CODE_UNIT,
+    LBOT_PER_CODE_POINT
+};
+
 /**
  * Struct for entries of line break properties.  The array of the
  * entries \e must be sorted.
@@ -163,9 +172,12 @@ void lb_init_break_context(
 int lb_process_next_char(
         struct LineBreakContext *lbpCtx,
         utf32_t ch);
-void set_linebreaks(
+size_t set_linebreaks(
         const void *s,
         size_t len,
         const char *lang,
+        enum BreakOutputType outputType,
         char *brks,
         get_next_char_t get_next_char);
+
+#endif /* LINEBREAKDEF_H */

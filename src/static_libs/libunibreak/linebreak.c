@@ -4,7 +4,7 @@
  * Line breaking in a Unicode sequence.  Designed to be used in a
  * generic text renderer.
  *
- * Copyright (C) 2008-2019 Wu Yongwei <wuyongwei at gmail dot com>
+ * Copyright (C) 2008-2020 Wu Yongwei <wuyongwei at gmail dot com>
  * Copyright (C) 2013 Petr Filipsky <philodej at gmail dot com>
  *
  * This software is provided 'as-is', without any express or implied
@@ -31,9 +31,9 @@
  * Unicode 5.0.0:
  *      <URL:http://www.unicode.org/reports/tr14/tr14-19.html>
  *
- * This library has been updated according to Revision 43, for
- * Unicode 12.0.0:
- *      <URL:http://www.unicode.org/reports/tr14/tr14-43.html>
+ * This library has been updated according to Revision 45, for
+ * Unicode 13.0.0:
+ *      <URL:http://www.unicode.org/reports/tr14/tr14-45.html>
  *
  * The Unicode Terms of Use are available at
  *      <URL:http://www.unicode.org/copyright.html>
@@ -80,9 +80,13 @@ enum BreakAction
 
 /**
  * Break action pair table.  This is a direct mapping of Table 2 of
- * Unicode Standard Annex 14, Revision 37, except for ZWJ (manually
- * adjusted after special processing as per LB8a of Revision 41) and CB
- * (manually added as per LB20).
+ * Unicode Standard Annex 14, Revision 37, except for the following:
+ *
+ * - CB (manually added as per LB20)
+ * - ZWJ (manually adjusted after special processing as per LB8a of
+ *   Revision 41)
+ * - CL, CP, NS, SY, IS, PR, PO, HY, BA,B2, and RI (manually adjusted as
+ *   per LB22 of Revision 45)
  */
 static enum BreakAction baTable[LBP_CB][LBP_CB] = {
     {   /* OP */
@@ -94,13 +98,13 @@ static enum BreakAction baTable[LBP_CB][LBP_CB] = {
     {   /* CL */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, PRH_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* CP */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, PRH_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, IND_BRK, IND_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* QU */
@@ -118,7 +122,7 @@ static enum BreakAction baTable[LBP_CB][LBP_CB] = {
     {   /* NS */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* EX */
@@ -130,25 +134,25 @@ static enum BreakAction baTable[LBP_CB][LBP_CB] = {
     {   /* SY */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK, IND_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* IS */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, IND_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* PR */
         IND_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, IND_BRK,
-        IND_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        IND_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, IND_BRK, IND_BRK,
         DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK },
     {   /* PO */
         IND_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, IND_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* NU */
@@ -184,13 +188,13 @@ static enum BreakAction baTable[LBP_CB][LBP_CB] = {
     {   /* HY */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, DIR_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK, DIR_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* BA */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, DIR_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* BB */
@@ -202,7 +206,7 @@ static enum BreakAction baTable[LBP_CB][LBP_CB] = {
     {   /* B2 */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, PRH_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, PRH_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         DIR_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* ZW */
@@ -256,7 +260,7 @@ static enum BreakAction baTable[LBP_CB][LBP_CB] = {
     {   /* RI */
         DIR_BRK, PRH_BRK, PRH_BRK, IND_BRK, IND_BRK, IND_BRK, PRH_BRK,
         PRH_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
-        DIR_BRK, DIR_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
+        DIR_BRK, IND_BRK, IND_BRK, IND_BRK, DIR_BRK, DIR_BRK, PRH_BRK,
         CMI_BRK, PRH_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK, DIR_BRK,
         IND_BRK, DIR_BRK, DIR_BRK, IND_BRK, DIR_BRK },
     {   /* EB */
@@ -315,7 +319,7 @@ static struct LineBreakPropertiesIndex lb_prop_index[LINEBREAK_INDEX_SIZE] =
 static __inline int ends_with(const char *str, const char *suffix,
                               unsigned suffixLen)
 {
-    unsigned len;
+    size_t len;
     if (str == NULL)
     {
         return 0;
@@ -349,7 +353,9 @@ void init_linebreak(void)
 
     len = 0;
     while (lb_prop_default[len].prop != LBP_Undefined)
+    {
         ++len;
+    }
     step = len / LINEBREAK_INDEX_SIZE;
     iPropDefault = 0;
     for (i = 0; i < LINEBREAK_INDEX_SIZE; ++i)
@@ -399,7 +405,9 @@ static enum LineBreakClass get_char_lb_class(
     while (lbp->prop != LBP_Undefined && ch >= lbp->start)
     {
         if (ch <= lbp->end)
+        {
             return lbp->prop;
+        }
         ++lbp;
     }
     return LBP_XX;
@@ -417,7 +425,9 @@ static enum LineBreakClass get_char_lb_class_default(
 {
     size_t i = 0;
     while (ch > lb_prop_index[i].end)
+    {
         ++i;
+    }
     assert(i < LINEBREAK_INDEX_SIZE);
     return get_char_lb_class(ch, lb_prop_index[i].lbp);
 }
@@ -445,7 +455,9 @@ static enum LineBreakClass get_char_lb_class_lang(
     {
         lbcResult = get_char_lb_class(ch, lbpLang);
         if (lbcResult != LBP_XX)
+        {
             return lbcResult;
+        }
     }
 
     /* Find the generic language-specific line breaking class, if no
@@ -520,6 +532,7 @@ static void treat_first_char(
         break;
     case LBP_SP:
         lbpCtx->lbcCur = LBP_WJ;        /* Leading space treated as WJ */
+        lbpCtx->lbcNew = LBP_SP;
         break;
     default:
         break;
@@ -608,7 +621,9 @@ static int get_lb_result_lookup(
     case CMP_BRK:
         brk = LINEBREAK_NOBREAK;
         if (lbpCtx->lbcLast != LBP_SP)
+        {
             return brk;                 /* Do not update lbcCur */
+        }
         break;
     case PRH_BRK:
         brk = LINEBREAK_NOBREAK;
@@ -715,20 +730,15 @@ int lb_process_next_char(
     }
 
     /* Special processing due to rule LB8a */
-    if (lbpCtx->lbcNew == LBP_ZWJ)
-    {
-        lbpCtx->fLb8aZwj = true;
-    }
-    else
-    {
-        lbpCtx->fLb8aZwj = false;
-    }
+    lbpCtx->fLb8aZwj = lbpCtx->lbcNew == LBP_ZWJ;
 
     /* Special processing due to rule LB10 */
     if (lbpCtx->fLb10LeadSpace)
     {
         if (lbpCtx->lbcNew == LBP_CM || lbpCtx->lbcNew == LBP_ZWJ)
+        {
             brk = LINEBREAK_ALLOWBREAK;
+        }
         lbpCtx->fLb10LeadSpace = false;
     }
 
@@ -758,20 +768,26 @@ int lb_process_next_char(
  * @param[in]  s             input string
  * @param[in]  len           length of the input
  * @param[in]  lang          language of the input
+ * @param[in]  outputType    output per code-unit or per code-point
  * @param[out] brks          pointer to the output breaking data,
  *                           containing #LINEBREAK_MUSTBREAK,
  *                           #LINEBREAK_ALLOWBREAK, #LINEBREAK_NOBREAK,
  *                           or #LINEBREAK_INSIDEACHAR
  * @param[in] get_next_char  function to get the next UTF-32 character
+ * @return       The number of entries in brks filled. This is equal to
+ *               the number of code-points or code-units in the source
+ *               string, depending on the outputType parameter.
  */
-void set_linebreaks(
+size_t set_linebreaks(
         const void *s,
         size_t len,
         const char *lang,
+        enum BreakOutputType outputType,
         char *brks,
         get_next_char_t get_next_char)
 {
     utf32_t ch;
+    int lastBreak;
     struct LineBreakContext lbCtx;
     size_t posCur = 0;
     size_t posLast = 0;
@@ -779,30 +795,59 @@ void set_linebreaks(
     --posLast;  /* To be ++'d later */
     ch = get_next_char(s, len, &posCur);
     if (ch == EOS)
-        return;
+    {
+        return 0;
+    }
     lb_init_break_context(&lbCtx, ch, lang);
 
     /* Process a line till an explicit break or end of string */
     for (;;)
     {
-        for (++posLast; posLast < posCur - 1; ++posLast)
+        if (outputType == LBOT_PER_CODE_UNIT)
         {
-            brks[posLast] = LINEBREAK_INSIDEACHAR;
+            for (++posLast; posLast < posCur - 1; ++posLast)
+            {
+                brks[posLast] = LINEBREAK_INSIDEACHAR;
+            }
+            assert(posLast == posCur - 1);
         }
-        assert(posLast == posCur - 1);
+        else
+        {
+            posLast++;
+        }
         ch = get_next_char(s, len, &posCur);
         if (ch == EOS)
+        {
             break;
-        brks[posLast] = lb_process_next_char(&lbCtx, ch);
+        }
+        brks[posLast] = (char)lb_process_next_char(&lbCtx, ch);
     }
 
-    assert(posLast == posCur - 1 && posCur <= len);
-    /* Break after the last character */
-    brks[posLast] = LINEBREAK_MUSTBREAK;
-    /* When the input contains incomplete sequences */
-    while (posCur < len)
+    /* After the last character */
+    lastBreak = get_lb_result_simple(&lbCtx);
+    if (lastBreak == LINEBREAK_MUSTBREAK)
     {
-        brks[posCur++] = LINEBREAK_INSIDEACHAR;
+        brks[posLast] = LINEBREAK_MUSTBREAK;
+    }
+    else
+    {
+        brks[posLast] = LINEBREAK_INDETERMINATE;
+    }
+
+    if (outputType == LBOT_PER_CODE_UNIT)
+    {
+        assert(posLast == posCur - 1 && posCur <= len);
+        /* When the input contains incomplete sequences */
+        while (posCur < len)
+        {
+            brks[posCur++] = LINEBREAK_INSIDEACHAR;
+        }
+
+        return posCur;
+    }
+    else
+    {
+        return posLast + 1;
     }
 }
 
@@ -823,7 +868,30 @@ void set_linebreaks_utf8(
         const char *lang,
         char *brks)
 {
-    set_linebreaks(s, len, lang, brks,
+    set_linebreaks(s, len, lang, LBOT_PER_CODE_UNIT, brks,
+                   (get_next_char_t)ub_get_next_char_utf8);
+}
+
+/**
+ * Sets the line breaking information for a UTF-8 input string.
+ *
+ * @param[in]  s     input UTF-8 string
+ * @param[in]  len   length of the input
+ * @param[in]  lang  language of the input
+ * @param[out] brks  pointer to the output breaking data, containing
+ *                   #LINEBREAK_MUSTBREAK, #LINEBREAK_ALLOWBREAK,
+ *                   #LINEBREAK_NOBREAK
+ * @return       The number of entries in brks filled. This is equal to
+ *               the number of code-points in the source string.
+ * @see #set_linebreaks for a note about \a lang.
+ */
+size_t set_linebreaks_utf8_per_code_point(
+        const utf8_t *s,
+        size_t len,
+        const char *lang,
+        char *brks)
+{
+    return set_linebreaks(s, len, lang, LBOT_PER_CODE_POINT, brks,
                    (get_next_char_t)ub_get_next_char_utf8);
 }
 
@@ -844,7 +912,30 @@ void set_linebreaks_utf16(
         const char *lang,
         char *brks)
 {
-    set_linebreaks(s, len, lang, brks,
+    set_linebreaks(s, len, lang, LBOT_PER_CODE_UNIT, brks,
+                   (get_next_char_t)ub_get_next_char_utf16);
+}
+
+/**
+ * Sets the line breaking information for a UTF-16 input string.
+ *
+ * @param[in]  s     input UTF-16 string
+ * @param[in]  len   length of the input
+ * @param[in]  lang  language of the input
+ * @param[out] brks  pointer to the output breaking data, containing
+ *                   #LINEBREAK_MUSTBREAK, #LINEBREAK_ALLOWBREAK,
+ *                   #LINEBREAK_NOBREAK
+ * @return       The number of entries in brks filled. This is equal to
+ *               the number of code-points in the source string.
+ * @see #set_linebreaks for a note about \a lang.
+ */
+size_t set_linebreaks_utf16_per_code_point(
+        const utf16_t *s,
+        size_t len,
+        const char *lang,
+        char *brks)
+{
+    return set_linebreaks(s, len, lang, LBOT_PER_CODE_POINT, brks,
                    (get_next_char_t)ub_get_next_char_utf16);
 }
 
@@ -865,7 +956,7 @@ void set_linebreaks_utf32(
         const char *lang,
         char *brks)
 {
-    set_linebreaks(s, len, lang, brks,
+    set_linebreaks(s, len, lang, LBOT_PER_CODE_UNIT, brks,
                    (get_next_char_t)ub_get_next_char_utf32);
 }
 

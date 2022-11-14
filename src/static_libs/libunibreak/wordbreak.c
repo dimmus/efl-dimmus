@@ -31,9 +31,9 @@
  * Unicode 6.0.0:
  *      <URL:http://www.unicode.org/reports/tr29/tr29-17.html>
  *
- * This library has been updated according to Revision 35, for
- * Unicode 12.0.0:
- *      <URL:http://www.unicode.org/reports/tr29/tr29-35.html>
+ * This library has been updated according to Revision 37, for
+ * Unicode 13.0.0:
+ *      <URL:http://www.unicode.org/reports/tr29/tr29-37.html>
  *
  * The Unicode Terms of Use are available at
  *      <URL:http://www.unicode.org/copyright.html>
@@ -78,7 +78,8 @@ static enum WordBreakClass get_char_wb_class(
         size_t len)
 {
     int min = 0;
-    int max = len - 1;
+    // known to be smaller than MAX_INT
+    int max = (int)len - 1;
     int mid;
 
     do
@@ -86,11 +87,17 @@ static enum WordBreakClass get_char_wb_class(
         mid = (min + max) / 2;
 
         if (ch < wbp[mid].start)
+        {
             max = mid - 1;
+        }
         else if (ch > wbp[mid].end)
+        {
             min = mid + 1;
+        }
         else
+        {
             return wbp[mid].prop;
+        }
     }
     while (min <= max);
 
@@ -129,12 +136,16 @@ static void set_brks_to(
         (void)ch;
         assert(ch != EOS);
         for (; posStart < posNext - 1; ++posStart)
+        {
             brks[posStart] = WORDBREAK_INSIDEACHAR;
+        }
         assert(posStart == posNext - 1);
 
         /* Only set it if we haven't set it not to break before. */
         if (brks[posStart] != WORDBREAK_NOBREAK)
+        {
             brks[posStart] = brkType;
+        }
         posStart = posNext;
     }
 }
@@ -209,12 +220,6 @@ static void set_wordbreaks(
                 posLast = posCur;
                 break;
             }
-#ifndef __has_attribute
-# define __has_attribute(x) 0
-#endif
-#if __has_attribute(fallthrough)
-           __attribute__((fallthrough));
-#endif
             /* Fall through */
 
         case WBP_Newline:
@@ -312,12 +317,6 @@ static void set_wordbreaks(
                 wbcSeqStart = wbcCur;
                 posLast = posCur;
             }
-#ifndef __has_attribute
-# define __has_attribute(x) 0
-#endif
-#if __has_attribute(fallthrough)
-           __attribute__((fallthrough));
-#endif
             /* Fall through */
 
         case WBP_MidNumLet:
@@ -448,12 +447,6 @@ static void set_wordbreaks(
                 posLast = posCur;
                 break;
             }
-#ifndef __has_attribute
-# define __has_attribute(x) 0
-#endif
-#if __has_attribute(fallthrough)
-           __attribute__((fallthrough));
-#endif
             /* Fall through */
 
         case WBP_Any:
