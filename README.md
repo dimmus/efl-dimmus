@@ -4,6 +4,8 @@
 
 [![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6640/badge)](https://bestpractices.coreinfrastructure.org/projects/6640)
+[![TODO](https://img.shields.io/github/search/dimmus/efl/TODO.svg)](https://github.com/dimmus/efl/search?q=TODO) 
+[![XXX](https://img.shields.io/github/search/dimmus/efl/XXX.svg)](https://github.com/dimmus/efl/search?q=XXX)
 
 [API/ABI changes review for EFL](https://abi-laboratory.pro/index.php?view=timeline&l=efl)
 
