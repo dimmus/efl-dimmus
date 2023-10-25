@@ -34,13 +34,12 @@ like shared libraries, loadable plug-in modules and also binary
 executables. Different elements will end up being licensed differently
 too.
 
-All library source is in the src/lib/ directory. All binaries are in
-src/bin/. All loadable modules are in src/modules/. All data files are
-in the data/ directory. Licensing details are listed in COPYING and
-the licenses/ directory. The pc/ directory holds all the Package
-Config files installed to help developers build against EFL.
+All library source is in the `src/lib/` directory. All binaries are in
+`src/bin/`. All loadable modules are in `src/modules/`. All data files are
+in the `data/` directory. Licensing details are listed in `COPYING` and
+the `licenses/` directory.
 
-**Attention:** EFL is under active development.  Feel free to report bugs [here](https://github.com/dimmus/efl/issues) or to the official [repo](https://git.enlightenment.org/enlightenment/efl/issues), instabilities or feature wishes.
+**Attention:** EFL is under active development.  Feel free to report bugs [here](https://github.com/dimmus/efl-dimmus/issues) or to the official [repo](https://git.enlightenment.org/enlightenment/efl/issues), instabilities or feature wishes.
 
 -----
 
@@ -54,9 +53,13 @@ For more documentation please see: [www.enlightenment.org/doc](https://www.enlig
 
 EFL is primarily developed on Linux (GNU/Linux) and should work on
 most distributions as long as dependencies are provided. It has been
+<<<<<<< HEAD
 compiled and run also on Windows (using MSYS2 + mingw-w64) - please see
 [windows docs](https://www.enlightenment.org/docs/distros/windows-start.md),
 Mac OS X, FreeBSD and NetBSD.
+=======
+compiled and run also on Windows, Mac OS X, FreeBSD and NetBSD.
+>>>>>>> dc977ddaf2 (Update README.md)
 
 | Platform       | Downloads (stable)            | Downloads (preview)       | How to Install                         |
 | ---------------|:-----------------------------:|:-------------------------:| ---------------------------------------|
@@ -73,7 +76,6 @@ Mac OS X, FreeBSD and NetBSD.
 | Windows        |   |  | [Instructions][in-windows]                |
 
 [rl-linux-tar]: https://download.enlightenment.org/rel/libs/efl/efl-1.26.3.tar.xz
-
 [pv-linux-tar]: https://github.com/dimmus/efl/archive/refs/tags/v1.26.999.tar.gz
 
 [in-windows]: https://phab.enlightenment.org/w/windows
