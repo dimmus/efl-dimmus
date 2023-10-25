@@ -53,13 +53,9 @@ For more documentation please see: [www.enlightenment.org/doc](https://www.enlig
 
 EFL is primarily developed on Linux (GNU/Linux) and should work on
 most distributions as long as dependencies are provided. It has been
-<<<<<<< HEAD
 compiled and run also on Windows (using MSYS2 + mingw-w64) - please see
 [windows docs](https://www.enlightenment.org/docs/distros/windows-start.md),
 Mac OS X, FreeBSD and NetBSD.
-=======
-compiled and run also on Windows, Mac OS X, FreeBSD and NetBSD.
->>>>>>> dc977ddaf2 (Update README.md)
 
 | Platform       | Downloads (stable)            | Downloads (preview)       | How to Install                         |
 | ---------------|:-----------------------------:|:-------------------------:| ---------------------------------------|
