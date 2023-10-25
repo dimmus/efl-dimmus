@@ -1,5 +1,11 @@
 <img src="https://raw.githubusercontent.com/Dimmus/efl/master/data/readme/efl.png" align="right"/>
 
+[![Latest release](https://img.shields.io/github/v/release/dimmus/efl-dimmus?label=Latest%20release&style=social)](https://github.com/dimmus/efl-dimmus/releases/tag/v1.26.3)
+[![GitHub commits](https://img.shields.io/github/commits-since/dimmus/efl-dimmus/v1.26.3.svg?style=social)](https://GitHub.com/dimmus/efl-dimmus/commit/)
+[![Stars](https://img.shields.io/github/stars/dimmus/efl-dimmus?style=social)](https://github.com/dimmus/efl-dimmus/stargazers)
+[![Fork](https://img.shields.io/github/forks/dimmus/efl-dimmus?style=social)](https://github.com/dimmus/efl-dimmus/network/members)
+[![Watchers](https://img.shields.io/github/watchers/dimmus/efl-dimmus?style=social)](https://github.com/dimmus/efl-dimmus/watchers)
+
 # Enlightenment Founation Library
 
 [![Packaging status](https://repology.org/badge/tiny-repos/efl.svg)](https://repology.org/project/efl/versions)
