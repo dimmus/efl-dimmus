@@ -330,7 +330,7 @@ option('dotnet',
 option('lua-interpreter',
   type: 'combo',
   choices: ['luajit', 'lua'],
-  value: 'luajit',
+  value: 'lua',
   description: 'Which Lua back-end library to use in efl'
 )
 
@@ -387,4 +387,10 @@ option('docs',
   type: 'boolean',
   value: false,
   description: 'Enable building C of documentation (Requires doxygen)'
+)
+
+option('embedded-libunibreak',
+  type : 'boolean',
+  value : true,
+  description : 'Use the embedded in-tree libunibreak instead of the system libunibreak.'
 )

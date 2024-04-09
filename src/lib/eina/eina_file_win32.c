@@ -515,12 +515,6 @@ _eina_file_mkdtemp(char *__template)
  *   Simplified logic for portability layer with eina_file_common   *
  * ================================================================ */
 
-Eina_Bool
-eina_file_path_relative(const char *path)
-{
-   return !evil_path_is_absolute(path);
-}
-
 Eina_Tmpstr *
 eina_file_current_directory_get(const char *path, size_t len)
 {
@@ -558,6 +552,29 @@ eina_file_cleanup(Eina_Tmpstr *path)
 /*============================================================================*
  *                                   API                                      *
  *============================================================================*/
+
+EINA_API Eina_Bool
+eina_file_path_relative(const char *path)
+{
+   /* see
+    * https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#paths
+    * absolute path if:
+    * - is an UNC path (begins with \\)
+    * - has a drive letter (C:\). \ is important here, otherwise it is relative
+    * - begins with \
+    */
+
+   if (!path || *path == '\\')
+     return EINA_FALSE;
+
+   if ((((*path >= 'a') && (*path <= 'z')) ||
+        ((*path >= 'A') && (*path <= 'Z'))) &&
+       (path[1] == ':') &&
+       ((path[2] == '\\') || (path[2] == '/')))
+     return EINA_FALSE;
+
+   return EINA_TRUE;
+}
 
 EINA_API Eina_Bool
 eina_file_dir_list(const char *dir,
@@ -1267,5 +1284,50 @@ eina_file_mkdtemp(const char *templatename, Eina_Tmpstr **path)
      }
 
    if (path) *path = eina_tmpstr_add(tmpdirname);
+   return EINA_TRUE;
+}
+
+EINA_API Eina_Bool
+eina_file_access(const char *path, Eina_File_Access_Mode mode)
+{
+   DWORD attr;
+
+   if (!path || !*path)
+     return EINA_FALSE;
+
+   if ((mode != EINA_FILE_ACCESS_MODE_EXIST) &&
+       ((mode >> 3) != 0))
+     return EINA_FALSE;
+
+   /*
+    * Always check for existence for both files and directories
+   */
+   attr = GetFileAttributes(path);
+   if (attr == INVALID_FILE_ATTRIBUTES)
+     return EINA_FALSE;
+
+   /*
+    * On Windows a file or path is either read/write or read only.
+    * So if it exists, it has at least read access.
+    * So do something only if mode is EXEC or WRITE
+    */
+
+   if (mode & EINA_FILE_ACCESS_MODE_EXEC)
+     {
+        if (!(attr & FILE_ATTRIBUTE_DIRECTORY) &&
+            !eina_str_has_extension(path, ".exe") &&
+            !eina_str_has_extension(path, ".bat"))
+          return EINA_FALSE;
+     }
+
+   if (mode & EINA_FILE_ACCESS_MODE_WRITE)
+     {
+        if (attr == INVALID_FILE_ATTRIBUTES)
+          return EINA_FALSE;
+
+        if (attr & FILE_ATTRIBUTE_READONLY)
+          return EINA_FALSE;
+     }
+
    return EINA_TRUE;
 }

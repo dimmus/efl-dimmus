@@ -1527,7 +1527,7 @@ eet_open(const char   *file,
 {
    Eina_File *fp;
    Eet_File *ef;
-   int file_len;
+   int file_len, ret;
    unsigned long int size;
 
    if (!file)
@@ -1566,6 +1566,12 @@ eet_open(const char   *file,
    /* try open the file based on mode */
    if ((mode == EET_FILE_MODE_READ) || (mode == EET_FILE_MODE_READ_WRITE))
      {
+        if (mode == EET_FILE_MODE_READ_WRITE)
+          {
+             /* do not use eina_file_access() here */
+             ret = access(file, W_OK);
+             if ((ret != 0) && (errno != ENOENT)) return NULL;
+          }
         /* Prevent garbage in futur comparison. */
          fp = eina_file_open(file, EINA_FALSE);
          if (!fp)
@@ -1601,6 +1607,9 @@ open_error:
         size = 0;
 
         fp = NULL;
+        /* do not use eina_file_access() here */
+        ret = access(file, W_OK);
+        if ((ret != 0) && (errno != ENOENT)) return NULL;
      }
 
    /* We found one */

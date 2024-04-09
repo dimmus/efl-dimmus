@@ -1044,7 +1044,7 @@ elm_quicklaunch_prepare(int    argc,
    strcat(p, "../lib/");
    strcat(p, exename);
    strcat(p, LIBEXT);
-   if (access(exe2, R_OK | X_OK) != 0)
+   if (!eina_file_access(exe2, EINA_FILE_ACCESS_MODE_EXEC | EINA_FILE_ACCESS_MODE_READ))
      ELM_SAFE_FREE(exe2, free);
 
    /* Try linking to executable first. Works with PIE files. */
@@ -1308,7 +1308,7 @@ elm_quicklaunch_exe_path_get(const char *exe, const char *cwd)
    const char *pathitr;
    const Eina_List *l;
    char buf[PATH_MAX];
-   if (exe[0] == '/') return strdup(exe);
+   if (!eina_file_path_relative(exe)) return strdup(exe);
    if (cwd)
      pathlist = eina_list_append(pathlist, eina_stringshare_add(cwd));
    else
@@ -1348,7 +1348,7 @@ elm_quicklaunch_exe_path_get(const char *exe, const char *cwd)
    EINA_LIST_FOREACH(pathlist, l, pathitr)
      {
         snprintf(buf, sizeof(buf), "%s/%s", pathitr, exe);
-        if (!access(buf, R_OK | X_OK)) return strdup(buf);
+        if (eina_file_access(buf, EINA_FILE_ACCESS_MODE_EXEC | EINA_FILE_ACCESS_MODE_READ)) return strdup(buf);
      }
    return NULL;
 }

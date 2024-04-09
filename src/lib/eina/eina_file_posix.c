@@ -412,7 +412,7 @@ _eina_file_timestamp_compare(Eina_File *f, struct stat *st)
    if (f->length != (unsigned long long) st->st_size) return EINA_FALSE;
    if (f->inode != st->st_ino) return EINA_FALSE;
 #ifdef _STAT_VER_LINUX
-# if (defined __USE_MISC && defined st_mtime)
+# ifdef st_mtime
    if (f->mtime_nsec != (unsigned long int)st->st_mtim.tv_nsec)
      return EINA_FALSE;
 # else
@@ -521,13 +521,6 @@ eina_file_mmap_faulty(void *addr, long page_size)
  *   Simplified logic for portability layer with eina_file_common   *
  * ================================================================ */
 
-Eina_Bool
-eina_file_path_relative(const char *path)
-{
-   if (*path != '/') return EINA_TRUE;
-   return EINA_FALSE;
-}
-
 Eina_Tmpstr *
 eina_file_current_directory_get(const char *path, size_t len)
 {
@@ -561,6 +554,15 @@ eina_file_cleanup(Eina_Tmpstr *path)
  *============================================================================*/
 
 
+
+EINA_API Eina_Bool
+eina_file_path_relative(const char *path)
+{
+   if (!path)
+     return EINA_FALSE;
+
+   return *path != '/';
+}
 
 EINA_API Eina_Bool
 eina_file_dir_list(const char *dir,
@@ -868,11 +870,7 @@ eina_file_open(const char *path, Eina_Bool shared)
         n->length = file_stat.st_size;
         n->mtime = file_stat.st_mtime;
 #ifdef _STAT_VER_LINUX
-# if (defined __USE_MISC && defined st_mtime)
         n->mtime_nsec = (unsigned long int)file_stat.st_mtim.tv_nsec;
-# else
-        n->mtime_nsec = (unsigned long int)file_stat.st_mtimensec;
-# endif
 #endif
         n->inode = file_stat.st_ino;
         n->fd = fd;
@@ -926,11 +924,7 @@ eina_file_refresh(Eina_File *file)
    file->length = file_stat.st_size;
    file->mtime = file_stat.st_mtime;
 #ifdef _STAT_VER_LINUX
-# if (defined __USE_MISC && defined st_mtime)
    file->mtime_nsec = (unsigned long int)file_stat.st_mtim.tv_nsec;
-# else
-   file->mtime_nsec = (unsigned long int)file_stat.st_mtimensec;
-# endif
 #endif
    file->inode = file_stat.st_ino;
 
@@ -1243,15 +1237,9 @@ eina_file_statat(void *container, Eina_File_Direct_Info *info, Eina_Stat *st)
    st->mtime = buf.st_mtime;
    st->ctime = buf.st_ctime;
 #ifdef _STAT_VER_LINUX
-# if (defined __USE_MISC && defined st_mtime)
    st->atimensec = buf.st_atim.tv_nsec;
    st->mtimensec = buf.st_mtim.tv_nsec;
    st->ctimensec = buf.st_ctim.tv_nsec;
-# else
-   st->atimensec = buf.st_atimensec;
-   st->mtimensec = buf.st_mtimensec;
-   st->ctimensec = buf.st_ctimensec;
-# endif
 #else
    st->atimensec = 0;
    st->mtimensec = 0;
@@ -1584,4 +1572,14 @@ eina_file_mkdtemp(const char *templatename, Eina_Tmpstr **path)
 
    if (path) *path = eina_tmpstr_add(tmpdirname);
    return EINA_TRUE;
+}
+
+
+EINA_API Eina_Bool
+eina_file_access(const char *path, Eina_File_Access_Mode mode)
+{
+   if (!path || !*path)
+     return EINA_FALSE;
+
+   return access(path, mode) == 0;
 }
