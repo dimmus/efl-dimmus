@@ -252,7 +252,7 @@ change that, then:
   * Make sure you do not enable **DRM** i.e. Meson option `-Ddrm=false` (this is default anyway if not provided)
   * Make sure **OpenGL** is **full** i.e. Meson option `-Dopengl=full`
   
-[![Packaging status](https://repology.org/badge/vertical-allrepos/efl.svg)](https://repology.org/project/efl/versions)
+[![Packaging status](https://repology.org/badge/vertical-allrepos/efl.svg?columns=4)](https://repology.org/project/efl/versions)
 
 ## Discussions
 
